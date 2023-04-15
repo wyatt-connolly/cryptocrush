@@ -1,6 +1,5 @@
-import Header from "./components/Header";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Sidebar from "./components/Sidebar";
+
 import "./globals.css";
 
 export const metadata = {
@@ -14,13 +13,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full bg-gray-100">
+    <html lang="en" className="h-full">
       <body className="h-full">
         <div className="min-h-full">
-          <Navbar />
-          <Header />
+          <Sidebar />
           {children}
-          <Footer />
         </div>
       </body>
     </html>
