@@ -1,0 +1,47 @@
+   [
+    {
+      "id": "bitcoin",
+      "name": "Bitcoin",
+      "current_price": 30330,
+      "price_change_percentage_24h": -0.48149,
+      "market_cap": 586792597581,
+     " image":
+        "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+    },
+    {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "current_price": 2096.05,
+      "price_change_percentage_24h": -0.33253,
+      "market_cap": 81039937198,
+     " image":
+        "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880",
+    },
+    {
+      "id": "tether",
+      "name": "Tether",
+      "current_price": 1.002,
+      "price_change_percentage_24h": 0.04188,
+      "market_cap": 81039937198,
+     " image":
+        "https://assets.coingecko.com/coins/images/325/large/Tether.png?1668148663",
+    },
+    {
+      "id": "binancecoin",
+      "name": "BNB",
+      "current_price": 333.11,
+      "price_change_percentage_24h": 1.2957,
+      "market_cap": 52575285824,
+     " image":
+        "https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1644979850",
+    },
+    {
+      "id": "usd-coin",
+      "name": "USD Coin",
+      "current_price": 1.0,
+      "price_change_percentage_24h": -0.00425,
+      "market_cap": 31847805677,
+     " image":
+        "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
+    }
+]

@@ -10,64 +10,66 @@ import Image from "next/image";
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
-export default function Stats({ id, name, stat, icon, change, changeType }) {
+
+type StatsProps = {
+  id: string;
+  name: string;
+  current_price: number;
+  image: string;
+  price_change_percentage_24h: number;
+};
+
+export default function Stats({
+  id,
+  name,
+  current_price,
+  image,
+  price_change_percentage_24h,
+}: StatsProps) {
+  // check if price_change_percentage_24h is positive or negative
+  const changeType = price_change_percentage_24h > 0 ? "increase" : "decrease";
+
   return (
     <>
       <div
         key={id}
-        className="relative overflow-hidden rounded-lg bg-white px-4 pb-12 pt-5 shadow sm:px-6 sm:pt-6"
+        className="relative px-4 pt-5 pb-12 overflow-hidden bg-white rounded-lg shadow sm:px-6 sm:pt-6"
       >
         <dt>
-          <div className="absolute rounded-md bg-gray-200 p-2">
-            <Image src={icon} height={34} width={34} />
+          <div className="absolute p-2 rounded-md bg-zinc-100">
+            <Image src={image} height={34} width={34} alt=" " />
           </div>
-          <p className="ml-16 truncate text-sm font-medium text-gray-500">
+          <p className="ml-16 text-sm font-medium text-gray-500 truncate">
             {name}
           </p>
         </dt>
-        <dd className="ml-16 flex items-baseline pb-6 sm:pb-7">
-          <p className="text-2xl font-semibold text-gray-900">{stat}</p>
+        <dd className="flex items-baseline pb-6 ml-16 sm:pb-7">
+          <p className="text-2xl font-semibold text-gray-900">
+            ${current_price.toLocaleString()}
+          </p>
           <p
             className={classNames(
               "ml-2 flex items-baseline text-sm font-semibold",
-              (() => {
-                switch (changeType) {
-                  case "increase":
-                    return "text-green-600";
-                  case "decrease":
-                    "text-red-600";
-                  default:
-                    return "";
-                }
-              })()
+              changeType === "increase" ? "text-green-600" : "text-red-600"
             )}
           >
-            {(() => {
-              switch (changeType) {
-                case "increase":
-                  return (
-                    <ArrowUpIcon
-                      className="h-5 w-5 flex-shrink-0 self-center text-green-500"
-                      aria-hidden="true"
-                    />
-                  );
-                case "decrease":
-                  <ArrowDownIcon
-                    className="h-5 w-5 flex-shrink-0 self-center text-red-500"
-                    aria-hidden="true"
-                  />;
-                default:
-                  return "";
-              }
-            })()}
-
+            {changeType === "increase" ? (
+              <ArrowUpIcon
+                className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-green-500"
+                aria-hidden="true"
+              />
+            ) : (
+              <ArrowDownIcon
+                className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-red-500"
+                aria-hidden="true"
+              />
+            )}
             <span className="sr-only">
-              {" "}
               {changeType === "increase" ? "Increased" : "Decreased"} by{" "}
             </span>
-            {change}
+            {price_change_percentage_24h.toFixed(2)}%
           </p>
-          <div className="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
+          <div className="absolute inset-x-0 bottom-0 px-4 py-4 bg-gray-50 sm:px-6">
             <div className="text-sm">
               <a
                 href="#"
