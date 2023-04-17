@@ -18,6 +18,7 @@ function classNames(...classes: string[]) {
 }
 
 type CoinRowProps = {
+  id: string;
   key: string;
   image: string;
   name: string;
@@ -50,7 +51,9 @@ export default function CoinRow({
           </Link>
         </td>
         <td className="px-3 py-5 text-sm text-gray-500 whitespace-nowrap">
-          <div className="text-gray-900">${current_price.toLocaleString()}</div>
+          <div className="text-gray-900">
+            ${current_price?.toLocaleString()}
+          </div>
         </td>
         <td className="px-3 py-5 text-sm text-gray-500 whitespace-nowrap">
           <span
@@ -72,11 +75,11 @@ export default function CoinRow({
                 aria-hidden="true"
               />
             )}
-            {price_change_percentage_24h.toFixed(2)}%
+            {price_change_percentage_24h?.toFixed(2)}%
           </span>
         </td>
         <td className="px-3 py-5 text-sm text-gray-500 whitespace-nowrap">
-          <div className="text-gray-900">${market_cap.toLocaleString()}</div>
+          <div className="text-gray-900">${market_cap?.toLocaleString()}</div>
         </td>
         <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-0">
           <Link

@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -22,6 +22,7 @@ import {
   LinkIcon,
 } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import Image from "next/image";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -54,19 +55,24 @@ export default async function Coin({ coin }: CoinProps) {
     <div className=" lg:pl-72">
       <div>
         <div>
-          <img
-            className="object-cover w-full h-32 lg:h-48"
-            src="https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-            alt=""
-          />
+          <div className="relative w-full h-32 lg:h-48">
+            <Image
+              className="object-cover "
+              src="https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+              alt=""
+              fill
+            />
+          </div>
         </div>
         <div className="max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">
           <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
             <div className="flex">
-              <img
-                className="w-24 h-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
+              <Image
+                className="z-50 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
                 src={coin.image.large}
                 alt=""
+                height={128}
+                width={128}
               />
             </div>
             <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
@@ -133,7 +139,9 @@ export default async function Coin({ coin }: CoinProps) {
           <div className="sm:col-span-2">
             <dt className="text-sm font-medium text-gray-500">About</dt>
             <dd
-              className="mt-1 space-y-5 text-sm text-gray-900 max-w-prose"
+              className={classNames(
+                "mt-1 space-y-5 text-sm text-gray-900 max-w-prose line-clamp-6"
+              )}
               dangerouslySetInnerHTML={{ __html: coin.description.en }}
             />
           </div>

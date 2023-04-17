@@ -4,7 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   CalendarIcon,
-  ChartBarIcon,
+  TagIcon,
   CircleStackIcon,
   DocumentDuplicateIcon,
   FireIcon,
@@ -20,27 +20,34 @@ import { useRouter } from "next/navigation";
 const navigation = [
   { name: "Home", id: 1, href: "/", icon: CircleStackIcon, current: false },
   {
-    name: "Trending",
+    name: "Categories",
     id: 2,
+    href: "/categories",
+    icon: TagIcon,
+    current: false,
+  },
+  {
+    name: "Trending",
+    id: 3,
     href: "/trending",
     icon: FireIcon,
     current: false,
   },
   {
     name: "New Coins",
-    id: 3,
+    id: 4,
     href: "/new-coins",
     icon: SparklesIcon,
     current: false,
   },
+
   {
-    name: "Gainers and Losers",
-    id: 4,
-    href: "/gainers-and-losers",
-    icon: ChartBarIcon,
+    name: "NFT's (beta)",
+    id: 5,
+    href: "/nfts",
+    icon: TrophyIcon,
     current: false,
   },
-  { name: "NFT's", href: "/nfts", icon: TrophyIcon, current: false },
 ];
 const company = [
   { id: 1, name: "About", href: "/about", initial: "A", current: false },

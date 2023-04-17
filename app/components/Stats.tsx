@@ -15,7 +15,7 @@ function classNames(...classes: string[]) {
 type StatsProps = {
   id: string;
   name: string;
-  current_price: number;
+  current_price?: number;
   image: string;
   price_change_percentage_24h: number;
 };
@@ -46,7 +46,7 @@ export default function Stats({
         </dt>
         <dd className="flex items-baseline pb-6 ml-16 sm:pb-7">
           <p className="text-2xl font-semibold text-gray-900">
-            ${current_price.toLocaleString()}
+            ${current_price?.toLocaleString()}
           </p>
           <p
             className={classNames(
@@ -68,12 +68,12 @@ export default function Stats({
             <span className="sr-only">
               {changeType === "increase" ? "Increased" : "Decreased"} by{" "}
             </span>
-            {price_change_percentage_24h.toFixed(2)}%
+            {price_change_percentage_24h?.toFixed(2)}%
           </p>
           <div className="absolute inset-x-0 bottom-0 px-4 py-4 bg-gray-50 sm:px-6">
             <div className="text-sm">
               <Link
-                href="/coin/bitcoin"
+                href={`/coin/${id}`}
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
                 {" "}

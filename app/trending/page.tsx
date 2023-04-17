@@ -28,6 +28,8 @@ const inter = Inter({ subsets: ["latin"] });
 type Coin = {
   name: string;
   large: string;
+  id: string;
+  market_cap_rank: number;
 };
 
 type CoinProps = {
@@ -96,6 +98,9 @@ export default async function Page() {
                           {coin.name}
                         </a>
                       </h3>
+                      <span className="text-xs text-gray-500 ">
+                        Market Cap Rank: {coin.market_cap_rank}
+                      </span>
                       <p className="mt-2 text-sm text-gray-500">
                         Doloribus dolores nostrum quia qui natus officia quod et
                         dolorem. Sit repellendus qui ut at blanditiis et quo et
