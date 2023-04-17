@@ -18,7 +18,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const navigation = [
-  { name: "Home", id: 1, href: "/", icon: CircleStackIcon, current: true },
+  { name: "Home", id: 1, href: "/", icon: CircleStackIcon, current: false },
   {
     name: "Trending",
     id: 2,

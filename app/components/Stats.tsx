@@ -6,6 +6,7 @@ import {
   UsersIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import Link from "next/link";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -71,13 +72,13 @@ export default function Stats({
           </p>
           <div className="absolute inset-x-0 bottom-0 px-4 py-4 bg-gray-50 sm:px-6">
             <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-emerald-600 hover:text-emerald-500"
+              <Link
+                href="/coin/bitcoin"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
               >
                 {" "}
                 View<span className="sr-only"> {name} stats</span>
-              </a>
+              </Link>
             </div>
           </div>
         </dd>

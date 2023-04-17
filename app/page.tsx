@@ -40,7 +40,7 @@ export default async function Home() {
   return (
     <main className="py-10 lg:pl-72">
       <div className="px-4 sm:px-6 lg:px-8">
-        <Header>Home</Header>
+        <Header>CryptoCrush</Header>
         <div className="px-4 mt-6 sm:px-6 lg:px-8">
           <h3 className="text-base font-semibold leading-6 text-gray-900">
             Today&apos;s Cryptocurrency Prices

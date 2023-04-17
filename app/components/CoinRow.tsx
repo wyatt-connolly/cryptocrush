@@ -1,3 +1,5 @@
+"use client";
+import { useState, Fragment } from "react";
 import {
   ChevronRightIcon,
   ChevronUpDownIcon,
@@ -7,6 +9,9 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
+import Link from "next/link";
+import Coin from "./Coin";
+import { Dialog, Menu, Transition } from "@headlessui/react";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -28,18 +33,20 @@ export default function CoinRow({
   price_change_percentage_24h,
   market_cap,
 }: CoinRowProps) {
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <tr key={key}>
         <td className="pl-4 pr-3 text-sm whitespace-nowrap sm:pl-0">
-          <div className="flex items-center">
+          <Link href="/coin/bitcoin" className="flex items-center">
             <div className="flex-shrink-0 h-11 w-11">
               <Image height={44} width={44} src={image} alt="" />
             </div>
             <div className="ml-4">
               <div className="font-medium text-gray-900">{name}</div>
             </div>
-          </div>
+          </Link>
         </td>
         <td className="px-3 py-5 text-sm text-gray-500 whitespace-nowrap">
           <div className="text-gray-900">${current_price.toLocaleString()}</div>
@@ -64,11 +71,15 @@ export default function CoinRow({
           <div className="text-gray-900">${market_cap.toLocaleString()}</div>
         </td>
         <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-0">
-          <a href="#" className="text-indigo-600 hover:text-indigo-900">
+          <button
+            onClick={() => setOpen(true)}
+            className="text-indigo-600 hover:text-indigo-900"
+          >
             View<span className="sr-only">, {name}</span>
-          </a>
+          </button>
         </td>
       </tr>
+      {open && <Coin open={open} setOpen={setOpen} />}
     </>
   );
 }
