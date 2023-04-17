@@ -52,7 +52,14 @@ export default function CoinRow({
           <div className="text-gray-900">${current_price.toLocaleString()}</div>
         </td>
         <td className="px-3 py-5 text-sm text-gray-500 whitespace-nowrap">
-          <span className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
+          <span
+            className={classNames(
+              "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",
+              price_change_percentage_24h > 0
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            )}
+          >
             {price_change_percentage_24h > 0 ? (
               <ChevronUpIcon
                 className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-green-500"
@@ -71,15 +78,14 @@ export default function CoinRow({
           <div className="text-gray-900">${market_cap.toLocaleString()}</div>
         </td>
         <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-0">
-          <button
-            onClick={() => setOpen(true)}
+          <Link
+            href={`/coin/bitcoin`}
             className="text-indigo-600 hover:text-indigo-900"
           >
             View<span className="sr-only">, {name}</span>
-          </button>
+          </Link>
         </td>
       </tr>
-      {open && <Coin open={open} setOpen={setOpen} />}
     </>
   );
 }
