@@ -23,49 +23,40 @@ import {
 } from "@heroicons/react/20/solid";
 import Link from "next/link";
 
-const profile = {
-  name: "Ricardo Cooper",
-  imageUrl:
-    "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-  coverImageUrl:
-    "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-  about: `
-      <p>Tincidunt quam neque in cursus viverra orci, dapibus nec tristique. Nullam ut sit dolor consectetur urna, dui cras nec sed. Cursus risus congue arcu aenean posuere aliquam.</p>
-      <p>Et vivamus lorem pulvinar nascetur non. Pulvinar a sed platea rhoncus ac mauris amet. Urna, sem pretium sit pretium urna, senectus vitae. Scelerisque fermentum, cursus felis dui suspendisse velit pharetra. Augue et duis cursus maecenas eget quam lectus. Accumsan vitae nascetur pharetra rhoncus praesent dictum risus suspendisse.</p>
-    `,
-  fields: {
-    Phone: "(555) 123-4567",
-    Email: "ricardocooper@example.com",
-    Title: "Senior Front-End Developer",
-    Team: "Product Development",
-    Location: "San Francisco",
-    Sits: "Oasis, 4th floor",
-    Salary: "$145,000",
-    Birthday: "June 8, 1990",
-  },
-};
-
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-async function getCoin() {
-  const res = await fetch(
-    "https://api.coingecko.com/api/v3/coins/bitcoin?localization=false"
-  );
-  const coin = await res.json();
-  return coin;
-}
-export default async function Coin() {
-  const coin = await getCoin();
+type CoinProps = {
+  coin: {
+    name: string;
+    image: {
+      large: string;
+    };
+    links: {
+      homepage: string[];
+      blockchain_site: string[];
+    };
+    market_cap_rank: number;
+    market_data: {
+      current_price: {
+        usd: number;
+      };
+    };
+    description: {
+      en: string;
+    };
+  };
+};
 
+export default async function Coin({ coin }: CoinProps) {
   return (
     <div className=" lg:pl-72">
       <div>
         <div>
           <img
             className="object-cover w-full h-32 lg:h-48"
-            src={profile.coverImageUrl}
+            src="https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
             alt=""
           />
         </div>
@@ -84,7 +75,7 @@ export default async function Coin() {
                   {coin.name}
                 </h1>
               </div>
-              <div className="flex flex-col mt-6 space-y-3 justify-stretch sm:flex-row sm:space-x-4 sm:space-y-0">
+              <div className="flex flex-col mt-6 space-y-3 justify-stretch sm:flex-row sm:space-x-4 sm:space-y-0 ">
                 <Link
                   href={coin.links.homepage[0]}
                   target="_blank"
@@ -92,22 +83,24 @@ export default async function Coin() {
                   className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                 >
                   <HomeIcon
-                    className="-ml-0.5 h-5 w-5 text-gray-400"
+                    className="-ml-0.5 h-5 w-5 text-gray-400 text-ellipsis overflow-hidden"
                     aria-hidden="true"
                   />
-                  {coin.name} Homepage
+                  {coin.name}
                 </Link>
                 <Link
                   href={coin.links.blockchain_site[0]}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                  className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 "
                 >
                   <LinkIcon
                     className="-ml-0.5 h-5 w-5 text-gray-400"
                     aria-hidden="true"
                   />
-                  {coin.links.blockchain_site[0]}
+                  <span className="overflow-hidden text-ellipsis sm:w-32">
+                    {coin.links.blockchain_site[0]}
+                  </span>
                 </Link>
               </div>
             </div>

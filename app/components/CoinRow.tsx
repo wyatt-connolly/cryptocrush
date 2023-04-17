@@ -26,6 +26,7 @@ type CoinRowProps = {
   market_cap: number;
 };
 export default function CoinRow({
+  id,
   key,
   image,
   name,
@@ -39,7 +40,7 @@ export default function CoinRow({
     <>
       <tr key={key}>
         <td className="pl-4 pr-3 text-sm whitespace-nowrap sm:pl-0">
-          <Link href="/coin/bitcoin" className="flex items-center">
+          <Link href={`/coin/${id}`} className="flex items-center">
             <div className="flex-shrink-0 h-11 w-11">
               <Image height={44} width={44} src={image} alt="" />
             </div>

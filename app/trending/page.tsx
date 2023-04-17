@@ -64,7 +64,7 @@ export default async function Page() {
               </h2>
 
               {firstSix.map((coin: Coin) => (
-                <Link key={coin.name} href="/coin/bitcoin">
+                <Link key={coin.name} href={`/coin/${coin.id}`}>
                   <div
                     className={classNames(
                       "group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 h-full hover:bg-gray-100"

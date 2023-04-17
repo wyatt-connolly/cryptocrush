@@ -1,14 +1,11 @@
 import Coin from "@/app/components/Coin";
 
-async function getCoin() {
+export default async function Page({ params }) {
+  const { id } = params;
   const res = await fetch(
-    "https://api.coingecko.com/api/v3/coins/bitcoin?localization=false"
+    `https://api.coingecko.com/api/v3/coins/${id}?localization=false`
   );
   const coin = await res.json();
-  return coin;
-}
-export default async function Page() {
-  const coin = await getCoin();
 
-  return <Coin {...coin} />;
+  return <Coin coin={coin} />;
 }
