@@ -16,7 +16,9 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Categories({ data }: CategoriesProps) {
+
+
+export default function Categories({ data }) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   // return only the first 8 categories from the API  response  (data)  to  be  displayed  on  the  page
