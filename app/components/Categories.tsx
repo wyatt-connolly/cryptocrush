@@ -10,16 +10,18 @@ import Header from "../components/Header";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import SlideOver from "./SlideOver";
+import Image from "next/image";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Categories({ data }) {
+export default function Categories({ data }: CategoriesProps) {
   const [open, setOpen] = useState(false);
-
+  const [selected, setSelected] = useState(null);
   // return only the first 8 categories from the API  response  (data)  to  be  displayed  on  the  page
   data = data.slice(0, 8);
+
   return (
     <main className="py-10 lg:pl-72">
       <div className="px-4 sm:px-6 lg:px-8">
@@ -34,27 +36,32 @@ export default function Categories({ data }) {
           >
             {data.map((category) => (
               <>
-                {" "}
                 <li
                   key={category.id}
                   className="flex flex-col col-span-1 text-center bg-white divide-y divide-gray-200 rounded-lg shadow"
                 >
                   <div className="flex flex-col flex-1 p-8">
                     <div className="flex justify-center -space-x-2 overflow-hidden isolate">
-                      <img
-                        className="relative z-30 inline-block w-20 h-20 bg-gray-200 rounded-full ring-2 ring-white"
+                      <Image
+                        className="relative z-20 inline-block bg-gray-200 rounded-full ring-2 ring-white"
                         src={category.top_3_coins[0]}
                         alt=""
+                        height={80}
+                        width={80}
                       />
-                      <img
-                        className="relative z-10 inline-block w-20 h-20 bg-gray-200 rounded-full ring-2 ring-white"
+                      <Image
+                        className="relative z-10 inline-block bg-gray-200 rounded-full ring-2 ring-white"
                         src={category.top_3_coins[1]}
                         alt=""
+                        height={80}
+                        width={80}
                       />
-                      <img
-                        className="relative z-0 inline-block w-20 h-20 bg-gray-200 rounded-full ring-2 ring-white"
+                      <Image
+                        className="relative z-0 inline-block bg-gray-200 rounded-full ring-2 ring-white"
                         src={category.top_3_coins[2]}
                         alt=""
+                        height={80}
+                        width={80}
                       />
                     </div>
                     <h3 className="mt-6 text-sm font-medium text-gray-900">
@@ -65,7 +72,10 @@ export default function Categories({ data }) {
                     <div className="flex -mt-px divide-x divide-gray-200">
                       <div className="flex flex-1 w-0 -ml-px">
                         <button
-                          onClick={() => setOpen(!open)}
+                          onClick={() => {
+                            setOpen(!open);
+                            setSelected(category);
+                          }}
                           className="relative inline-flex items-center justify-center flex-1 w-0 py-4 text-sm font-semibold text-gray-900 border border-transparent rounded-br-lg gap-x-3"
                         >
                           <ArrowRightIcon
@@ -78,9 +88,14 @@ export default function Categories({ data }) {
                     </div>
                   </div>
                 </li>
-                {open && (
-                  <SlideOver setOpen={setOpen} open={open} {...category} />
-                )}
+                {open &&
+                  selected && ( // if open is true and selected is not null then render the SlideOver component with the selected category  data  passed  as  props to  the  component  (name, content, volume_24h, market_cap, market_cap_change_24h, top_3_coins)
+                    <SlideOver // SlideOver component
+                      open={open} // open state
+                      setOpen={setOpen} // setOpen state
+                      {...selected} // spread the selected category data as props to the SlideOver component
+                    />
+                  )}
               </>
             ))}
           </ul>
