@@ -123,7 +123,7 @@ export default function Sidebar() {
                   </div>
                 </Transition.Child>
                 {/* Sidebar component, swap this element with another sidebar if you like */}
-                <div className="flex flex-col px-6 pb-2 overflow-y-auto grow gap-y-5 bg-emerald-600">
+                <div className="flex flex-col px-6 pb-2 overflow-y-auto grow gap-y-5 bg-indigo-600">
                   <div className="flex items-center h-16 shrink-0">
                     <Image
                       height={32}
@@ -146,8 +146,8 @@ export default function Sidebar() {
                                 className={classNames(
                                   "w-full",
                                   item.current
-                                    ? "bg-emerald-700 text-white"
-                                    : "text-emerald-200 hover:text-white hover:bg-emerald-700",
+                                    ? "bg-indigo-700 text-white"
+                                    : "text-indigo-200 hover:text-white hover:bg-indigo-700",
                                   "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                                 )}
                               >
@@ -155,7 +155,7 @@ export default function Sidebar() {
                                   className={classNames(
                                     item.current
                                       ? "text-white"
-                                      : "text-emerald-200 group-hover:text-white",
+                                      : "text-indigo-200 group-hover:text-white",
                                     "h-6 w-6 shrink-0"
                                   )}
                                   aria-hidden="true"
@@ -167,7 +167,7 @@ export default function Sidebar() {
                         </ul>
                       </li>
                       <li>
-                        <div className="text-xs font-semibold leading-6 text-emerald-200">
+                        <div className="text-xs font-semibold leading-6 text-indigo-200">
                           CryptoCrush
                         </div>
                         <ul role="list" className="mt-2 -mx-2 space-y-1">
@@ -177,12 +177,12 @@ export default function Sidebar() {
                                 href={team.href}
                                 className={classNames(
                                   team.current
-                                    ? "bg-emerald-700 text-white"
-                                    : "text-emerald-200 hover:text-white hover:bg-emerald-700",
+                                    ? "bg-indigo-700 text-white"
+                                    : "text-indigo-200 hover:text-white hover:bg-indigo-700",
                                   "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                                 )}
                               >
-                                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-emerald-400 bg-emerald-500 text-[0.625rem] font-medium text-white">
+                                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-indigo-400 bg-indigo-500 text-[0.625rem] font-medium text-white">
                                   {team.initial}
                                 </span>
                                 <span className="truncate">{team.name}</span>
@@ -203,7 +203,7 @@ export default function Sidebar() {
       {/* Static sidebar for desktop */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
         {/* Sidebar component, swap this element with another sidebar if you like */}
-        <div className="flex flex-col px-6 overflow-y-auto grow gap-y-5 bg-emerald-600">
+        <div className="flex flex-col px-6 overflow-y-auto grow gap-y-5 bg-indigo-600">
           <div className="flex items-center h-16 shrink-0">
             <Image
               height={32}
@@ -223,8 +223,8 @@ export default function Sidebar() {
                         className={classNames(
                           "w-full",
                           item.current
-                            ? "bg-emerald-700 text-white"
-                            : "text-emerald-200 hover:text-white hover:bg-emerald-700",
+                            ? "bg-indigo-700 text-white"
+                            : "text-indigo-200 hover:text-white hover:bg-indigo-700",
                           "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                         )}
                       >
@@ -232,7 +232,7 @@ export default function Sidebar() {
                           className={classNames(
                             item.current
                               ? "text-white"
-                              : "text-emerald-200 group-hover:text-white",
+                              : "text-indigo-200 group-hover:text-white",
                             "h-6 w-6 shrink-0"
                           )}
                           aria-hidden="true"
@@ -244,7 +244,7 @@ export default function Sidebar() {
                 </ul>
               </li>
               <li>
-                <div className="text-xs font-semibold leading-6 text-emerald-200">
+                <div className="text-xs font-semibold leading-6 text-indigo-200">
                   CryptoCrush
                 </div>
                 <ul role="list" className="mt-2 -mx-2 space-y-1">
@@ -254,12 +254,12 @@ export default function Sidebar() {
                         href={team.href}
                         className={classNames(
                           team.current
-                            ? "bg-emerald-700 text-white"
-                            : "text-emerald-200 hover:text-white hover:bg-emerald-700",
+                            ? "bg-indigo-700 text-white"
+                            : "text-indigo-200 hover:text-white hover:bg-indigo-700",
                           "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
                         )}
                       >
-                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-emerald-400 bg-emerald-500 text-[0.625rem] font-medium text-white">
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-indigo-400 bg-indigo-500 text-[0.625rem] font-medium text-white">
                           {team.initial}
                         </span>
                         <span className="truncate">{team.name}</span>
@@ -273,18 +273,21 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <div className="sticky top-0 z-40 flex items-center px-4 py-4 shadow-sm gap-x-6 bg-emerald-600 sm:px-6 lg:hidden">
+      <div className="sticky top-0 z-40 flex items-center px-4 py-4 shadow-sm gap-x-6 bg-indigo-600 sm:px-6 lg:hidden">
         <button
           type="button"
-          className="-m-2.5 p-2.5 text-emerald-200 lg:hidden"
+          className="-m-2.5 p-2.5 text-indigo-200 lg:hidden"
           onClick={() => setSidebarOpen(true)}
         >
           <span className="sr-only">Open sidebar</span>
           <Bars3Icon className="w-6 h-6" aria-hidden="true" />
         </button>
-        <div className="flex-1 text-sm font-semibold leading-6 text-white">
+        <Link
+          href="/"
+          className="flex-1 text-sm font-semibold leading-6 text-white"
+        >
           CryptoCrush
-        </div>
+        </Link>
       </div>
     </>
   );

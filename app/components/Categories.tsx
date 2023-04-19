@@ -16,8 +16,6 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-
-
 export default function Categories({ data }) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
@@ -28,7 +26,7 @@ export default function Categories({ data }) {
     <main className="py-10 lg:pl-72">
       <div className="px-4 sm:px-6 lg:px-8">
         <Header>CryptoCrush</Header>
-        <div className="mt-6 ">
+        <div className="px-4 mt-6 sm:px-6 lg:px-8 ">
           <h3 className="text-base font-semibold leading-6 text-gray-900">
             Categories
           </h3>
@@ -75,7 +73,7 @@ export default function Categories({ data }) {
                       <div className="flex flex-1 w-0 -ml-px">
                         <button
                           onClick={() => {
-                            setOpen(!open);
+                            setOpen((open) => !open);
                             setSelected(category);
                           }}
                           className="relative inline-flex items-center justify-center flex-1 w-0 py-4 text-sm font-semibold text-gray-900 border border-transparent rounded-br-lg gap-x-3"
@@ -90,17 +88,12 @@ export default function Categories({ data }) {
                     </div>
                   </div>
                 </li>
-                {open &&
-                  selected && ( // if open is true and selected is not null then render the SlideOver component with the selected category  data  passed  as  props to  the  component  (name, content, volume_24h, market_cap, market_cap_change_24h, top_3_coins)
-                    <SlideOver // SlideOver component
-                      open={open} // open state
-                      setOpen={setOpen} // setOpen state
-                      {...selected} // spread the selected category data as props to the SlideOver component
-                    />
-                  )}
               </>
             ))}
           </ul>
+          {open && selected && (
+            <SlideOver open={open} setOpen={setOpen} {...selected} />
+          )}
         </div>
       </div>
     </main>

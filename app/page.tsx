@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Header from "./components/Header";
@@ -16,6 +17,7 @@ import {
 import { Fragment } from "react";
 import CoinRow from "./components/CoinRow";
 import Pagination from "./components/Pagination";
+import useSWR from "swr";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,15 +30,14 @@ type Coin = {
   market_cap: number;
 };
 
-async function getCoins() {
-  const res = await fetch(
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=5&page=1&sparkline=false&locale=en"
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+export default function Home() {
+  const { data, error, isLoading } = useSWR(
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=5&page=1&sparkline=false&locale=en",
+    fetcher
   );
-  const coins = await res.json();
-  return coins;
-}
-export default async function Home() {
-  const coins = await getCoins();
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
   return (
     <main className="py-10 lg:pl-72">
       <div className="px-4 sm:px-6 lg:px-8">
@@ -47,9 +48,9 @@ export default async function Home() {
           </h3>
 
           <dl className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-2 lg:grid-cols-3">
-            <Stats {...coins[0]} />
-            <Stats {...coins[1]} />
-            <Stats {...coins[2]} />
+            <Stats {...data[0]} />
+            <Stats {...data[1]} />
+            <Stats {...data[2]} />
           </dl>
         </div>
         <div className="px-4 mt-10 sm:px-6 lg:px-8">
@@ -92,8 +93,8 @@ export default async function Home() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {coins.map((coin: Coin) => (
-                      <CoinRow key={coin.id} {...coin} />
+                    {data.map((item: Coin) => (
+                      <CoinRow key={item.id} {...item} />
                     ))}
                   </tbody>
                 </table>
@@ -101,7 +102,6 @@ export default async function Home() {
             </div>
           </div>
         </div>
-        <Pagination />
       </div>
     </main>
   );

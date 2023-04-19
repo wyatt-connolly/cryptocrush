@@ -68,7 +68,7 @@ export default async function Coin({ coin }: CoinProps) {
           <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
             <div className="flex">
               <Image
-                className="z-50 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
+                className="z-50 rounded-full ring-4 ring-white sm:h-32 sm:w-32 bg-gray-200"
                 src={coin.image.large}
                 alt=""
                 height={128}

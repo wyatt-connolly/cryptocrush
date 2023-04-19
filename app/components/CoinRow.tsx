@@ -36,6 +36,7 @@ export default function CoinRow({
   market_cap,
 }: CoinRowProps) {
   const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(null);
 
   return (
     <>
@@ -83,7 +84,7 @@ export default function CoinRow({
         </td>
         <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-0">
           <Link
-            href={`/coin/bitcoin`}
+            href={`/coin/${id}`}
             className="text-indigo-600 hover:text-indigo-900"
           >
             View<span className="sr-only">, {name}</span>
