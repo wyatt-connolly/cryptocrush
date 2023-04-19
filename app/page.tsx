@@ -1,8 +1,6 @@
 "use client";
-
 import { useState } from "react";
 import Image from "next/image";
-import { Inter } from "next/font/google";
 import Header from "./components/Header";
 import Stats from "./components/Stats";
 import {
@@ -19,9 +17,9 @@ import {
 import { Fragment } from "react";
 import CoinRow from "./components/CoinRow";
 import useSWR from "swr";
+import Pagination from "./components/Pagination";
 
-const inter = Inter({ subsets: ["latin"] });
-
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 type Coin = {
   id: string;
   image: string;
@@ -29,9 +27,10 @@ type Coin = {
   current_price: number;
   price_change_percentage_24h: number;
   market_cap: number;
+  description: {
+    en: string;
+  };
 };
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
 export default function Home() {
   const [currentPage, setCurrentPage] = useState([]);
   const { data, error, isLoading } = useSWR(
@@ -42,29 +41,6 @@ export default function Home() {
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
-  const paginationButtons = [];
-  for (let i = 1; i <= 5; i++) {
-    paginationButtons.push(
-      <button
-        key={i}
-        onClick={() => setCurrentPage(i)}
-        className="inline-flex items-center px-4 pt-4 text-sm font-medium text-gray-500 border-t-2 border-transparent hover:border-gray-300 hover:text-gray-700"
-      >
-        {i}
-      </button>
-    );
-  }
-
-  const scrollMarket = () => {
-    window.scrollTo({
-      top: window.pageYOffset - 800,
-      behavior: "smooth",
-    });
-  };
-
-  const scrollTop = () => {
-    window.scrollTo({ top: (0, 0), behavior: "smooth" });
-  };
   return (
     <main className="py-10 lg:pl-72">
       <div className="px-4 sm:px-6 lg:px-8">
@@ -125,17 +101,13 @@ export default function Home() {
                     ))}
                   </tbody>
                 </table>
-                <nav className="flex items-center justify-between px-4 mt-2 -mb-px border-t border-gray-200 sm:px-0">
-                  <div
-                    onClick={scrollMarket}
-                    className="flex flex-1 w-0 -mt-px"
-                  >
-                    {paginationButtons}
-                  </div>
-                </nav>
               </div>
             </div>
           </div>
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
       </div>
     </main>

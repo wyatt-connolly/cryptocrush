@@ -11,16 +11,29 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import SlideOver from "./SlideOver";
 import Image from "next/image";
+import useSWR from "swr";
+import { Transition } from "@headlessui/react";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Categories({ data }) {
+export default function Categories() {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
   // return only the first 8 categories from the API  response  (data)  to  be  displayed  on  the  page
-  data = data.slice(0, 8);
+
+  const { data, error, isLoading } = useSWR(
+    `https://api.coingecko.com/api/v3/coins/categories`,
+    fetcher
+  );
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
+
+  // return the first eight categories from the API response (data) to be displayed on the page
+  const categories = data.slice(0, 8);
 
   return (
     <main className="py-10 lg:pl-72">
@@ -34,7 +47,7 @@ export default function Categories({ data }) {
             role="list"
             className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
           >
-            {data.map((category) => (
+            {categories.map((category) => (
               <>
                 <li
                   key={category.id}

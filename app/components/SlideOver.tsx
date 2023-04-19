@@ -1,12 +1,8 @@
 "use client";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {
-  EllipsisVerticalIcon,
-  ChevronUpIcon,
-  ChevronDownIcon,
-} from "@heroicons/react/20/solid";
+import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 
 function classNames(...classes: string[]) {
@@ -15,30 +11,41 @@ function classNames(...classes: string[]) {
 
 type SlideOverProps = {
   open: boolean;
+  image: string;
   setOpen: (open: boolean) => void;
   name: string;
+  id: string;
+  description: string;
+  current_price: number;
+  price_change_percentage_24h: number;
   content: string;
   volume_24h: number;
   market_cap: number;
   market_cap_change_24h: number;
   top_3_coins: string[];
+  total_volume: number;
 };
 
 export default function SlideOver({
   open,
   setOpen,
   name,
+  id,
+  description,
+  current_price,
+  price_change_percentage_24h,
+  image,
   content,
   volume_24h,
   market_cap,
   market_cap_change_24h,
   top_3_coins,
+  total_volume,
 }: SlideOverProps) {
   return (
     <Transition.Root show={open} as={Fragment} appear={open}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Dialog as="div" className="relative z-10" onClose={setOpen} id={id}>
         <div className="fixed inset-0 " />
-
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
             <div className="fixed inset-y-0 right-0 flex max-w-full pl-10 pointer-events-none sm:pl-16">
@@ -76,27 +83,40 @@ export default function SlideOver({
                             <div className="flex -m-1">
                               <div className="inline-flex overflow-hidden rounded-lg">
                                 <div className="flex justify-center -space-x-2 overflow-hidden isolate">
-                                  <Image
-                                    className="relative z-20 inline-block bg-gray-200 rounded-full  "
-                                    src={top_3_coins[0]}
-                                    alt=""
-                                    height={100}
-                                    width={100}
-                                  />
-                                  <Image
-                                    className="relative z-10 inline-block bg-gray-200 rounded-full "
-                                    src={top_3_coins[1]}
-                                    alt=""
-                                    height={100}
-                                    width={100}
-                                  />
-                                  <Image
-                                    className="relative z-0 inline-block bg-gray-200 rounded-full"
-                                    src={top_3_coins[2]}
-                                    alt=""
-                                    height={100}
-                                    width={100}
-                                  />
+                                  {image ? (
+                                    <div className="relative h-24 w-24 flex-shrink-0 sm:h-40 sm:w-40 lg:h-48 lg:w-48">
+                                      <Image
+                                        className="flex-shrink-08"
+                                        src={image}
+                                        alt=""
+                                        fill
+                                      />
+                                    </div>
+                                  ) : (
+                                    <>
+                                      <Image
+                                        className="relative z-20 inline-block bg-gray-200 rounded-full  "
+                                        src={top_3_coins[0]}
+                                        alt=""
+                                        height={100}
+                                        width={100}
+                                      />
+                                      <Image
+                                        className="relative z-10 inline-block bg-gray-200 rounded-full "
+                                        src={top_3_coins[1]}
+                                        alt=""
+                                        height={100}
+                                        width={100}
+                                      />
+                                      <Image
+                                        className="relative z-0 inline-block bg-gray-200 rounded-full"
+                                        src={top_3_coins[2]}
+                                        alt=""
+                                        height={100}
+                                        width={100}
+                                      />
+                                    </>
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -119,41 +139,73 @@ export default function SlideOver({
                               Description
                             </dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:ml-6 sm:mt-0">
-                              <p>
-                                {content
-                                  ? content
-                                  : "No description is available."}
-                              </p>
+                              <p>{content ? content : ""}</p>
+                              <p>{description ? description : ""}</p>
                             </dd>
                           </div>
+                          {current_price && (
+                            <div className="sm:flex sm:px-6 sm:py-5">
+                              <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">
+                                Price
+                              </dt>
+                              <dd className="mt-1 flex items-center gap-2 text-sm text-gray-900 sm:col-span-2 sm:ml-6 sm:mt-0">
+                                <span>${current_price.toFixed(2)}</span>
+                                <span
+                                  className={classNames(
+                                    "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",
+                                    price_change_percentage_24h > 0
+                                      ? "bg-green-100 text-green-800"
+                                      : "bg-red-100 text-red-800"
+                                  )}
+                                >
+                                  {price_change_percentage_24h > 0 ? (
+                                    <ChevronUpIcon
+                                      className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-green-500"
+                                      aria-hidden="true"
+                                    />
+                                  ) : (
+                                    <ChevronDownIcon
+                                      className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-red-500"
+                                      aria-hidden="true"
+                                    />
+                                  )}
+                                  {price_change_percentage_24h.toFixed(2)}%
+                                </span>
+                              </dd>
+                            </div>
+                          )}
                           <div className="sm:flex sm:px-6 sm:py-5">
                             <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">
                               Market Cap
                             </dt>
-
                             <dd className="flex items-center gap-2 mt-1 text-sm text-gray-900 sm:col-span-2 sm:ml-6 sm:mt-0">
-                              <span> ${market_cap.toLocaleString()}</span>
-                              <span
-                                className={classNames(
-                                  "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",
-                                  market_cap_change_24h > 0
-                                    ? "bg-green-100 text-green-800"
-                                    : "bg-red-100 text-red-800"
-                                )}
-                              >
-                                {market_cap_change_24h > 0 ? (
-                                  <ChevronUpIcon
-                                    className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-green-500"
-                                    aria-hidden="true"
-                                  />
-                                ) : (
-                                  <ChevronDownIcon
-                                    className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-red-500"
-                                    aria-hidden="true"
-                                  />
-                                )}
-                                {market_cap_change_24h?.toFixed(2)}%
-                              </span>
+                              <span> ${market_cap?.toLocaleString()}</span>
+                              {market_cap_change_24h && (
+                                <>
+                                  {" "}
+                                  <span
+                                    className={classNames(
+                                      "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",
+                                      market_cap_change_24h > 0
+                                        ? "bg-green-100 text-green-800"
+                                        : "bg-red-100 text-red-800"
+                                    )}
+                                  >
+                                    {market_cap_change_24h > 0 ? (
+                                      <ChevronUpIcon
+                                        className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-green-500"
+                                        aria-hidden="true"
+                                      />
+                                    ) : (
+                                      <ChevronDownIcon
+                                        className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-red-500"
+                                        aria-hidden="true"
+                                      />
+                                    )}
+                                    {market_cap_change_24h?.toFixed(2)}%
+                                  </span>
+                                </>
+                              )}
                             </dd>
                           </div>
                           <div className="sm:flex sm:px-6 sm:py-5">
@@ -161,9 +213,8 @@ export default function SlideOver({
                               Volume 24h
                             </dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:ml-6 sm:mt-0">
-                              <time dateTime="1982-06-23">
-                                ${volume_24h.toLocaleString()}
-                              </time>
+                              <span>${volume_24h?.toLocaleString()}</span>
+                              <span>{total_volume?.toLocaleString()}</span>
                             </dd>
                           </div>
                         </dl>
