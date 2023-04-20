@@ -8,44 +8,42 @@ import { classNames } from "../lib/utils";
 
 type SlideOverProps = {
   open: boolean;
-  image: string;
-  large: string;
-  symbol: string;
-  market_cap_rank: number;
   setOpen: (open: boolean) => void;
-  name: string;
   id: string;
-  current_price: number;
-  price_change_percentage_24h: number;
-  content: string;
-  volume_24h: number;
-  market_cap: number;
-  market_cap_change_24h: number;
+  name: string;
+  symbol: string;
+  image: string;
   top_3_coins: string[];
+  current_price: number;
+  market_cap: number;
+  market_cap_rank: number;
+  market_cap_change_24h: number;
   total_volume: number;
+  volume_24h: number;
   high_24h: number;
   low_24h: number;
+  price_change_percentage_24h: number;
+  content: string;
 };
 
 export default function SlideOver({
   open,
   setOpen,
-  name,
-  high_24h,
-  symbol,
-  large,
   id,
-  current_price,
-  price_change_percentage_24h,
+  name,
+  symbol,
   image,
-  content,
-  volume_24h,
+  top_3_coins,
+  current_price,
   market_cap,
   market_cap_rank,
   market_cap_change_24h,
-  top_3_coins,
-  low_24h,
   total_volume,
+  volume_24h,
+  high_24h,
+  low_24h,
+  price_change_percentage_24h,
+  content,
 }: SlideOverProps) {
   return (
     <Transition.Root show={open} as={Fragment} appear={open}>
@@ -99,17 +97,7 @@ export default function SlideOver({
                                       />
                                     </>
                                   )}
-                                  {large && (
-                                    <>
-                                      <Image
-                                        className="relative z-20 inline-block bg-gray-200 rounded-full  "
-                                        src={large}
-                                        alt=""
-                                        height={100}
-                                        width={100}
-                                      />
-                                    </>
-                                  )}
+
                                   {top_3_coins && (
                                     <>
                                       <Image

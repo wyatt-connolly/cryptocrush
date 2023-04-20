@@ -1,5 +1,6 @@
 "use client";
 import { Fragment, useState } from "react";
+import Image from "next/image";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import {
@@ -15,45 +16,33 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { classNames } from "../lib/utils";
 
 const navigation = [
-  { name: "Home", id: 1, href: "/", icon: CircleStackIcon, current: false },
+  {
+    name: "Market",
+    id: 1,
+    href: "#market",
+  },
   {
     name: "Categories",
     id: 2,
-    href: "/categories",
-    icon: TagIcon,
-    current: false,
+    href: "#categories",
   },
   {
-    name: "Trending",
+    name: "About",
     id: 3,
-    href: "/trending",
-    icon: FireIcon,
-    current: false,
+    href: "#about",
   },
 
   {
-    name: "NFT's (beta)",
+    name: "Join Us",
     id: 4,
-    href: "/nfts",
-    icon: TrophyIcon,
-    current: false,
+    href: "#join-us",
   },
 ];
-const company = [
-  { id: 1, name: "About", href: "/about", initial: "A", current: false },
-  {
-    id: 2,
-    name: "Contact",
-    href: "/contact",
-    initial: "C",
-    current: false,
-  },
-];
+
 export default function Navigation({ children }) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -72,28 +61,26 @@ export default function Navigation({ children }) {
                   <div className="relative flex h-16 items-center justify-between lg:border-b lg:border-indigo-400 lg:border-opacity-25">
                     <div className="flex items-center px-2 lg:px-0">
                       <div className="flex-shrink-0">
-                        <img
-                          className="block h-8 w-8"
-                          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=300"
-                          alt="Your Company"
-                        />
+                        <Link href="/">
+                          {" "}
+                          <Image
+                            height={32}
+                            width={32}
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/640px-Bitcoin.svg.png"
+                            alt="Your Company"
+                          />
+                        </Link>
                       </div>
                       <div className="hidden lg:ml-10 lg:block">
                         <div className="flex space-x-4">
                           {navigation.map((item) => (
-                            <a
+                            <Link
                               key={item.name}
                               href={item.href}
-                              className={classNames(
-                                item.current
-                                  ? "bg-indigo-700 text-white"
-                                  : "text-white hover:bg-indigo-500 hover:bg-opacity-75",
-                                "rounded-md py-2 px-3 text-sm font-medium"
-                              )}
-                              aria-current={item.current ? "page" : undefined}
+                              className="rounded-md py-2 px-3 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
                             >
                               {item.name}
-                            </a>
+                            </Link>
                           ))}
                         </div>
                       </div>
@@ -124,7 +111,7 @@ export default function Navigation({ children }) {
                     {navigation.map((item) => (
                       <Disclosure.Button
                         key={item.name}
-                        as="a"
+                        as={Link}
                         href={item.href}
                         className={classNames(
                           item.current
