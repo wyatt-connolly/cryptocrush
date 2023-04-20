@@ -10,6 +10,7 @@ type SlideOverProps = {
   open: boolean;
   image: string;
   large: string;
+  symbol: string;
   market_cap_rank: number;
   setOpen: (open: boolean) => void;
   name: string;
@@ -31,6 +32,7 @@ export default function SlideOver({
   setOpen,
   name,
   high_24h,
+  symbol,
   large,
   id,
   current_price,
@@ -144,6 +146,7 @@ export default function SlideOver({
                                   {name}
                                 </h3>
                               </div>
+                              <p className="text-sm text-gray-500">{symbol}</p>
                             </div>
                           </div>
                         </div>
@@ -211,6 +214,7 @@ export default function SlideOver({
                               </dd>
                             </div>
                           )}
+
                           <div className="sm:flex sm:px-6 sm:py-5">
                             <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">
                               Market Cap

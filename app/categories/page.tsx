@@ -5,7 +5,7 @@ import {
   ChevronUpIcon,
 } from "@heroicons/react/20/solid";
 import { useEffect, useState } from "react";
-import Header from "../components/Header";
+
 import Link from "next/link";
 import { useRouter } from "next/router";
 import SlideOver from "../components/SlideOver";
@@ -14,6 +14,7 @@ import useSWR from "swr";
 import { Transition } from "@headlessui/react";
 import { classNames } from "../lib/utils";
 import { fetcher } from "../lib/utils";
+import Container from "../components/Container";
 
 type Category = {
   id: string;
@@ -26,7 +27,6 @@ type Category = {
 export default function Page() {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
-  // return only the first 8 categories from the API  response  (data)  to  be  displayed  on  the  page
 
   const { data, error, isLoading } = useSWR(
     `https://api.coingecko.com/api/v3/coins/categories`,
@@ -41,8 +41,7 @@ export default function Page() {
   return (
     <main className="py-10 lg:pl-72">
       <div className="px-4 sm:px-6 lg:px-8">
-        <Header>CryptoCrush</Header>
-        <div className="px-4 mt-6 sm:px-6 lg:px-8 ">
+        <Container>
           <h3 className="text-base font-semibold leading-6 text-gray-900">
             Top Categories
           </h3>
@@ -110,7 +109,7 @@ export default function Page() {
           {open && selected && (
             <SlideOver open={open} setOpen={setOpen} {...selected} />
           )}
-        </div>
+        </Container>
       </div>
     </main>
   );

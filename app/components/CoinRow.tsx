@@ -16,6 +16,7 @@ import { classNames } from "../lib/utils";
 
 type CoinRowProps = {
   id: string;
+  symbol: string;
   key: string;
   image: string;
   name: string;
@@ -29,6 +30,7 @@ type CoinRowProps = {
 export default function CoinRow({
   id,
   key,
+  symbol,
   image,
   name,
   current_price,
@@ -45,6 +47,7 @@ export default function CoinRow({
     setOpen((open) => !open);
     setSelected({
       name,
+      symbol,
       image,
       price_change_percentage_24h,
       id,

@@ -1,5 +1,4 @@
-import Sidebar from "./components/Sidebar";
-
+import Navigation from "./components/Navigation";
 
 import "./globals.css";
 
@@ -17,8 +16,7 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <body className="h-full">
         <div className="min-h-full">
-          <Sidebar />
-          {children}
+          <Navigation>{children}</Navigation>
         </div>
       </body>
     </html>

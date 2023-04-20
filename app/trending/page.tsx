@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import Header from "../components/Header";
+
 import Stats from "../components/Stats";
 import {
   ArrowDownIcon,
@@ -28,6 +28,7 @@ import useSWR from "swr";
 import SlideOver from "../components/SlideOver";
 import { classNames } from "../lib/utils";
 import { fetcher } from "../lib/utils";
+import Container from "../components/Container";
 
 type Coin = {
   name: string;
@@ -56,9 +57,8 @@ export default function Page() {
   return (
     <main className="py-10 lg:pl-72">
       <div className="px-4 sm:px-6 lg:px-8">
-        <Header>CryptoCrush</Header>
         <section aria-labelledby="quick-links-title">
-          <div className="px-4 mt-6 sm:px-6 lg:px-8">
+          <Container>
             <h3 className="text-base font-semibold leading-6 text-gray-900">
               Trending
             </h3>
@@ -104,17 +104,12 @@ export default function Page() {
                     <span className="text-xs text-gray-500 ">
                       Market Cap Rank: {item.market_cap_rank}
                     </span>
-                    <p className="mt-2 text-sm text-gray-500">
-                      Doloribus dolores nostrum quia qui natus officia quod et
-                      dolorem. Sit repellendus qui ut at blanditiis et quo et
-                      molestiae.
-                    </p>
                   </div>
                   <ArrowUpRightIcon className="w-8 h-8 absolute text-gray-300 pointer-events-none right-6 top-6 group-hover:text-gray-400" />
                 </div>
               ))}
             </div>
-          </div>
+          </Container>
         </section>
       </div>
       {open && selected && (
