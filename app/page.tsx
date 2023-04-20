@@ -21,11 +21,12 @@ import { Fragment } from "react";
 import CoinRow from "./components/CoinRow";
 import useSWR from "swr";
 import Pagination from "./components/Pagination";
-import { fetcher } from "./lib/utils";
 import Container from "./components/Container";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
 import SlideOver from "./components/SlideOver";
+import fetcher from "./lib/utils";
+import { classNames } from "./lib/utils";
 
 type Coin = {
   id: string;
@@ -48,6 +49,11 @@ type Category = {
   top_3_coins: string[];
   description: string;
 };
+
+interface Props {
+  coins: Coin[];
+  categories: Category[];
+}
 
 function Categories() {
   const [open, setOpen] = useState(false);
@@ -138,7 +144,7 @@ function Categories() {
   );
 }
 
-function Features() {
+function About() {
   const features = [
     { id: 1, name: "Market entry year", value: "2023" },
     { id: 2, name: "Registered users", value: "4M+" },
@@ -147,7 +153,7 @@ function Features() {
   ];
 
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div id="about" className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-none">
           <div className="text-center">
@@ -194,7 +200,7 @@ function Join() {
           </p>
           <p className="mt-6 text-base leading-7 text-gray-600">
             Get crypto analysis, news and updates right to your inbox! Sign up
-            here so you don't miss a single newsletter.
+            here so you don&#39;t miss a single newsletter.
           </p>
           <div className="mt-8">
             <a
@@ -283,7 +289,7 @@ export default function Home() {
         <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
       </div>
       <Categories />
-      <Features />
+      <About />
       <Join />
     </main>
   );

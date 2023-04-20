@@ -43,7 +43,7 @@ const navigation = [
   },
 ];
 
-export default function Navigation({ children }) {
+export default function Navigation({ children }: any) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -114,12 +114,8 @@ export default function Navigation({ children }) {
                         as={Link}
                         href={item.href}
                         className={classNames(
-                          item.current
-                            ? "bg-indigo-700 text-white"
-                            : "text-white hover:bg-indigo-500 hover:bg-opacity-75",
-                          "block rounded-md py-2 px-3 text-base font-medium"
+                          "bg-indigo-600 text-white hover:bg-indigo-500 hover:bg-opacity-75 block rounded-md py-2 px-3 text-base font-medium"
                         )}
-                        aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
                       </Disclosure.Button>
