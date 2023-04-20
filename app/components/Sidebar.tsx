@@ -16,6 +16,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { classNames } from "../lib/utils";
 
 const navigation = [
   { name: "Home", id: 1, href: "/", icon: CircleStackIcon, current: false },
@@ -59,11 +60,6 @@ const company = [
     current: false,
   },
 ];
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function Sidebar() {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);

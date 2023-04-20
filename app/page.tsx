@@ -18,8 +18,8 @@ import { Fragment } from "react";
 import CoinRow from "./components/CoinRow";
 import useSWR from "swr";
 import Pagination from "./components/Pagination";
+import { fetcher } from "./lib/utils";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
 type Coin = {
   id: string;
   image: string;
@@ -27,9 +27,10 @@ type Coin = {
   current_price: number;
   price_change_percentage_24h: number;
   market_cap: number;
-  description: {
-    en: string;
-  };
+  market_cap_rank: number;
+  total_volume: number;
+  high_24h: number;
+  low_24h: number;
 };
 export default function Home() {
   const [currentPage, setCurrentPage] = useState([]);
@@ -50,7 +51,7 @@ export default function Home() {
             Today&apos;s Cryptocurrency Prices
           </h3>
 
-          <dl className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-2 lg:grid-cols-3">
+          <dl className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-2 xl:grid-cols-3">
             <Stats {...data[0]} />
             <Stats {...data[1]} />
             <Stats {...data[2]} />

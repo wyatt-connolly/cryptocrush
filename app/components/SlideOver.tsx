@@ -4,18 +4,16 @@ import { Dialog, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import { classNames } from "../lib/utils";
 
 type SlideOverProps = {
   open: boolean;
   image: string;
+  large: string;
+  market_cap_rank: number;
   setOpen: (open: boolean) => void;
   name: string;
   id: string;
-  description: string;
   current_price: number;
   price_change_percentage_24h: number;
   content: string;
@@ -24,22 +22,27 @@ type SlideOverProps = {
   market_cap_change_24h: number;
   top_3_coins: string[];
   total_volume: number;
+  high_24h: number;
+  low_24h: number;
 };
 
 export default function SlideOver({
   open,
   setOpen,
   name,
+  high_24h,
+  large,
   id,
-  description,
   current_price,
   price_change_percentage_24h,
   image,
   content,
   volume_24h,
   market_cap,
+  market_cap_rank,
   market_cap_change_24h,
   top_3_coins,
+  low_24h,
   total_volume,
 }: SlideOverProps) {
   return (
@@ -83,16 +86,29 @@ export default function SlideOver({
                             <div className="flex -m-1">
                               <div className="inline-flex overflow-hidden rounded-lg">
                                 <div className="flex justify-center -space-x-2 overflow-hidden isolate">
-                                  {image ? (
-                                    <div className="relative h-24 w-24 flex-shrink-0 sm:h-40 sm:w-40 lg:h-48 lg:w-48">
+                                  {image && (
+                                    <>
                                       <Image
-                                        className="flex-shrink-08"
+                                        className="relative z-20 inline-block bg-gray-200 rounded-full  "
                                         src={image}
                                         alt=""
-                                        fill
+                                        height={100}
+                                        width={100}
                                       />
-                                    </div>
-                                  ) : (
+                                    </>
+                                  )}
+                                  {large && (
+                                    <>
+                                      <Image
+                                        className="relative z-20 inline-block bg-gray-200 rounded-full  "
+                                        src={large}
+                                        alt=""
+                                        height={100}
+                                        width={100}
+                                      />
+                                    </>
+                                  )}
+                                  {top_3_coins && (
                                     <>
                                       <Image
                                         className="relative z-20 inline-block bg-gray-200 rounded-full  "
@@ -134,22 +150,23 @@ export default function SlideOver({
                       </div>
                       <div className="px-4 py-5 sm:px-0 sm:py-0">
                         <dl className="space-y-8 sm:space-y-0 sm:divide-y sm:divide-gray-200">
-                          <div className="sm:flex sm:px-6 sm:py-5">
-                            <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">
-                              Description
-                            </dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:ml-6 sm:mt-0">
-                              <p>{content ? content : ""}</p>
-                              <p>{description ? description : ""}</p>
-                            </dd>
-                          </div>
+                          {content && (
+                            <div className="sm:flex sm:px-6 sm:py-5">
+                              <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">
+                                Description
+                              </dt>
+                              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:ml-6 sm:mt-0">
+                                <p>{content}</p>
+                              </dd>
+                            </div>
+                          )}
                           {current_price && (
                             <div className="sm:flex sm:px-6 sm:py-5">
                               <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">
                                 Price
                               </dt>
                               <dd className="mt-1 flex items-center gap-2 text-sm text-gray-900 sm:col-span-2 sm:ml-6 sm:mt-0">
-                                <span>${current_price.toFixed(2)}</span>
+                                <span>${current_price.toLocaleString()}</span>
                                 <span
                                   className={classNames(
                                     "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",
@@ -174,6 +191,26 @@ export default function SlideOver({
                               </dd>
                             </div>
                           )}
+                          {high_24h && (
+                            <div className="sm:flex sm:px-6 sm:py-5">
+                              <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">
+                                High 24h
+                              </dt>
+                              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:ml-6 sm:mt-0">
+                                <span>${high_24h.toLocaleString()}</span>
+                              </dd>
+                            </div>
+                          )}
+                          {low_24h && (
+                            <div className="sm:flex sm:px-6 sm:py-5">
+                              <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">
+                                Low 24h
+                              </dt>
+                              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:ml-6 sm:mt-0">
+                                <span>${low_24h.toLocaleString()}</span>
+                              </dd>
+                            </div>
+                          )}
                           <div className="sm:flex sm:px-6 sm:py-5">
                             <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">
                               Market Cap
@@ -182,7 +219,6 @@ export default function SlideOver({
                               <span> ${market_cap?.toLocaleString()}</span>
                               {market_cap_change_24h && (
                                 <>
-                                  {" "}
                                   <span
                                     className={classNames(
                                       "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",

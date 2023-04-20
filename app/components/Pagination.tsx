@@ -3,16 +3,16 @@ import {
   ArrowLongLeftIcon,
   ArrowLongRightIcon,
 } from "@heroicons/react/20/solid";
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 
-type PaginationProps = {
-  currentPage: number;
-  setCurrentPage: (currentPage: number) => void;
-};
+interface IPagination {
+  currentPage: number[] | null;
+  setCurrentPage: Dispatch<SetStateAction<never[]>>;
+}
 export default function Pagination({
   currentPage,
   setCurrentPage,
-}: PaginationProps) {
+}: IPagination) {
   const paginationButtons = [];
   for (let i = 1; i <= 5; i++) {
     paginationButtons.push(

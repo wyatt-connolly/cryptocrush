@@ -10,13 +10,9 @@ import {
 } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import Link from "next/link";
-import Coin from "./Coin";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import SlideOver from "./SlideOver";
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import { classNames } from "../lib/utils";
 
 type CoinRowProps = {
   id: string;
@@ -26,10 +22,9 @@ type CoinRowProps = {
   current_price: number;
   price_change_percentage_24h: number;
   market_cap: number;
-  description: {
-    en: string;
-  };
   total_volume: number;
+  high_24h: number;
+  low_24h: number;
 };
 export default function CoinRow({
   id,
@@ -39,24 +34,40 @@ export default function CoinRow({
   current_price,
   price_change_percentage_24h,
   market_cap,
-  description,
   total_volume,
+  high_24h,
+  low_24h,
 }: CoinRowProps) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
+
+  function handleClick() {
+    setOpen((open) => !open);
+    setSelected({
+      name,
+      image,
+      price_change_percentage_24h,
+      id,
+      market_cap,
+      current_price,
+      total_volume,
+      high_24h,
+      low_24h,
+    });
+  }
 
   return (
     <>
       <tr key={key}>
         <td className="pl-4 pr-3 text-sm whitespace-nowrap sm:pl-0">
-          <Link href={`/coin/${id}`} className="flex items-center">
+          <button onClick={handleClick} className="flex items-center">
             <div className="flex-shrink-0 h-11 w-11">
               <Image height={44} width={44} src={image} alt="" />
             </div>
             <div className="ml-4">
               <div className="font-medium text-gray-900">{name}</div>
             </div>
-          </Link>
+          </button>
         </td>
         <td className="px-3 py-5 text-sm text-gray-500 whitespace-nowrap">
           <div className="text-gray-900">
@@ -91,19 +102,7 @@ export default function CoinRow({
         </td>
         <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-0">
           <button
-            onClick={() => {
-              setOpen((open) => !open);
-              setSelected({
-                name,
-                image,
-                price_change_percentage_24h,
-                id,
-                market_cap,
-                current_price,
-                description,
-                total_volume,
-              });
-            }}
+            onClick={handleClick}
             className="text-indigo-600 hover:text-indigo-900"
           >
             View<span className="sr-only">, {name}</span>
