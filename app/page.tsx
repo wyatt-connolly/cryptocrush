@@ -26,7 +26,6 @@ import Loader from "./components/Loader";
 import Error from "./components/Error";
 import SlideOver from "./components/SlideOver";
 import fetcher from "./lib/utils";
-import { classNames } from "./lib/utils";
 
 type Coin = {
   id: string;
@@ -50,14 +49,9 @@ type Category = {
   description: string;
 };
 
-interface Props {
-  coins: Coin[];
-  categories: Category[];
-}
-
 function Categories() {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState(({} as Category) || null);
 
   const { data, error, isLoading } = useSWR(
     `https://api.coingecko.com/api/v3/coins/categories`,
@@ -119,6 +113,7 @@ function Categories() {
                       <button
                         onClick={() => {
                           setOpen((open) => !open);
+
                           setSelected(category);
                         }}
                         className="relative inline-flex items-center justify-center flex-1 w-0 py-4 text-sm font-semibold text-gray-900 border border-transparent rounded-br-lg gap-x-3"
@@ -184,11 +179,14 @@ function Join() {
   return (
     <div id="join-us" className="relative mt-20">
       <div className="relative h-80 overflow-hidden md:absolute md:left-0 md:h-full md:w-1/3 lg:w-1/2">
-        <img
-          className="h-full w-full object-cover"
-          src="https://s2.coinmarketcap.com/static/cloud/img/newsletter_bg_light.svg?_=f6a1c7d"
-          alt=""
-        />
+        <div className="relative h-full w-full">
+          <Image
+            className="object-cover"
+            src="https://s2.coinmarketcap.com/static/cloud/img/newsletter_bg_light.svg?_=f6a1c7d"
+            alt=""
+            fill
+          />
+        </div>
       </div>
       <div className="relative mx-auto max-w-7xl py-24 sm:py-32 lg:px-8 lg:py-40">
         <div className="pl-6 pr-6 md:ml-auto md:w-2/3 md:pl-16 lg:w-1/2 lg:pl-24 lg:pr-0 xl:pl-32">
@@ -204,7 +202,9 @@ function Join() {
           </p>
           <div className="mt-8">
             <a
-              href="#"
+              href="https://www.coingecko.com/"
+              target="_blank"
+              rel="noreferrer"
               className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Subscribe Now
@@ -217,7 +217,7 @@ function Join() {
 }
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState([]);
+  const [currentPage, setCurrentPage] = useState([1]);
   const { data, error, isLoading } = useSWR(
     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=${currentPage}&sparkline=false
     `,

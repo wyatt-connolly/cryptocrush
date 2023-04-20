@@ -4,10 +4,11 @@ import {
   ArrowLongRightIcon,
 } from "@heroicons/react/20/solid";
 import { useState, Dispatch, SetStateAction } from "react";
+import { classNames } from "../lib/utils";
 
 interface IPagination {
-  currentPage: number[] | null;
-  setCurrentPage: Dispatch<SetStateAction<never[]>>;
+  currentPage: number | number[];
+  setCurrentPage: Dispatch<SetStateAction<number[]>>;
 }
 export default function Pagination({
   currentPage,
@@ -19,7 +20,10 @@ export default function Pagination({
       <button
         key={i}
         onClick={() => setCurrentPage(i)}
-        className="inline-flex items-center px-4 pt-4 text-sm font-medium text-gray-500 border-t-2 border-transparent hover:border-gray-300 hover:text-gray-700 focus:border-t-indigo-500 focus:text-indigo-600"
+        className={classNames(
+          "inline-flex items-center px-4 pt-4 text-sm font-medium text-gray-500 border-t-2 border-transparent hover:border-gray-300 hover:text-gray-700 focus:border-t-indigo-500 focus:text-indigo-600",
+          currentPage === i && "border-indigo-500 text-indigo-600"
+        )}
       >
         {i}
       </button>
@@ -34,7 +38,7 @@ export default function Pagination({
   };
 
   const scrollTop = () => {
-    window.scrollTo({ top: (0, 0), behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (

@@ -17,7 +17,6 @@ import { classNames } from "../lib/utils";
 type CoinRowProps = {
   id: string;
   symbol: string;
-  key: string;
   image: string;
   name: string;
   current_price: number;
@@ -29,7 +28,6 @@ type CoinRowProps = {
 };
 export default function CoinRow({
   id,
-  key,
   symbol,
   image,
   name,
@@ -41,7 +39,7 @@ export default function CoinRow({
   low_24h,
 }: CoinRowProps) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState({} as CoinRowProps);
 
   function handleClick() {
     setOpen((open) => !open);
@@ -61,7 +59,7 @@ export default function CoinRow({
 
   return (
     <>
-      <tr key={key}>
+      <tr>
         <td className="pl-4 pr-3 text-sm whitespace-nowrap sm:pl-0">
           <button onClick={handleClick} className="flex items-center">
             <div className="flex-shrink-0 h-11 w-11">

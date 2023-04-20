@@ -9,21 +9,21 @@ import { classNames } from "../lib/utils";
 type SlideOverProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
-  id: string;
-  name: string;
-  symbol: string;
-  image: string;
-  top_3_coins: string[];
-  current_price: number;
-  market_cap: number;
-  market_cap_rank: number;
-  market_cap_change_24h: number;
-  total_volume: number;
-  volume_24h: number;
-  high_24h: number;
-  low_24h: number;
-  price_change_percentage_24h: number;
-  content: string;
+  id?: string;
+  name?: string;
+  symbol?: string;
+  image?: string;
+  top_3_coins?: string[];
+  current_price?: number;
+  market_cap?: number;
+  market_cap_rank?: number;
+  market_cap_change_24h?: number;
+  total_volume?: number;
+  volume_24h?: number;
+  high_24h?: number;
+  low_24h?: number;
+  price_change_percentage_24h?: number;
+  content?: string;
 };
 
 export default function SlideOver({
@@ -161,12 +161,12 @@ export default function SlideOver({
                                 <span
                                   className={classNames(
                                     "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",
-                                    price_change_percentage_24h > 0
+                                    price_change_percentage_24h! > 0
                                       ? "bg-green-100 text-green-800"
                                       : "bg-red-100 text-red-800"
                                   )}
                                 >
-                                  {price_change_percentage_24h > 0 ? (
+                                  {price_change_percentage_24h! > 0 ? (
                                     <ChevronUpIcon
                                       className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-green-500"
                                       aria-hidden="true"
@@ -177,7 +177,7 @@ export default function SlideOver({
                                       aria-hidden="true"
                                     />
                                   )}
-                                  {price_change_percentage_24h.toFixed(2)}%
+                                  {price_change_percentage_24h!.toFixed(2)}%
                                 </span>
                               </dd>
                             </div>

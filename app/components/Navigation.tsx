@@ -61,15 +61,12 @@ export default function Navigation({ children }: any) {
                   <div className="relative flex h-16 items-center justify-between lg:border-b lg:border-indigo-400 lg:border-opacity-25">
                     <div className="flex items-center px-2 lg:px-0">
                       <div className="flex-shrink-0">
-                        <Link href="/">
-                          {" "}
-                          <Image
-                            height={32}
-                            width={32}
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/640px-Bitcoin.svg.png"
-                            alt="Your Company"
-                          />
-                        </Link>
+                        <Image
+                          height={32}
+                          width={32}
+                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/640px-Bitcoin.svg.png"
+                          alt="Your Company"
+                        />
                       </div>
                       <div className="hidden lg:ml-10 lg:block">
                         <div className="flex space-x-4">

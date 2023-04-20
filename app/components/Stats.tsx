@@ -13,7 +13,6 @@ import SlideOver from "./SlideOver";
 
 type StatsProps = {
   id: string;
-  key: string;
   image: string;
   name: string;
   current_price: number;
@@ -26,7 +25,6 @@ type StatsProps = {
 
 export default function Stats({
   id,
-  key,
   image,
   name,
   current_price,
@@ -37,14 +35,13 @@ export default function Stats({
   low_24h,
 }: StatsProps) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState({});
   // check if price_change_percentage_24h is positive or negative
   const changeType = price_change_percentage_24h > 0 ? "increase" : "decrease";
   function handleClick() {
     setOpen((open) => !open);
     setSelected({
       id,
-      key,
       image,
       name,
       current_price,
@@ -58,10 +55,7 @@ export default function Stats({
 
   return (
     <>
-      <div
-        key={id}
-        className="relative px-4 pt-5 pb-12 overflow-hidden bg-white rounded-lg shadow sm:px-6 sm:pt-6"
-      >
+      <div className="relative px-4 pt-5 pb-12 overflow-hidden bg-white rounded-lg shadow sm:px-6 sm:pt-6">
         <dt>
           <div className="absolute p-2 rounded-md bg-zinc-100">
             <Image src={image} height={34} width={34} alt=" " />
