@@ -22,7 +22,8 @@ export default function Error({
           Something went wrong!
         </h1>
         <p className="mt-6 text-base leading-7 text-gray-600">
-          Due to using a free API, the data is limited to 100 coins. Please try
+          Due to using a free API, the data is limited to 10-30 calls/minute.
+          Please try again later.
         </p>
         <div className="flex items-center justify-center mt-10 gap-x-6">
           <button
