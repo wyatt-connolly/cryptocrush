@@ -84,7 +84,7 @@ export default function Footer() {
           <p className="text-xs leading-5 text-center text-gray-500">
             &copy; 2023 CryptoCrush, Inc. All rights reserved.
           </p>
-          <p className="text-xs leading-5 text-gray-500">
+          <p className="text-xs leading-5 text-center text-gray-500">
             Powered by CoinGecko
           </p>
         </div>
