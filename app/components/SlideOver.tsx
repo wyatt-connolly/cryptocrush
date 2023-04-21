@@ -1,5 +1,5 @@
 "use client";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -45,6 +45,14 @@ export default function SlideOver({
   price_change_percentage_24h,
   content,
 }: SlideOverProps) {
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [open]);
+
   return (
     <Transition.Root show={open} as={Fragment} appear={open}>
       <Dialog as="div" className="relative z-10" onClose={setOpen} id={id}>
@@ -89,7 +97,7 @@ export default function SlideOver({
                                   {image && (
                                     <>
                                       <Image
-                                        className="relative z-20 inline-block bg-gray-200 rounded-full  "
+                                        className="relative z-20 inline-block bg-gray-200 rounded-full "
                                         src={image}
                                         alt=""
                                         height={100}
@@ -101,7 +109,7 @@ export default function SlideOver({
                                   {top_3_coins && (
                                     <>
                                       <Image
-                                        className="relative z-20 inline-block bg-gray-200 rounded-full  "
+                                        className="relative z-20 inline-block bg-gray-200 rounded-full "
                                         src={top_3_coins[0]}
                                         alt=""
                                         height={100}
@@ -156,7 +164,7 @@ export default function SlideOver({
                               <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0 lg:w-48">
                                 Price
                               </dt>
-                              <dd className="mt-1 flex items-center gap-2 text-sm text-gray-900 sm:col-span-2 sm:ml-6 sm:mt-0">
+                              <dd className="flex items-center gap-2 mt-1 text-sm text-gray-900 sm:col-span-2 sm:ml-6 sm:mt-0">
                                 <span>${current_price.toLocaleString()}</span>
                                 <span
                                   className={classNames(
