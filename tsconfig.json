@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/lib/utils.js", "app/lib/utils.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/lib/utils.js", "app/lib/utils.js", "app/error.tsx", "app/en/coins/[id]/error.tsx"],
   "exclude": ["node_modules"]
 }

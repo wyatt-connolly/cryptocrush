@@ -110,7 +110,7 @@ export default function CoinRow({
             }}
             className="text-indigo-600 hover:text-indigo-900"
           >
-            View More<span className="sr-only">, {name}</span>
+            Details<span className="sr-only">, {name}</span>
           </button>
         </td>
       </tr>

@@ -1,23 +1,10 @@
 "use client";
 import { Fragment, useState } from "react";
 import Image from "next/image";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import {
-  Bars3Icon,
-  CalendarIcon,
-  TagIcon,
-  CircleStackIcon,
-  DocumentDuplicateIcon,
-  FireIcon,
-  FolderIcon,
-  SparklesIcon,
-  TrophyIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Disclosure, Menu } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
 import { classNames } from "../lib/utils";
+import Link from "next/link";
 
 const navigation = [
   {
@@ -44,29 +31,30 @@ const navigation = [
 ];
 
 export default function Navigation({ children }: any) {
-  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <>
       <div className="min-h-full">
-        <div className="bg-indigo-600 pb-32">
+        <div className="pb-32 bg-indigo-600">
           <Disclosure
             as="nav"
-            className="border-b border-indigo-300 border-opacity-25 bg-indigo-600 lg:border-none"
+            className="bg-indigo-600 border-b border-indigo-300 border-opacity-25 lg:border-none"
           >
             {({ open }) => (
               <>
-                <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
-                  <div className="relative flex h-16 items-center justify-between lg:border-b lg:border-indigo-400 lg:border-opacity-25">
+                <div className="px-2 mx-auto max-w-7xl sm:px-4 lg:px-8">
+                  <div className="relative flex items-center justify-between h-16 lg:border-b lg:border-indigo-400 lg:border-opacity-25">
                     <div className="flex items-center px-2 lg:px-0">
                       <div className="flex-shrink-0">
-                        <Image
-                          height={32}
-                          width={32}
-                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/640px-Bitcoin.svg.png"
-                          alt="Your Company"
-                        />
+                        <Link href="/">
+                          <Image
+                            height={32}
+                            width={32}
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/640px-Bitcoin.svg.png"
+                            alt="CryptoCrush"
+                          />
+                        </Link>
                       </div>
                       <div className="hidden lg:ml-10 lg:block">
                         <div className="flex space-x-4">
@@ -74,7 +62,7 @@ export default function Navigation({ children }: any) {
                             <Link
                               key={item.name}
                               href={item.href}
-                              className="rounded-md py-2 px-3 text-sm font-medium text-white hover:bg-indigo-500 hover:bg-opacity-75"
+                              className="px-3 py-2 text-sm font-medium text-white rounded-md hover:bg-indigo-500 hover:bg-opacity-75"
                             >
                               {item.name}
                             </Link>
@@ -85,16 +73,16 @@ export default function Navigation({ children }: any) {
 
                     <div className="flex lg:hidden">
                       {/* Mobile menu button */}
-                      <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-indigo-600 p-2 text-indigo-200 hover:bg-indigo-500 hover:bg-opacity-75 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">
+                      <Disclosure.Button className="inline-flex items-center justify-center p-2 text-indigo-200 bg-indigo-600 rounded-md hover:bg-indigo-500 hover:bg-opacity-75 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">
                         <span className="sr-only">Open main menu</span>
                         {open ? (
                           <XMarkIcon
-                            className="block h-6 w-6"
+                            className="block w-6 h-6"
                             aria-hidden="true"
                           />
                         ) : (
                           <Bars3Icon
-                            className="block h-6 w-6"
+                            className="block w-6 h-6"
                             aria-hidden="true"
                           />
                         )}
@@ -104,7 +92,7 @@ export default function Navigation({ children }: any) {
                 </div>
 
                 <Disclosure.Panel className="lg:hidden">
-                  <div className="space-y-1 px-2 pb-3 pt-2">
+                  <div className="px-2 pt-2 pb-3 space-y-1">
                     {navigation.map((item) => (
                       <Disclosure.Button
                         key={item.name}
@@ -123,7 +111,7 @@ export default function Navigation({ children }: any) {
             )}
           </Disclosure>
           <header className="py-10">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
               <h1 className="text-3xl font-bold tracking-tight text-white">
                 CryptoCrush
               </h1>

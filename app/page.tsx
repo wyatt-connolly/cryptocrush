@@ -23,7 +23,7 @@ import useSWR from "swr";
 import Pagination from "./components/Pagination";
 import Container from "./components/Container";
 import Loader from "./components/Loader";
-import Error from "./components/Error";
+import Error from "./error";
 import SlideOver from "./components/SlideOver";
 import fetcher from "./lib/utils";
 
