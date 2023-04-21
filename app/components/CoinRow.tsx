@@ -59,6 +59,13 @@ export default function CoinRow({
     });
   }
 
+  // prevent scroll up when opening slide over
+  if (open) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "unset";
+  }
+
   return (
     <>
       <tr>

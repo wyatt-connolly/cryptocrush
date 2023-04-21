@@ -46,7 +46,7 @@ export default function SlideOver({
   content,
 }: SlideOverProps) {
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={open} as={Fragment} appear={open}>
       <Dialog as="div" className="relative z-10" onClose={setOpen} id={id}>
         <Transition.Child
           as={Fragment}
@@ -59,7 +59,7 @@ export default function SlideOver({
         >
           <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" />
         </Transition.Child>
-        <div className="fixed inset-0 " />
+        <div className="fixed inset-0 h-initial" />
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
             <div className="fixed inset-y-0 right-0 flex max-w-full pl-10 pointer-events-none sm:pl-16">
