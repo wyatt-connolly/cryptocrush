@@ -13,6 +13,7 @@ import Link from "next/link";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import SlideOver from "./SlideOver";
 import { classNames } from "../lib/utils";
+import { useRouter } from "next/navigation";
 
 type CoinRowProps = {
   id: string;
@@ -40,8 +41,9 @@ export default function CoinRow({
 }: CoinRowProps) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState({} as CoinRowProps);
+  const router = useRouter();
 
-  function handleClick() {
+  function handleSlider() {
     setOpen((open) => !open);
     setSelected({
       name,
@@ -61,7 +63,7 @@ export default function CoinRow({
     <>
       <tr>
         <td className="pl-4 pr-3 text-sm whitespace-nowrap sm:pl-0">
-          <button onClick={handleClick} className="flex items-center">
+          <button onClick={handleSlider} className="flex items-center">
             <div className="flex-shrink-0 h-11 w-11">
               <Image height={44} width={44} src={image} alt="" />
             </div>
@@ -103,10 +105,12 @@ export default function CoinRow({
         </td>
         <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-0">
           <button
-            onClick={handleClick}
+            onClick={() => {
+              router.push(`/en/coins/${id}`);
+            }}
             className="text-indigo-600 hover:text-indigo-900"
           >
-            View<span className="sr-only">, {name}</span>
+            View More<span className="sr-only">, {name}</span>
           </button>
         </td>
       </tr>

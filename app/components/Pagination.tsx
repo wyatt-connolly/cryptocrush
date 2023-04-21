@@ -14,13 +14,6 @@ export default function Pagination({
   currentPage,
   setCurrentPage,
 }: IPagination) {
-  const scrollMarket = () => {
-    window.scrollTo({
-      top: window.pageYOffset - 800,
-      behavior: "smooth",
-    });
-  };
-
   const paginationButtons = [];
   for (let i = 1; i <= 5; i++) {
     paginationButtons.push(
@@ -28,7 +21,6 @@ export default function Pagination({
         key={i}
         onClick={() => {
           setCurrentPage(i);
-          scrollMarket();
         }}
         className={classNames(
           "inline-flex items-center px-4 pt-4 text-sm font-medium text-gray-500 border-t-2 border-transparent hover:border-gray-300 hover:text-gray-700 focus:border-t-indigo-500 focus:text-indigo-600",
