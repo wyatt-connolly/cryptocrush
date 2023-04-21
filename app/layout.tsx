@@ -16,10 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full scroll-smooth">
       <body className="h-full">
-        <div className="min-h-full">
+        <div>
           <Navigation>
             <main className="-mt-32">
-              <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+              <div className="px-4 pb-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 {children}
               </div>
             </main>

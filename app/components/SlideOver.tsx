@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -45,16 +45,6 @@ export default function SlideOver({
   price_change_percentage_24h,
   content,
 }: SlideOverProps) {
-  // prevent scroll on mobile when opening slide over
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [open]);
-
   return (
     <Transition.Root show={open} as={Fragment} appear={open}>
       <Dialog as="div" className="relative z-10" onClose={setOpen} id={id}>
