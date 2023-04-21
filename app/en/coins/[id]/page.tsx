@@ -1,30 +1,11 @@
 "use client";
 import { Fragment } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import {
-  Bars3Icon,
-  CalendarIcon,
-  CogIcon,
-  MagnifyingGlassCircleIcon,
-  MapIcon,
-  MegaphoneIcon,
-  SquaresPlusIcon,
-  UserGroupIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import {
-  ChevronLeftIcon,
-  EnvelopeIcon,
-  FunnelIcon,
-  MagnifyingGlassIcon,
-  LinkIcon,
-  HomeIcon,
-} from "@heroicons/react/20/solid";
+import { LinkIcon, HomeIcon } from "@heroicons/react/20/solid";
 import { classNames } from "@/app/lib/utils";
 import Container from "@/app/components/Container";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import fetcher from "@/app/lib/utils";
 import Error from "./error";
 import Loader from "@/app/components/Loader";
@@ -37,10 +18,36 @@ export default function Page() {
 
     fetcher
   );
-  if (error) return <Error />;
+
+  const { mutate } = useSWR(
+    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=${currentPage}&sparkline=false/
+    `,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+    }
+  );
+  if (error) return <Error error={error} reset={() => mutate} />;
   if (isLoading) return <Loader />;
 
-  const coin = {
+  type Coin = {
+    name: string;
+    imageUrl: string;
+    links: string[];
+    about: string;
+    fields: {
+      Symbol: string;
+      Hashing: string;
+      Categories: string;
+      Genesis: string;
+      Rank: string;
+      "All Time High": string;
+      Price: string;
+      "All Time Low": string;
+    };
+  };
+
+  const coin: Coin = {
     name: data.name,
     imageUrl: data.image.large,
     links: [data.links.homepage[0], data.links.blockchain_site[0]],
@@ -132,7 +139,7 @@ export default function Page() {
                       {field}
                     </dt>
                     <dd className="mt-1 text-sm text-gray-900">
-                      {coin.fields[field]}
+                      {coin.fields[field as keyof typeof coin.fields]}
                     </dd>
                   </div>
                 ))}
