@@ -8,7 +8,7 @@ import { classNames } from "../lib/utils";
 
 interface IPagination {
   currentPage: number | number[];
-  setCurrentPage: Dispatch<SetStateAction<number[]>>;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
 }
 export default function Pagination({
   currentPage,
@@ -45,7 +45,7 @@ export default function Pagination({
     <nav className="flex items-center justify-between px-4 mt-2 -mb-px border-t border-gray-200 sm:px-0">
       <div
         onClick={scrollMarket}
-        className="flex flex-1 w-0 -mt-px justify-center"
+        className="flex justify-center flex-1 w-0 -mt-px"
       >
         {paginationButtons}
       </div>
