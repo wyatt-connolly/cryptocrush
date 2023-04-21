@@ -46,7 +46,7 @@ export default function SlideOver({
   content,
 }: SlideOverProps) {
   useEffect(() => {
-    if (open) {
+    if (!open) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
