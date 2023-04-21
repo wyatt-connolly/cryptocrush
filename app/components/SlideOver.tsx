@@ -46,7 +46,7 @@ export default function SlideOver({
   content,
 }: SlideOverProps) {
   return (
-    <Transition.Root show={open} as={Fragment} appear={open}>
+    <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen} id={id}>
         <Transition.Child
           as={Fragment}
