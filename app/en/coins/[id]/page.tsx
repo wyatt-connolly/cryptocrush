@@ -1,3 +1,4 @@
+"use client";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
@@ -22,11 +23,22 @@ import {
 import { classNames } from "@/app/lib/utils";
 import Container from "@/app/components/Container";
 import Link from "next/link";
+import { useParams } from "next/navigation";
+import useSWR from "swr";
+import fetcher from "@/app/lib/utils";
+import Error from "@/app/components/Error";
+import Loader from "@/app/components/Loader";
 
-export default async function Page({ params }) {
-  const { id } = params;
-  const res = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`);
-  const data = await res.json();
+export default function Page() {
+  const params = useParams();
+  console.log(params);
+  const { data, error, isLoading } = useSWR(
+    `https://api.coingecko.com/api/v3/coins/${params.id}`,
+
+    fetcher
+  );
+  if (error) return <Error />;
+  if (isLoading) return <Loader />;
 
   const coin = {
     name: data.name,

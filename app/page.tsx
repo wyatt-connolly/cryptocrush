@@ -134,9 +134,9 @@ function About() {
   ];
 
   return (
-    <div id="about" className="bg-white py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:max-w-none">
+    <div id="about" className="py-24 bg-white sm:py-32">
+      <div className="px-6 mx-auto max-w-7xl lg:px-8">
+        <div className="max-w-2xl mx-auto lg:max-w-none">
           <div className="text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               Trusted by investors worldwide
@@ -145,7 +145,7 @@ function About() {
           </div>
           <dl className="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
             {features.map((feature) => (
-              <div key={feature.id} className="flex flex-col bg-gray-400/5 p-8">
+              <div key={feature.id} className="flex flex-col p-8 bg-gray-400/5">
                 <dt className="text-sm font-semibold leading-6 text-gray-600">
                   {feature.name}
                 </dt>
@@ -164,8 +164,8 @@ function About() {
 function Join() {
   return (
     <div id="join-us" className="relative mt-20">
-      <div className="relative h-80 overflow-hidden md:absolute md:left-0 md:h-full md:w-1/3 lg:w-1/2">
-        <div className="relative h-full w-full">
+      <div className="relative overflow-hidden h-80 md:absolute md:left-0 md:h-full md:w-1/3 lg:w-1/2">
+        <div className="relative w-full h-full">
           <Image
             className="object-cover"
             src="https://s2.coinmarketcap.com/static/cloud/img/newsletter_bg_light.svg?_=f6a1c7d"
@@ -174,7 +174,7 @@ function Join() {
           />
         </div>
       </div>
-      <div className="relative mx-auto max-w-7xl py-24 sm:py-32 lg:px-8 lg:py-40">
+      <div className="relative py-24 mx-auto max-w-7xl sm:py-32 lg:px-8 lg:py-40">
         <div className="pl-6 pr-6 md:ml-auto md:w-2/3 md:pl-16 lg:w-1/2 lg:pl-24 lg:pr-0 xl:pl-32">
           <h2 className="text-base font-semibold leading-7 text-indigo-400">
             Award winning support
@@ -228,7 +228,7 @@ export default function Home() {
 
   return (
     <main className="-mt-32" id="market">
-      <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+      <div className="px-4 pb-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <h3 className="text-base font-semibold leading-6 text-white">
           Today&apos;s Cryptocurrency Prices
         </h3>
