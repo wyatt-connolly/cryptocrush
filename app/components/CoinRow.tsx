@@ -59,13 +59,6 @@ export default function CoinRow({
     });
   }
 
-  // prevent scroll up when opening slide over
-  if (open) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "unset";
-  }
-
   return (
     <>
       <tr>
@@ -123,6 +116,7 @@ export default function CoinRow({
       </tr>
       {open && selected && (
         // return slideover and pass in name as prop
+
         <SlideOver open={open} setOpen={setOpen} {...selected} />
       )}
     </>

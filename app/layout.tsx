@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full scroll-smooth">
       <body className="h-full">
-        <div>
+        <div className="min-h-full">
           <Navigation>
             <main className="-mt-32">
               <div className="px-4 pb-12 mx-auto max-w-7xl sm:px-6 lg:px-8">

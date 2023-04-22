@@ -25,7 +25,7 @@ export default function Pagination({
         className={classNames(
           "inline-flex items-center px-4 pt-4 text-sm font-medium text-gray-500 border-t-2 border-transparent hover:border-gray-300 hover:text-gray-700 focus:border-t-indigo-500 focus:text-indigo-600",
           currentPage === i &&
-            "border-indigo-500 text-indigo-600 focus:outline-none focus:text-indigo-800 focus:border-indigo-700"
+            "border-indigo-500 border-t-indigo-500 text-indigo-600 focus:outline-none focus:text-indigo-800 focus:border-indigo-700"
         )}
       >
         {i}
