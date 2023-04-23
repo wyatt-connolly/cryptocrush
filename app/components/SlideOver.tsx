@@ -100,7 +100,7 @@ export default function SlideOver({
                                   {image && (
                                     <>
                                       <Image
-                                        className="relative z-20 inline-block bg-gray-200 rounded-full "
+                                        className="relative z-20 inline-block bg-white rounded-full "
                                         src={image}
                                         alt=""
                                         height={100}
@@ -112,21 +112,21 @@ export default function SlideOver({
                                   {top_3_coins && (
                                     <>
                                       <Image
-                                        className="relative z-20 inline-block bg-gray-200 rounded-full "
+                                        className="relative z-20 inline-block bg-white rounded-full "
                                         src={top_3_coins[0]}
                                         alt=""
                                         height={100}
                                         width={100}
                                       />
                                       <Image
-                                        className="relative z-10 inline-block bg-gray-200 rounded-full "
+                                        className="relative z-10 inline-block bg-white rounded-full "
                                         src={top_3_coins[1]}
                                         alt=""
                                         height={100}
                                         width={100}
                                       />
                                       <Image
-                                        className="relative z-0 inline-block bg-gray-200 rounded-full"
+                                        className="relative z-0 inline-block bg-white rounded-full"
                                         src={top_3_coins[2]}
                                         alt=""
                                         height={100}
