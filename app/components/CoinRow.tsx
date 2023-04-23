@@ -116,7 +116,6 @@ export default function CoinRow({
       </tr>
       {open && selected && (
         // return slideover and pass in name as prop
-
         <SlideOver open={open} setOpen={setOpen} {...selected} />
       )}
     </>

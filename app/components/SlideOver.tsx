@@ -73,7 +73,7 @@ export default function SlideOver({
                 leaveTo="translate-x-full"
               >
                 <Dialog.Panel className="w-screen max-w-2xl pointer-events-auto ">
-                  <div className="flex flex-col h-screen overflow-y-scroll bg-white shadow-xl">
+                  <div className="flex flex-col h-full overflow-y-scroll bg-white shadow-xl">
                     <div className="px-4 py-6 sm:px-6">
                       <div className="flex items-start justify-between">
                         <div className="flex items-center ml-3 h-7">
