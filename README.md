@@ -2,7 +2,7 @@
 
 CryptoCrush is a data-driven company that offers real-time insights and analytics on the cryptocurrency market, enabling users to make informed investment decisions.
 
-:point_right: Live Demo: [Fit Gym](https://fit-gym-taupe.vercel.app/)
+:point_right: Live Demo: [CryptoCrush](https://cryptocrush-omega.vercel.app/)
 
 ## Built with:
 - Tailwind
