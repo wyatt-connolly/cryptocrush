@@ -82,7 +82,7 @@ export default function Page() {
                     <Image
                       height={160}
                       width={160}
-                      className="rounded-full ring-4 ring-white"
+                      className="rounded-full bg-slate-200 ring-4 ring-white"
                       src={coin.imageUrl}
                       alt=""
                     />
@@ -144,10 +144,16 @@ export default function Page() {
                 ))}
                 <div className="sm:col-span-2">
                   <dt className="text-sm font-medium text-gray-500">About</dt>
-                  <dd
-                    className="mt-1 space-y-5 text-sm text-gray-900 max-w-prose"
-                    dangerouslySetInnerHTML={{ __html: coin.about }}
-                  />
+                  {coin.about ? (
+                    <dd
+                      className="mt-1 space-y-5 text-sm text-gray-900 max-w-prose"
+                      dangerouslySetInnerHTML={{ __html: coin.about }}
+                    />
+                  ) : (
+                    <dd className="mt-1 space-y-5 text-sm text-gray-900 max-w-prose">
+                      N/A
+                    </dd>
+                  )}
                 </div>
               </dl>
             </Container>

@@ -22,7 +22,7 @@ export default function icon() {
           color: "white",
         }}
       >
-        A
+        C
       </div>
     ),
     size

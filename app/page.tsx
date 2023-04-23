@@ -108,7 +108,7 @@ function Categories() {
                           className="w-5 h-5 text-gray-400"
                           aria-hidden="true"
                         />
-                        Details
+                        View
                       </button>
                     </div>
                   </div>
