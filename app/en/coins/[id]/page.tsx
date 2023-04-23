@@ -82,7 +82,7 @@ export default function Page() {
                     <Image
                       height={160}
                       width={160}
-                      className="bg-white rounded-full ring-4 ring-white"
+                      className="bg-gray-200 rounded-full ring-4 ring-white"
                       src={coin.imageUrl}
                       alt=""
                     />
