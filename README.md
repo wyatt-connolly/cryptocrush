@@ -1,6 +1,6 @@
 ## About the project
 
-CryptoCrush is a data-driven company that offers real-time insights and analytics on the cryptocurrency market, enabling users to make informed investment decisions.
+CryptoCrush is a data-driven company that offers real-time insights and analytics on the cryptocurrency market.
 
 :point_right: Live Demo: [CryptoCrush](https://cryptocrush-omega.vercel.app/)
 
