@@ -2,13 +2,7 @@
 
 import { useEffect } from "react";
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error;
-  reset: () => void;
-}) {
+export default function Error({ error }: { error: Error }) {
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);
@@ -25,14 +19,7 @@ export default function Error({
           Due to using a free API, the data is limited to 10-30 calls/minute.
           Please try again later.
         </p>
-        <div className="flex items-center justify-center mt-10 gap-x-6">
-          <button
-            className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            onClick={() => reset()}
-          >
-            Try again
-          </button>
-        </div>
+        <div className="flex items-center justify-center mt-10 gap-x-6"></div>
       </div>
     </div>
   );

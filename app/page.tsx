@@ -120,22 +120,12 @@ type Coin = {
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const { data, error, isLoading } = useSWR(
-    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=${currentPage}&sparkline=false/
+    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${currentPage}&sparkline=false/
     `,
     fetcher
   );
 
-  // refetch the api in the reset function
-  const { mutate } = useSWR(
-    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=${currentPage}&sparkline=false/
-    `,
-    fetcher,
-    {
-      revalidateOnFocus: false,
-    }
-  );
-
-  if (error) return <Error error={error} reset={() => mutate} />;
+  if (error) return <Error error={error} />;
   if (isLoading) return <Loader />;
 
   return (

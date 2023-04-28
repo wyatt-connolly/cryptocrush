@@ -20,7 +20,7 @@ export default function Page() {
     fetcher
   );
 
-  if (error) return <Error error={error} reset={() => {}} />;
+  if (error) return <Error error={error} />;
   if (isLoading) return <Loader />;
 
   type Coin = {
