@@ -73,7 +73,7 @@ export default function MarketChart({ params }: any) {
     fetcher
   );
 
-  if (error) return <Error error={error} reset={() => {}} />;
+  if (error) return <Error error={error} />;
   if (isLoading) return <Loader />;
 
   const labels = // map over fakeData, return an array of dates and find type of price
