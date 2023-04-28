@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Chart as ChartJS,
@@ -72,14 +73,7 @@ export default function MarketChart({ params }: any) {
     fetcher
   );
 
-  const { mutate } = useSWR(
-    `https://api.coingecko.com/api/v3/coins/${params.id}/market_chart/range?vs_currency=usd&from=1367046000&to=1682605351`,
-    fetcher,
-    {
-      revalidateOnFocus: false,
-    }
-  );
-  if (error) return <Error error={error} reset={() => mutate} />;
+  if (error) return <Error error={error} reset={() => {}} />;
   if (isLoading) return <Loader />;
 
   const labels = // map over fakeData, return an array of dates and find type of price

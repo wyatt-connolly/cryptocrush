@@ -20,14 +20,7 @@ export default function Page() {
     fetcher
   );
 
-  const { mutate } = useSWR(
-    `https://api.coingecko.com/api/v3/coins/${params.id}/`,
-    fetcher,
-    {
-      revalidateOnFocus: false,
-    }
-  );
-  if (error) return <Error error={error} reset={() => mutate} />;
+  if (error) return <Error error={error} reset={() => {}} />;
   if (isLoading) return <Loader />;
 
   type Coin = {
