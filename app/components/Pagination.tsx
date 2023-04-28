@@ -33,9 +33,19 @@ export default function Pagination({
     );
   }
 
+  const scrollMarket = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <nav className="flex items-center justify-between px-4 mt-2 -mb-px border-t border-gray-200 sm:px-0">
-      <div className="flex justify-center flex-1 w-0 -mt-px">
+      <div
+        className="flex justify-center flex-1 w-0 -mt-px"
+        onClick={scrollMarket}
+      >
         {paginationButtons}
       </div>
     </nav>
