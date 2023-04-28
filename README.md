@@ -12,12 +12,9 @@ CryptoCrush is a data-driven company that offers real-time insights and analytic
 
 ## Screenshots :camera_flash:
 
-![cryptocrush-omega vercel app_ (3)](https://user-images.githubusercontent.com/88942814/233865217-6945c61d-cc44-41df-aad3-88108d6c0e82.png)
-![cryptocrush-omega vercel app_ (4)](https://user-images.githubusercontent.com/88942814/233865251-e2fae262-b061-4e82-bb4a-914400d8e203.png)
-![cryptocrush-omega vercel app_ (5)](https://user-images.githubusercontent.com/88942814/233865275-bd0be0a4-f418-4219-9a94-573f0e861438.png)
+![cryptocrush-omega vercel app_ (7)](https://user-images.githubusercontent.com/88942814/235046955-ce3a25c2-dace-4b23-b091-dfd73c1c5215.png)
 
-
-
+![cryptocrush-omega vercel app_ (8)](https://user-images.githubusercontent.com/88942814/235047016-844bb560-7137-47b0-8376-33e8725b947d.png)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
