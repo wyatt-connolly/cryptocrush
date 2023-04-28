@@ -10,6 +10,7 @@ import fetcher from "@/app/lib/utils";
 import Error from "./error";
 import Loader from "@/app/components/Loader";
 import Image from "next/image";
+import MarketChart from "@/app/components/MarketChart";
 
 export default function Page() {
   const params = useParams();
@@ -52,9 +53,13 @@ export default function Page() {
     links: [data.links.homepage[0], data.links.blockchain_site[0]],
     about: data.description.en,
     fields: {
+      Rank: `#${data.market_cap_rank}`,
       Symbol: data.symbol.toUpperCase(),
+      Price: `$${data.market_data.current_price.usd.toLocaleString()}`,
       Hashing: data.hashing_algorithm || "N/A",
+      "All Time High": `$${data.market_data.ath.usd.toLocaleString()}`,
       Categories: data.categories.join(", "),
+      "All Time Low": `$${data.market_data.atl.usd.toLocaleString()}`,
       // convert genesis date to readable format
       Genesis:
         new Date(data.genesis_date).toLocaleDateString("en-US", {
@@ -62,10 +67,6 @@ export default function Page() {
           month: "long",
           day: "numeric",
         }) || "N/A",
-      Rank: `#${data.market_cap_rank}`,
-      "All Time High": `$${data.market_data.ath.usd.toLocaleString()}`,
-      Price: `$${data.market_data.current_price.usd.toLocaleString()}`,
-      "All Time Low": `$${data.market_data.atl.usd.toLocaleString()}`,
     },
   };
 
@@ -130,7 +131,7 @@ export default function Page() {
             </div>
 
             {/* Description list */}
-            <Container className="mt-6">
+            <Container className="mt-6 mb-24">
               <dl className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
                 {Object.keys(coin.fields).map((field) => (
                   <div key={field} className="sm:col-span-1">
@@ -142,21 +143,10 @@ export default function Page() {
                     </dd>
                   </div>
                 ))}
-                <div className="sm:col-span-2">
-                  <dt className="text-sm font-medium text-gray-500">About</dt>
-                  {coin.about ? (
-                    <dd
-                      className="mt-1 space-y-5 text-sm text-gray-900 max-w-prose"
-                      dangerouslySetInnerHTML={{ __html: coin.about }}
-                    />
-                  ) : (
-                    <dd className="mt-1 space-y-5 text-sm text-gray-900 max-w-prose">
-                      N/A
-                    </dd>
-                  )}
-                </div>
               </dl>
             </Container>
+
+            <MarketChart params={params} />
           </article>
         </main>
       </div>

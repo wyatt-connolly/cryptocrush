@@ -11,7 +11,6 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Dialog, Menu, Transition } from "@headlessui/react";
-import SlideOver from "./SlideOver";
 import { classNames } from "../lib/utils";
 import { useRouter } from "next/navigation";
 
@@ -39,38 +38,20 @@ export default function CoinRow({
   high_24h,
   low_24h,
 }: CoinRowProps) {
-  const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState({} as CoinRowProps);
   const router = useRouter();
-
-  function handleSlider() {
-    setOpen((open) => !open);
-    setSelected({
-      name,
-      symbol,
-      image,
-      price_change_percentage_24h,
-      id,
-      market_cap,
-      current_price,
-      total_volume,
-      high_24h,
-      low_24h,
-    });
-  }
 
   return (
     <>
       <tr>
         <td className="pl-4 pr-3 text-sm whitespace-nowrap sm:pl-0">
-          <button onClick={handleSlider} className="flex items-center">
+          <Link href={`/en/coins/${id}`} className="flex items-center">
             <div className="flex-shrink-0 h-11 w-11">
               <Image height={44} width={44} src={image} alt="" />
             </div>
             <div className="ml-4">
               <div className="font-medium text-gray-900">{name}</div>
             </div>
-          </button>
+          </Link>
         </td>
         <td className="px-3 py-5 text-sm text-gray-500 whitespace-nowrap">
           <div className="text-gray-900">
@@ -114,10 +95,6 @@ export default function CoinRow({
           </button>
         </td>
       </tr>
-      {open && selected && (
-        // return slideover and pass in name as prop
-        <SlideOver open={open} setOpen={setOpen} {...selected} />
-      )}
     </>
   );
 }

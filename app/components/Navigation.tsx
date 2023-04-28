@@ -13,19 +13,14 @@ const navigation = [
     href: "#market",
   },
   {
-    name: "Categories",
-    id: 2,
-    href: "#categories",
-  },
-  {
     name: "About",
-    id: 3,
+    id: 2,
     href: "#about",
   },
 
   {
     name: "Join Us",
-    id: 4,
+    id: 3,
     href: "#join-us",
   },
 ];

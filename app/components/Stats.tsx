@@ -9,7 +9,6 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { classNames } from "../lib/utils";
-import SlideOver from "./SlideOver";
 
 type StatsProps = {
   id: string;
@@ -34,24 +33,8 @@ export default function Stats({
   high_24h,
   low_24h,
 }: StatsProps) {
-  const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState({});
   // check if price_change_percentage_24h is positive or negative
   const changeType = price_change_percentage_24h > 0 ? "increase" : "decrease";
-  function handleClick() {
-    setOpen((open) => !open);
-    setSelected({
-      id,
-      image,
-      name,
-      current_price,
-      price_change_percentage_24h,
-      market_cap,
-      total_volume,
-      high_24h,
-      low_24h,
-    });
-  }
 
   return (
     <>
@@ -92,20 +75,16 @@ export default function Stats({
           </p>
           <div className="absolute inset-x-0 bottom-0 px-4 py-4 bg-gray-50 sm:px-6">
             <div className="text-sm">
-              <button
-                onClick={handleClick}
+              <Link
+                href={`/en/coins/${id}`}
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
                 View<span className="sr-only"> {name} stats</span>
-              </button>
+              </Link>
             </div>
           </div>
         </dd>
       </div>
-      {open && selected && (
-        // return slideover and pass in name as prop
-        <SlideOver open={open} setOpen={setOpen} {...selected} />
-      )}
     </>
   );
 }
