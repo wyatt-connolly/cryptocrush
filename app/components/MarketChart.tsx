@@ -61,16 +61,7 @@ const options = {
   },
 };
 
-type MarketChart = {
-  prices: number[][];
-  market_caps: number[][];
-  total_volumes: number[][];
-  params: {
-    id: string;
-  };
-};
-
-export default function MarketChart({ params }: MarketChart) {
+export default function MarketChart({ params }: any) {
   const { data, error, isLoading } = useSWR(
     `https://api.coingecko.com/api/v3/coins/${
       params.id
@@ -91,8 +82,8 @@ export default function MarketChart({ params }: MarketChart) {
   if (error) return <Error error={error} reset={() => mutate} />;
   if (isLoading) return <Loader />;
 
-  const labels = // map over fakeData and return an array of dates
-    data.prices.map((price) => new Date(price[0]).toLocaleDateString());
+  const labels = // map over fakeData, return an array of dates and find type of price
+    data.prices.map((price: any) => new Date(price[0]).toLocaleDateString());
 
   const chartData = {
     labels,
@@ -100,7 +91,7 @@ export default function MarketChart({ params }: MarketChart) {
       {
         label: "Market Price (USD)",
         // map over data, return an array of prices with 2 decimal places and $ sign, convert to number, and return
-        data: data.prices.map((price) => Number(price[1].toFixed(2))),
+        data: data.prices.map((price: any) => Number(price[1].toFixed(2))),
         fill: false,
         // create rgba positive green color
         borderColor: "rgba(75, 192, 192, 1)",
