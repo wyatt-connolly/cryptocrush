@@ -125,7 +125,7 @@ export default function Page() {
 
             {/* Description list */}
             <Container className="py-6 sm:pb-24">
-              <dl className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
+              <dl className="grid grid-cols-2 gap-x-6 gap-y-8">
                 {Object.keys(coin.fields).map((field) => (
                   <div key={field} className="sm:col-span-1">
                     <dt className="text-sm font-medium text-gray-500">
