@@ -131,7 +131,7 @@ export default function Page() {
             </div>
 
             {/* Description list */}
-            <Container className="mt-6 mb-24">
+            <Container className="py-6 sm:pb-24">
               <dl className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
                 {Object.keys(coin.fields).map((field) => (
                   <div key={field} className="sm:col-span-1">
@@ -145,7 +145,6 @@ export default function Page() {
                 ))}
               </dl>
             </Container>
-
             <MarketChart params={params} />
           </article>
         </main>
