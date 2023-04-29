@@ -49,16 +49,16 @@ export default function CoinRow({
               <Image height={44} width={44} src={image} alt="" />
             </div>
             <div className="ml-4">
-              <div className="font-medium text-gray-900">{name}</div>
+              <div className="font-medium hover:underline decoration-white">
+                {name}
+              </div>
             </div>
           </Link>
         </td>
-        <td className="px-3 py-5 text-sm text-gray-500 whitespace-nowrap">
-          <div className="text-gray-900">
-            ${current_price?.toLocaleString()}
-          </div>
+        <td className="px-3 py-5 text-sm  whitespace-nowrap">
+          <div>${current_price?.toLocaleString()}</div>
         </td>
-        <td className="px-3 py-5 text-sm text-gray-500 whitespace-nowrap">
+        <td className="px-3 py-5 text-sm  whitespace-nowrap">
           <span
             className={classNames(
               "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",
@@ -81,15 +81,14 @@ export default function CoinRow({
             {price_change_percentage_24h?.toFixed(2)}%
           </span>
         </td>
-        <td className="px-3 py-5 text-sm text-gray-500 whitespace-nowrap">
-          <div className="text-gray-900">${market_cap?.toLocaleString()}</div>
+        <td className="px-3 py-5 text-sm  whitespace-nowrap">
+          <div>${market_cap?.toLocaleString()}</div>
         </td>
         <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-0">
           <button
             onClick={() => {
               router.push(`/en/coins/${id}`);
             }}
-            className="text-indigo-600 hover:text-indigo-900"
           >
             Details<span className="sr-only">, {name}</span>
           </button>

@@ -83,7 +83,7 @@ export default function Page() {
                   </div>
                   <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                     <div className="flex-1 min-w-0 mt-6 sm:hidden 2xl:block">
-                      <h1 className="text-2xl font-bold text-gray-900 truncate">
+                      <h1 className="text-2xl font-bold  truncate">
                         {coin.name}
                       </h1>
                     </div>
@@ -92,10 +92,10 @@ export default function Page() {
                         href={coin.links[0]}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                        className="inline-flex justify-center gap-x-1.5 rounded-md  px-3 py-2 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                       >
                         <HomeIcon
-                          className="-ml-0.5 h-5 w-5 text-gray-400"
+                          className="-ml-0.5 h-5 w-5 "
                           aria-hidden="true"
                         />
                         Homepage
@@ -104,10 +104,10 @@ export default function Page() {
                         href={coin.links[1]}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                        className="inline-flex justify-center gap-x-1.5 rounded-md  px-3 py-2 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                       >
                         <LinkIcon
-                          className="-ml-0.5 h-5 w-5 text-gray-400"
+                          className="-ml-0.5 h-5 w-5 "
                           aria-hidden="true"
                         />
                         Blockchain
@@ -116,9 +116,7 @@ export default function Page() {
                   </div>
                 </div>
                 <div className="flex-1 hidden min-w-0 mt-6 sm:block 2xl:hidden">
-                  <h1 className="text-2xl font-bold text-gray-900 truncate">
-                    {coin.name}
-                  </h1>
+                  <h1 className="text-2xl font-bold  truncate">{coin.name}</h1>
                 </div>
               </Container>
             </div>
@@ -128,10 +126,8 @@ export default function Page() {
               <dl className="grid grid-cols-2 gap-x-6 gap-y-8">
                 {Object.keys(coin.fields).map((field) => (
                   <div key={field} className="sm:col-span-1">
-                    <dt className="text-sm font-medium text-gray-500">
-                      {field}
-                    </dt>
-                    <dd className="mt-1 text-sm text-gray-900">
+                    <dt className="text-sm font-medium ">{field}</dt>
+                    <dd className="mt-1 text-sm ">
                       {coin.fields[field as keyof typeof coin.fields]}
                     </dd>
                   </div>

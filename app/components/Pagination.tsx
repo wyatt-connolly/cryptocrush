@@ -23,9 +23,9 @@ export default function Pagination({
           setCurrentPage(i);
         }}
         className={classNames(
-          "inline-flex items-center px-4 pt-4 text-sm font-medium text-gray-500 border-t-2 border-transparent hover:border-gray-300 hover:text-gray-700 focus:border-t-indigo-500 focus:text-indigo-600",
+          "inline-flex items-center px-4 pt-4 text-sm font-medium text-white border-t-2 border-transparent hover:border-green-600 hover:text-green-300 focus:border-t-green-500 focus:text-green-600",
           currentPage === i &&
-            "border-indigo-500 border-t-indigo-500 text-indigo-600 focus:outline-none focus:text-indigo-800 focus:border-indigo-700"
+            "border-green-500 border-t-green-500 text-green-300 focus:outline-none focus:text-green-800 focus:border-green-700"
         )}
       >
         {i}

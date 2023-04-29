@@ -64,14 +64,14 @@ const navigation = [
 
 export default function Footer() {
   return (
-    <footer className="bg-white">
+    <footer>
       <div className="px-6 py-12 mx-auto max-w-7xl md:flex md:items-center md:justify-between lg:px-8">
         <div className="flex justify-center space-x-6 md:order-2">
           {navigation.map((item) => (
             <a
               key={item.name}
               href={item.href}
-              className="text-gray-400 hover:text-gray-500"
+              className=""
               target="_blank"
               rel="noreferrer"
             >
@@ -81,12 +81,10 @@ export default function Footer() {
           ))}
         </div>
         <div className="mt-8 md:order-1 md:mt-0">
-          <p className="text-xs leading-5 text-center text-gray-500">
+          <p className="text-xs leading-5 text-center ">
             &copy; 2023 CryptoCrush, Inc. All rights reserved.
           </p>
-          <p className="text-xs leading-5 text-center text-gray-500">
-            Powered by CoinGecko
-          </p>
+          <p className="text-xs leading-5 text-center ">Powered by CoinGecko</p>
         </div>
       </div>
     </footer>
