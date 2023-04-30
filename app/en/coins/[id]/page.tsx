@@ -1,27 +1,24 @@
 "use client";
 import { Fragment } from "react";
 import { LinkIcon, HomeIcon } from "@heroicons/react/20/solid";
-import { classNames } from "@/app/lib/utils";
+import { classNames } from "@/lib/utils";
 import Container from "@/app/components/Container";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import useSWR, { mutate } from "swr";
-import fetcher from "@/app/lib/utils";
+import fetcher from "@/lib/utils";
 import Error from "./error";
 import Loader from "@/app/components/Loader";
 import Image from "next/image";
 import MarketChart from "@/app/components/MarketChart";
+import { useCoin } from "@/lib/swr-hooks";
 
 export default function Page() {
   const params = useParams();
-  const { data, error, isLoading } = useSWR(
-    `https://api.coingecko.com/api/v3/coins/${params.id}/`,
+  const { coinData, coinError, coinIsLoading } = useCoin(params.id);
 
-    fetcher
-  );
-
-  if (error) return <Error error={error} />;
-  if (isLoading) return <Loader />;
+  if (coinError) return <Error error={coinError} />;
+  if (coinIsLoading) return <Loader />;
 
   type Coin = {
     name: string;
@@ -41,21 +38,21 @@ export default function Page() {
   };
 
   const coin: Coin = {
-    name: data.name,
-    imageUrl: data.image.large,
-    links: [data.links.homepage[0], data.links.blockchain_site[0]],
-    about: data.description.en,
+    name: coinData.name,
+    imageUrl: coinData.image.large,
+    links: [coinData.links.homepage[0], coinData.links.blockchain_site[0]],
+    about: coinData.description.en,
     fields: {
-      Rank: `#${data.market_cap_rank}`,
-      Symbol: data.symbol.toUpperCase(),
-      Price: `$${data.market_data.current_price.usd.toLocaleString()}`,
-      Hashing: data.hashing_algorithm || "N/A",
-      "All Time High": `$${data.market_data.ath.usd.toLocaleString()}`,
-      Categories: data.categories.join(", "),
-      "All Time Low": `$${data.market_data.atl.usd.toLocaleString()}`,
+      Rank: `#${coinData.market_cap_rank}`,
+      Symbol: coinData.symbol.toUpperCase(),
+      Price: `$${coinData.market_data.current_price.usd.toLocaleString()}`,
+      Hashing: coinData.hashing_algorithm || "N/A",
+      "All Time High": `$${coinData.market_data.ath.usd.toLocaleString()}`,
+      Categories: coinData.categories.join(", "),
+      "All Time Low": `$${coinData.market_data.atl.usd.toLocaleString()}`,
       // convert genesis date to readable format
       Genesis:
-        new Date(data.genesis_date).toLocaleDateString("en-US", {
+        new Date(coinData.genesis_date).toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",
           day: "numeric",
@@ -83,7 +80,7 @@ export default function Page() {
                   </div>
                   <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                     <div className="flex-1 min-w-0 mt-6 sm:hidden 2xl:block">
-                      <h1 className="text-2xl font-bold  truncate">
+                      <h1 className="text-2xl font-bold truncate">
                         {coin.name}
                       </h1>
                     </div>
@@ -116,7 +113,7 @@ export default function Page() {
                   </div>
                 </div>
                 <div className="flex-1 hidden min-w-0 mt-6 sm:block 2xl:hidden">
-                  <h1 className="text-2xl font-bold  truncate">{coin.name}</h1>
+                  <h1 className="text-2xl font-bold truncate">{coin.name}</h1>
                 </div>
               </Container>
             </div>

@@ -1,6 +1,6 @@
 "use client";
 import Stat from "../components/Stat";
-import fetcher from "../lib/utils";
+import fetcher from "@/lib/utils";
 import useSWR from "swr";
 import Loader from "../components/Loader";
 import Error from "../error";
@@ -32,7 +32,7 @@ function Page() {
   const trendingCoins = trendingData.coins.slice(0, 5);
 
   return (
-    <dl className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-5">
+    <dl className="grid grid-cols-1 gap-5 mt-5 lg:grid-cols-5">
       {trendingCoins.map((coin) => (
         // if bitcoinPrice is above a penny, round to 2 decimal places. Otherwise, round to 6 decimal places
 

@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Dialog, Menu, Transition } from "@headlessui/react";
-import { classNames } from "../lib/utils";
+import { classNames } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 
 type CoinRowProps = {
@@ -55,10 +55,10 @@ export default function CoinRow({
             </div>
           </Link>
         </td>
-        <td className="px-3 py-5 text-sm  whitespace-nowrap">
+        <td className="px-3 py-5 text-sm whitespace-nowrap">
           <div>${current_price?.toLocaleString()}</div>
         </td>
-        <td className="px-3 py-5 text-sm  whitespace-nowrap">
+        <td className="px-3 py-5 text-sm whitespace-nowrap">
           <span
             className={classNames(
               "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",
@@ -81,7 +81,7 @@ export default function CoinRow({
             {price_change_percentage_24h?.toFixed(2)}%
           </span>
         </td>
-        <td className="px-3 py-5 text-sm  whitespace-nowrap">
+        <td className="px-3 py-5 text-sm whitespace-nowrap">
           <div>${market_cap?.toLocaleString()}</div>
         </td>
         <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-0">

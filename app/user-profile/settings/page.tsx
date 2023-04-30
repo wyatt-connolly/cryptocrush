@@ -11,7 +11,7 @@ export default function Page() {
   }
 
   return (
-    <div className="flex justify-center">
+    <div className="pb-12 flex justify-center px-4 sm:px-6 lg:px-8">
       <UserProfile path="/user-profile/settings" routing="path" />
     </div>
   );

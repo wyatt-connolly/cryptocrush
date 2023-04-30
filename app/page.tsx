@@ -24,8 +24,8 @@ import Pagination from "./components/Pagination";
 import Container from "./components/Container";
 import Loader from "./components/Loader";
 import Error from "./error";
-import fetcher from "./lib/utils";
-
+import fetcher from "@/lib/utils";
+import { useMarket, useTrending, useBitcoinPrice } from "@/lib/swr-hooks";
 function About() {
   const features = [
     { id: 1, name: "Market entry year", value: "2023" },
@@ -122,42 +122,24 @@ type Coin = {
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
-  const {
-    data: marketData,
-    error: marketError,
-    isLoading: marketIsLoading,
-  } = useSWR(
-    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${currentPage}&sparkline=false/
-    `,
-    fetcher
-  );
-  const {
-    data: trendingData,
-    error: trendingError,
-    isLoading: trendingIsLoading,
-  } = useSWR(`https://api.coingecko.com/api/v3/search/trending`, fetcher);
 
-  const {
-    data: bitcoinData,
-    error: bitcoinError,
-    isLoading: bitcoinIsLoading,
-  } = useSWR(
-    `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd`,
-    fetcher
-  );
+  const { marketData, marketError, marketIsLoading } = useMarket(currentPage);
+  const { trendingData, trendingError, trendingIsLoading } = useTrending();
+  const { bitcoinPriceData, bitcoinPriceError, bitcoinPriceIsLoading } =
+    useBitcoinPrice();
 
-  if (marketError) return <Error error={marketError} />;
   if (marketIsLoading) return <Loader />;
-  if (trendingError) return <Error error={trendingError} />;
-  if (bitcoinError) return <Error error={bitcoinError} />;
   if (trendingIsLoading) return <Loader />;
-  if (bitcoinIsLoading) return <Loader />;
+  if (bitcoinPriceIsLoading) return <Loader />;
+  if (marketError) return <Error error={marketError} />;
+  if (trendingError) return <Error error={trendingError} />;
+  if (bitcoinPriceError) return <Error error={bitcoinPriceError} />;
 
   // access bitcoinData and return the price
-  const bitcoinPrice = bitcoinData.bitcoin.usd;
+  const bitcoinPrice = bitcoinPriceData.bitcoin.usd;
 
   // access trendingData and the first five coins
-  const trendingCoins = trendingData.coins.slice(0, 5);
+  const trending = trendingData.coins.slice(0, 5);
 
   return (
     <main className="-mt-32" id="market">
@@ -219,8 +201,8 @@ export default function Home() {
         <h3 className="text-base font-semibold leading-6 text-white">
           Trending Coins
         </h3>
-        <dl className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-5">
-          {trendingCoins.map((coin) => (
+        <dl className="grid grid-cols-1 gap-5 mt-5 lg:grid-cols-5">
+          {trending.map((coin) => (
             // if bitcoinPrice is above a penny, round to 2 decimal places. Otherwise, round to 6 decimal places
 
             <Stat
