@@ -142,7 +142,7 @@ export default function Home() {
   const trending = trendingData.coins.slice(0, 5);
 
   return (
-    <main className="-mt-32" id="market">
+    <main className="-mt-32" id="cryptocurrencies">
       <div className="px-4 pb-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <h3 className="text-base font-semibold leading-6 text-white">
           Cryptocurrency Prices by Market Cap

@@ -1,7 +1,21 @@
 "use client";
-import { classNames } from "lib/utils";
+import { classNames } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
+type StatProps = {
+  id: string;
+  coin_id: string;
+  name: string;
+  symbol: string;
+  market_cap_rank: number;
+  thumb: string;
+  small: string;
+  large: string;
+  slug: string;
+  price_btc: number;
+  score: number;
+};
 
 export default function Stat({
   id,
@@ -15,7 +29,7 @@ export default function Stat({
   slug,
   price_btc,
   score,
-}) {
+}: StatProps) {
   const router = useRouter();
   if (price_btc < 0.01) {
     price_btc = price_btc.toFixed(12);
@@ -30,15 +44,15 @@ export default function Stat({
     <>
       <div
         key={id}
-        className="cursor-pointer relative overflow-hidden rounded-lg bg-neutral-800 px-4 py-6 shadow sm:px-6 flex items-center hover:bg-neutral-700 transition ease-in-out duration-150"
+        className="relative flex items-center px-4 py-6 overflow-hidden transition duration-150 ease-in-out rounded-lg shadow cursor-pointer bg-neutral-800 sm:px-6 hover:bg-neutral-700"
         onClick={() => router.push(`en/coins/${id}`)}
       >
         <div>
-          <Image src={small} height={32} width={32} />
+          <Image alt="coin thumbnail" src={small} height={32} width={32} />
         </div>
-        <div className="ml-4 flex items-baseline flex-col">
+        <div className="flex flex-col items-baseline ml-4">
           <p className="text-sm font-semibold text-white">
-            <p className="truncate text-sm font-medium text-white">{name}</p>
+            <p className="text-sm font-medium text-white truncate">{name}</p>
             <span>$</span>
             {price_btc}
           </p>

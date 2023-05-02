@@ -15,9 +15,9 @@ import Search from "./Search";
 
 const navigation = [
   {
-    name: "Market",
+    name: "Cryptocurrencies",
     id: 1,
-    href: "#market",
+    href: "#cryptocurrencies",
   },
   {
     name: "About",

@@ -1,101 +1,35 @@
 "use client";
 import { Fragment, useState } from "react";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
+import Image from "next/image";
 import {
   MagnifyingGlassIcon,
   PencilSquareIcon,
   CheckIcon,
 } from "@heroicons/react/20/solid";
 import { classNames } from "@/lib/utils";
-
-const people = [
-  {
-    id: 1,
-    name: "Wade Cooper",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 2,
-    name: "Arlene Mccoy",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 3,
-    name: "Devon Webb",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 4,
-    name: "Tom Cook",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 5,
-    name: "Tanya Fox",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 6,
-    name: "Hellen Schmidt",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 7,
-    name: "Hellen Schmidt",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 8,
-    name: "Hellen Schmidt",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 9,
-    name: "Hellen Schmidt",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 10,
-    name: "Hellen Schmidt",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 11,
-    name: "Hellen Schmidt",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 12,
-    name: "Hellen Schmidt",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 13,
-    name: "Hellen Schmidt",
-    imageUrl:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-];
+import { useTrending, useSearch } from "@/lib/swr-hooks";
+import Loader from "./Loader";
+import Error from "../error";
+import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
+import useSwr from "swr";
 
 export default function Search() {
   const [selected, setSelected] = useState(null);
   const [query, setQuery] = useState("");
 
+  const { trendingData, trendingError, trendingIsLoading } = useTrending();
+  const { searchData, searchError, searchIsLoading } = useSearch(query);
+
+  if (trendingIsLoading) return <Loader />;
+  if (trendingError) return <Error error={trendingError} />;
+
+  const people = searchData?.coins || [];
+
   const filteredPeople =
     query === ""
-      ? people
+      ? []
       : people.filter((person) =>
           person.name
             .toLowerCase()
@@ -106,7 +40,6 @@ export default function Search() {
   return (
     <Combobox value={selected} onChange={setSelected}>
       <Combobox.Button className="w-full">
-        {" "}
         <Combobox.Label className="sr-only">Search</Combobox.Label>
         <div className="relative text-gray-400 focus-within:text-gray-600">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -133,49 +66,80 @@ export default function Search() {
           leaveTo="opacity-0"
           afterLeave={() => setQuery("")}
         >
-          <Combobox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto text-base border rounded-sm shadow-lg border-neutral-600 bg-neutral-900 max-h-96 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-            {filteredPeople.length === 0 && query !== "" ? (
+          <Combobox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto border rounded-sm shadow-lg border-neutral-600 bg-neutral-900 max-h-96 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            {query === "" && (
+              <div className="relative px-4 py-2 text-xs text-left text-white border-b cursor-default select-none border-neutral-600">
+                <div>Trending Search 🔥</div>
+                <div className="flex flex-wrap mt-2">
+                  {trendingData?.coins.map((coin) => (
+                    <Combobox.Button
+                      as={Link}
+                      key={coin.item.id}
+                      href={`/en/coins/${coin.item.id}`}
+                      className="flex items-center px-2 py-1 mb-2 mr-2 text-xs font-medium text-white rounded-md cursor-pointer bg-neutral-700"
+                    >
+                      <Image
+                        src={coin.item.small}
+                        alt=""
+                        className="flex-shrink-0 rounded-full"
+                        height={16}
+                        width={16}
+                      />
+                      <span className="ml-1">{coin.item.name}</span>
+                    </Combobox.Button>
+                  ))}
+                </div>
+              </div>
+            )}
+            {filteredPeople.length > 0 &&
+              filteredPeople.map((person) => (
+                <Combobox.Button
+                  as={Link}
+                  href={`/en/coins/${person.id}`}
+                  key={person.id}
+                >
+                  <Combobox.Option
+                    className={({ active }) =>
+                      `relative cursor-default select-none py-2 pl-3 pr-9 ${
+                        active ? "bg-neutral-700 text-white" : "text-white"
+                      }`
+                    }
+                    value={person}
+                  >
+                    {({ selected, active }) => (
+                      <div className="flex items-center">
+                        <Image
+                          src={person.thumb}
+                          alt=""
+                          className="flex-shrink-0 rounded-full"
+                          height={24}
+                          width={24}
+                        />
+                        <span
+                          className={`ml-3 truncate ${
+                            selected ? "font-medium" : "font-normal"
+                          }`}
+                        >
+                          {person.name}
+                        </span>
+                        {selected ? (
+                          <span
+                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                              active ? "text-white" : "text-neutral-200"
+                            }`}
+                          >
+                            <CheckIcon className="w-5 h-5" aria-hidden="true" />
+                          </span>
+                        ) : null}
+                      </div>
+                    )}
+                  </Combobox.Option>
+                </Combobox.Button>
+              ))}
+            {filteredPeople.length === 0 && query !== "" && (
               <div className="relative px-4 py-2 text-white cursor-default select-none">
                 Nothing found.
               </div>
-            ) : (
-              filteredPeople.map((person) => (
-                <Combobox.Option
-                  key={person.id}
-                  className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-3 pr-9 ${
-                      active ? "bg-neutral-700 text-white" : "text-white"
-                    }`
-                  }
-                  value={person}
-                >
-                  {({ selected, active }) => (
-                    <div className="flex items-center">
-                      <img
-                        src={person.imageUrl}
-                        alt=""
-                        className="flex-shrink-0 w-6 h-6 rounded-full"
-                      />
-                      <span
-                        className={`ml-3 truncate ${
-                          selected ? "font-medium" : "font-normal"
-                        }`}
-                      >
-                        {person.name}
-                      </span>
-                      {selected ? (
-                        <span
-                          className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                            active ? "text-white" : "text-neutral-200"
-                          }`}
-                        >
-                          <CheckIcon className="w-5 h-5" aria-hidden="true" />
-                        </span>
-                      ) : null}
-                    </div>
-                  )}
-                </Combobox.Option>
-              ))
             )}
           </Combobox.Options>
         </Transition>
