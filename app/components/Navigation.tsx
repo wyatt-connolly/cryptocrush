@@ -11,6 +11,7 @@ import {
 import { classNames } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Search from "./Search";
 
 const navigation = [
   {
@@ -80,25 +81,8 @@ export default function Navigation({ children }: any) {
                       </div>
                     </div>
                     <div className="flex justify-center flex-1 px-2 lg:ml-6 lg:justify-end">
-                      <div className="w-full max-w-lg lg:max-w-xs">
-                        <label htmlFor="search" className="sr-only">
-                          Search
-                        </label>
-                        <div className="relative text-gray-400 focus-within:text-gray-600">
-                          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <MagnifyingGlassIcon
-                              className="w-5 h-5"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <input
-                            id="search"
-                            className="block w-full rounded-md border-0 bg-neutral-600 py-1.5 pl-10 pr-3 text-white focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 focus:ring-offset-neutral-900 sm:text-sm sm:leading-6"
-                            placeholder="Search"
-                            type="search"
-                            name="search"
-                          />
-                        </div>
+                      <div className="relative w-full max-w-lg lg:max-w-xs">
+                        <Search />
                       </div>
                     </div>
                     <div className="flex lg:hidden">

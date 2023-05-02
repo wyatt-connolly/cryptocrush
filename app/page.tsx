@@ -121,9 +121,9 @@ type Coin = {
 };
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [pageIndex, setPageIndex] = useState(1);
 
-  const { marketData, marketError, marketIsLoading } = useMarket(currentPage);
+  const { marketData, marketError, marketIsLoading } = useMarket(pageIndex);
   const { trendingData, trendingError, trendingIsLoading } = useTrending();
   const { bitcoinPriceData, bitcoinPriceError, bitcoinPriceIsLoading } =
     useBitcoinPrice();
@@ -195,7 +195,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        <Pagination pageIndex={pageIndex} setPageIndex={setPageIndex} />
       </div>
       <div className="px-4 sm:px-6 lg:px-8">
         <h3 className="text-base font-semibold leading-6 text-white">
