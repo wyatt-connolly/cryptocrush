@@ -53,9 +53,9 @@ export default function CoinRow({
         <th scope="col" className="relative px-7 sm:w-12 sm:px-6">
           <input
             type="checkbox"
-            className="absolute w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded left-2 top-1/2 focus:ring-indigo-600"
+            className="absolute left-0 w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded top-1/2 focus:ring-indigo-600"
           />
-          <div className="ml-1 text-xs text-gray-300">#{market_cap_rank}</div>
+          <div className="-ml-2 text-xs text-gray-300">#{market_cap_rank}</div>
         </th>
         <td className="pl-4 pr-3 text-sm whitespace-nowrap sm:pl-0">
           <Link href={`/en/coins/${id}`} className="flex items-center">
