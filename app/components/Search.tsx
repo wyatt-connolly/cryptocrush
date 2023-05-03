@@ -80,7 +80,7 @@ export default function Search() {
           leaveTo="opacity-0"
           afterLeave={() => setQuery("")}
         >
-          <Combobox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto border rounded-sm shadow-lg border-neutral-600 bg-neutral-900 max-h-96 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <Combobox.Options className="absolute z-20 w-full py-1 mt-1 overflow-auto border rounded-sm shadow-lg border-neutral-600 bg-neutral-900 max-h-96 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {query === "" && (
               <div className="relative px-4 py-2 text-xs text-left text-white cursor-default select-none border-neutral-600">
                 <div>Trending Search 🔥</div>

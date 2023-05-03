@@ -3,7 +3,7 @@ import { classNames } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-type StatProps = {
+type TrendingProps = {
   id: string;
   coin_id: string;
   name: string;
@@ -17,7 +17,7 @@ type StatProps = {
   score: number;
 };
 
-export default function Stat({
+export default function Trending({
   id,
   coin_id,
   name,
@@ -29,7 +29,7 @@ export default function Stat({
   slug,
   price_btc,
   score,
-}: StatProps) {
+}: TrendingProps) {
   const router = useRouter();
   if (price_btc < 0.01) {
     price_btc = price_btc.toFixed(12);

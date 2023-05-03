@@ -1,5 +1,5 @@
 "use client";
-import Stat from "../components/Stat";
+import Stat from "../components/Trending";
 import fetcher from "@/lib/utils";
 import useSWR from "swr";
 import Loader from "../components/Loader";

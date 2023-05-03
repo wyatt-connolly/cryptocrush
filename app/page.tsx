@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import Stat from "./components/Stat";
+import Trending from "./components/Trending";
 import {
   ArrowDownIcon,
   ArrowUpIcon,
@@ -166,9 +166,15 @@ export default function Home() {
         <div className="flow-root mt-8">
           <div className="-mx-4 -my-2 overflow-x-auto lg:overflow-x-visible sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8 ">
-              <table className="min-w-full divide-y divide-neutral-600">
+              <table className="min-w-full divide-y table-fixed divide-neutral-600">
                 <thead>
                   <tr>
+                    <th
+                      scope="col"
+                      className="sticky top-0 z-10 text-sm font-semibold text-left text-white bg-opacity-75 px-7 sm:w-12 sm:px-6 bg-neutral-900 backdrop-blur backdrop-filter"
+                    >
+                      #
+                    </th>
                     <th
                       scope="col"
                       className="sticky top-0 z-10 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0 bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
@@ -185,7 +191,20 @@ export default function Home() {
                       scope="col"
                       className="sticky top-0 z-10 px-3 py-3.5 text-left text-sm font-semibold text-white bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
                     >
-                      24hr Change
+                      1hr
+                    </th>
+
+                    <th
+                      scope="col"
+                      className="sticky top-0 z-10 px-3 py-3.5 text-left text-sm font-semibold text-white bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
+                    >
+                      24hr
+                    </th>
+                    <th
+                      scope="col"
+                      className="sticky top-0 z-10 px-3 py-3.5 text-left text-sm font-semibold text-white bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
+                    >
+                      7d
                     </th>
                     <th
                       scope="col"
@@ -195,17 +214,15 @@ export default function Home() {
                     </th>
                     <th
                       scope="col"
-                      className="relative py-3.5 pl-3 pr-4 sm:pr-0"
+                      className="sticky top-0 z-10 px-3 py-3.5 text-left text-sm font-semibold text-white bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
                     >
-                      <span className="sr-only">Edit</span>
+                      Last 7 days
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-neutral-600">
-                  {marketData.map((item: Coin) => (
-                    <CoinRow key={item.id} {...item} />
-                  ))}
-                </tbody>
+                {marketData.map((item: Coin) => (
+                  <CoinRow key={item.id} {...item} />
+                ))}
               </table>
             </div>
           </div>
@@ -220,7 +237,7 @@ export default function Home() {
           {trending.map((coin: Coin) => (
             // if bitcoinPrice is above a penny, round to 2 decimal places. Otherwise, round to 6 decimal places
 
-            <Stat
+            <Trending
               {...coin.item}
               key={coin.item.id}
               price_btc={coin.item.price_btc * bitcoinPrice}
