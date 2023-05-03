@@ -12,7 +12,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Dialog, Menu, Transition } from "@headlessui/react";
-import { classNames } from "@/lib/utils";
+import { classNames } from "../utils";
 import { useRouter } from "next/navigation";
 
 type CoinRowProps = {
@@ -50,19 +50,22 @@ export default function CoinRow({
   return (
     <tbody className="divide-y divide-neutral-600">
       <tr>
-        <th scope="col" className="relative px-7 sm:w-12 sm:px-6">
+        <td
+          scope="col"
+          className="sticky left-0 z-20 px-7 sm:w-12 sm:px-6 bg-neutral-900"
+        >
           <input
             type="checkbox"
             className="absolute left-0 w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded top-1/2 focus:ring-indigo-600"
           />
-          <div className="-ml-2 text-xs text-gray-300">#{market_cap_rank}</div>
-        </th>
-        <td className="pl-4 pr-3 text-sm whitespace-nowrap sm:pl-0">
+          <div className="text-xs text-gray-300">{market_cap_rank}</div>
+        </td>
+        <td className="sticky z-20 pl-4 pr-3 text-sm left-12 lg:whitespace-nowrap sm:pl-0 bg-neutral-900">
           <Link href={`/en/coins/${id}`} className="flex items-center">
             <div className="flex-shrink-0 h-11 w-11">
               <Image height={44} width={44} src={image} alt="" />
             </div>
-            <div className="flex items-center ml-4">
+            <div className="ml-2 lg:ml-4 lg:flex lg:items-center">
               <div className="font-medium hover:underline decoration-white">
                 {name}
               </div>

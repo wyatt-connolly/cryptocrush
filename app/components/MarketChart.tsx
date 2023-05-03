@@ -13,9 +13,10 @@ import {
 import type { ChartData, ChartOptions } from "chart.js";
 import { Line } from "react-chartjs-2";
 import useSWR from "swr";
-import fetcher from "@/lib/utils";
+import fetcher from "../utils";
 import Error from "../error";
 import Loader from "@/app/components/Loader";
+import { useMarketChart } from "@/app/hooks/swr-hooks";
 
 interface LineProps {
   options: ChartOptions<"line">;
@@ -63,21 +64,16 @@ const options = {
 };
 
 export default function MarketChart({ params }: any) {
-  const { data, error, isLoading } = useSWR(
-    `https://api.coingecko.com/api/v3/coins/${
-      params.id
-    }/market_chart/range?vs_currency=usd&from=1367046000&to=${Math.floor(
-      Date.now() / 1000
-    )}}`,
+  const { marketChartData, marketChartIsLoading, marketChartError } =
+    useMarketChart(params);
 
-    fetcher
-  );
-
-  if (error) return <Error error={error} />;
-  if (isLoading) return <Loader />;
+  if (marketChartError) return <Error error={marketChartError} />;
+  if (marketChartIsLoading) return <Loader />;
 
   const labels = // map over fakeData, return an array of dates and find type of price
-    data.prices.map((price: any) => new Date(price[0]).toLocaleDateString());
+    marketChartData.prices.map((price: any) =>
+      new Date(price[0]).toLocaleDateString()
+    );
 
   const chartData = {
     labels,
@@ -85,7 +81,9 @@ export default function MarketChart({ params }: any) {
       {
         label: "Market Price (USD)",
         // map over data, return an array of prices with 2 decimal places and $ sign, convert to number, and return
-        data: data.prices.map((price: any) => Number(price[1].toFixed(2))),
+        data: marketChartData.prices.map((price: any) =>
+          Number(price[1].toFixed(2))
+        ),
         fill: false,
         // create rgba positive green color
         borderColor: "rgba(75, 192, 192, 1)",

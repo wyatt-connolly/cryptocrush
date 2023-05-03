@@ -1,5 +1,5 @@
 import useSwr from "swr";
-import fetcher from "./utils";
+import fetcher from "../utils";
 
 export function useMarket(pageIndex) {
   const { data, error, isLoading } = useSwr(
@@ -68,5 +68,22 @@ export function useSearch(params) {
     searchData: data,
     searchIsLoading: isLoading,
     searchError: error,
+  };
+}
+
+export function useMarketChart(params) {
+  const { data, error, isLoading } = useSwr(
+    `https://api.coingecko.com/api/v3/coins/${
+      params.id
+    }/market_chart/range?vs_currency=usd&from=1367046000&to=${Math.floor(
+      Date.now() / 1000
+    )}}`,
+    fetcher
+  );
+
+  return {
+    marketChartData: data,
+    marketChartIsLoading: isLoading,
+    marketChartError: error,
   };
 }

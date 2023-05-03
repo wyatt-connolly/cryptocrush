@@ -1,9 +1,37 @@
 "use client";
 import Stat from "../components/Trending";
-import fetcher from "@/lib/utils";
+import fetcher from "../utils";
 import useSWR from "swr";
 import Loader from "../components/Loader";
 import Error from "../error";
+
+type Coin = {
+  id: string;
+  coin_id: string;
+  name: string;
+  symbol: string;
+  thumb: string;
+  small: string;
+  large: string;
+  slug: string;
+  price_btc: number;
+  market_cap_rank: number;
+  score: number;
+  item: {
+    id: string;
+    coin_id: string;
+    name: string;
+    symbol: string;
+    thumb: string;
+    small: string;
+    large: string;
+    slug: string;
+    price_btc: number;
+    score: number;
+    market_cap_rank: number;
+  };
+};
+
 function Page() {
   const {
     data: trendingData,
@@ -33,7 +61,7 @@ function Page() {
 
   return (
     <dl className="grid grid-cols-1 gap-5 mt-5 lg:grid-cols-5">
-      {trendingCoins.map((coin) => (
+      {trendingCoins.map((coin: Coin) => (
         // if bitcoinPrice is above a penny, round to 2 decimal places. Otherwise, round to 6 decimal places
 
         <Stat

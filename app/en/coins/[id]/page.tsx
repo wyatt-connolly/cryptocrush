@@ -1,17 +1,17 @@
 "use client";
 import { Fragment } from "react";
 import { LinkIcon, HomeIcon } from "@heroicons/react/20/solid";
-import { classNames } from "@/lib/utils";
+import { classNames } from "@/app/utils";
 import Container from "@/app/components/Container";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import useSWR, { mutate } from "swr";
-import fetcher from "@/lib/utils";
+import fetcher from "@/app/utils";
 import Error from "./error";
 import Loader from "@/app/components/Loader";
 import Image from "next/image";
 import MarketChart from "@/app/components/MarketChart";
-import { useCoin } from "@/lib/swr-hooks";
+import { useCoin } from "@/app/hooks/swr-hooks";
 
 export default function Page() {
   const params = useParams();

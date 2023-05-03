@@ -7,30 +7,14 @@ import {
   PencilSquareIcon,
   CheckIcon,
 } from "@heroicons/react/20/solid";
-import { classNames } from "@/lib/utils";
-import { useTrending, useSearch } from "@/lib/swr-hooks";
+import { classNames } from "../utils/index";
+import { useTrending, useSearch } from "../hooks/swr-hooks";
 import Loader from "./Loader";
 import Error from "../error";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import useSwr from "swr";
-
-type Coin = {
-  id: string;
-  name: string;
-  thumb: string;
-  small: string;
-  large: string;
-  slug: string;
-  item: {
-    id: string;
-    name: string;
-    thumb: string;
-    small: string;
-    large: string;
-    slug: string;
-  };
-};
+import { Coin } from "../types/Coin";
 
 export default function Search() {
   const [selected, setSelected] = useState(null);

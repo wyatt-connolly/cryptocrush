@@ -8,7 +8,7 @@ import {
   XMarkIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
-import { classNames } from "@/lib/utils";
+import { classNames } from "../utils";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Search from "./Search";
@@ -35,10 +35,14 @@ const navigation = [
 const userNavigation = [
   { name: "Your Profile", href: "/en/portfolio" },
   { name: "Settings", href: "/user-profile/settings" },
-  { name: "Sign out" },
+  { name: "Sign out", href: "/sign-out" },
 ];
 
-export default function Navigation({ children }: any) {
+type NavigationProps = {
+  children: React.ReactNode;
+};
+
+export default function Navigation({ children }: NavigationProps) {
   const router = useRouter();
   const { isLoaded, userId, sessionId, getToken, signOut } = useAuth();
   const { user } = useUser();
@@ -113,7 +117,7 @@ export default function Navigation({ children }: any) {
                                 className="rounded-full"
                                 height={32}
                                 width={32}
-                                src={user?.profileImageUrl}
+                                src={user?.profileImageUrl!}
                                 alt=""
                               />
                             </Menu.Button>
@@ -189,7 +193,7 @@ export default function Navigation({ children }: any) {
                               className="rounded-full "
                               height={40}
                               width={40}
-                              src={user?.profileImageUrl}
+                              src={user?.profileImageUrl!}
                               alt=""
                             />
                           </div>

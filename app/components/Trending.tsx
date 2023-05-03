@@ -1,5 +1,5 @@
 "use client";
-import { classNames } from "@/lib/utils";
+import { classNames } from "../utils/index";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -32,9 +32,9 @@ export default function Trending({
 }: TrendingProps) {
   const router = useRouter();
   if (price_btc < 0.01) {
-    price_btc = price_btc.toFixed(12);
+    price_btc.toFixed(12);
   } else {
-    price_btc = price_btc.toLocaleString("en-US", {
+    price_btc.toLocaleString("en-US", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });

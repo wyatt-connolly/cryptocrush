@@ -24,8 +24,14 @@ import Pagination from "./components/Pagination";
 import Container from "./components/Container";
 import Loader from "./components/Loader";
 import Error from "./error";
-import fetcher from "@/lib/utils";
-import { useMarket, useTrending, useBitcoinPrice } from "@/lib/swr-hooks";
+import fetcher from "../app/utils/index";
+import {
+  useMarket,
+  useTrending,
+  useBitcoinPrice,
+} from "../app/hooks/swr-hooks";
+import { Coin } from "./types/Coin";
+
 function About() {
   const features = [
     { id: 1, name: "Market entry year", value: "2023" },
@@ -106,35 +112,6 @@ function Join() {
   );
 }
 
-type Coin = {
-  id: string;
-  name: string;
-  symbol: string;
-  image: string;
-  current_price: number;
-  market_cap: number;
-  market_cap_rank: number;
-  total_volume: number;
-  high_24h: number;
-  low_24h: number;
-  price_change_percentage_24h: number;
-  price_change_percentage_7d: number;
-  price_change_percentage_14d: number;
-  price_change_percentage_30d: number;
-  item: {
-    id: string;
-    coin_id: string;
-    name: string;
-    symbol: string;
-    thumb: string;
-    small: string;
-    large: string;
-    slug: string;
-    price_btc: number;
-    score: number;
-  };
-};
-
 export default function Home() {
   const [pageIndex, setPageIndex] = useState(1);
 
@@ -171,13 +148,13 @@ export default function Home() {
                   <tr>
                     <th
                       scope="col"
-                      className="sticky top-0 z-10 text-sm font-semibold text-left text-white bg-opacity-75 px-7 sm:w-12 sm:px-6 bg-neutral-900 backdrop-blur backdrop-filter"
+                      className="sticky top-0 left-0 z-20 text-sm font-semibold text-left text-white bg-opacity-75 px-7 sm:w-12 sm:px-6 bg-neutral-900 backdrop-blur backdrop-filter"
                     >
                       #
                     </th>
                     <th
                       scope="col"
-                      className="sticky top-0 z-10 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0 bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
+                      className="sticky top-0 left-12 z-20 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0 bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
                     >
                       Coin
                     </th>
