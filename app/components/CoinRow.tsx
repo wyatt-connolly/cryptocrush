@@ -61,7 +61,7 @@ export default function CoinRow({
           <div className="text-xs text-gray-300">{market_cap_rank}</div>
         </td>
         <td className="sticky z-20 text-sm lg:pl-4 lg:pr-3 left-12 lg:whitespace-nowrap sm:pl-0 bg-neutral-900">
-          <Link href={`/en/coins/${id}`} className="flex items-center">
+          <Link href={`/en/coins/${id}`} className="inline-flex items-center">
             <div className="flex-shrink-0 h-11 w-11">
               <Image height={44} width={44} src={image} alt="" />
             </div>

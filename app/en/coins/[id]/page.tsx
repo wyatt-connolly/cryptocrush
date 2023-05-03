@@ -7,11 +7,12 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import useSWR, { mutate } from "swr";
 import fetcher from "@/app/utils";
-import Error from "./error";
+import Error from "@/app/error";
 import Loader from "@/app/components/Loader";
 import Image from "next/image";
 import MarketChart from "@/app/components/MarketChart";
 import { useCoin } from "@/app/hooks/swr-hooks";
+import { Coin } from "@/app/types/Coin";
 
 export default function Page() {
   const params = useParams();
@@ -20,24 +21,7 @@ export default function Page() {
   if (coinError) return <Error error={coinError} />;
   if (coinIsLoading) return <Loader />;
 
-  type Coin = {
-    name: string;
-    imageUrl: string;
-    links: string[];
-    about: string;
-    fields: {
-      Symbol: string;
-      Hashing: string;
-      Categories: string;
-      Genesis: string;
-      Rank: string;
-      "All Time High": string;
-      Price: string;
-      "All Time Low": string;
-    };
-  };
-
-  const coin: Coin = {
+  const coin = {
     name: coinData.name,
     imageUrl: coinData.image.large,
     links: [coinData.links.homepage[0], coinData.links.blockchain_site[0]],

@@ -14,6 +14,36 @@ export type Coin = {
   price_change_percentage_7d: number;
   price_change_percentage_14d: number;
   price_change_percentage_30d: number;
+  imageUrl: string;
+  links: string[];
+  about: string;
+  fields: {
+    Rank: string;
+    Symbol: string;
+    Price: string;
+    Hashing: string;
+    "All Time High": string;
+    Categories: string;
+    "All Time Low": string;
+    Genesis: string;
+  };
+  description: {
+    en: string;
+  };
+  hashing_algorithm: string;
+  categories: string[];
+  genesis_date: string;
+  market_data: {
+    current_price: {
+      usd: number;
+    };
+    ath: {
+      usd: number;
+    };
+    atl: {
+      usd: number;
+    };
+  };
   item: {
     id: string;
     coin_id: string;
