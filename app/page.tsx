@@ -118,6 +118,21 @@ type Coin = {
   high_24h: number;
   low_24h: number;
   price_change_percentage_24h: number;
+  price_change_percentage_7d: number;
+  price_change_percentage_14d: number;
+  price_change_percentage_30d: number;
+  item: {
+    id: string;
+    coin_id: string;
+    name: string;
+    symbol: string;
+    thumb: string;
+    small: string;
+    large: string;
+    slug: string;
+    price_btc: number;
+    score: number;
+  };
 };
 
 export default function Home() {
@@ -149,32 +164,32 @@ export default function Home() {
         </h3>
 
         <div className="flow-root mt-8">
-          <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="-mx-4 -my-2 overflow-x-auto lg:overflow-x-visible sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8 ">
               <table className="min-w-full divide-y divide-neutral-600">
                 <thead>
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0"
+                      className="sticky top-0 z-10 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0 bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
                     >
                       Coin
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-white"
+                      className="sticky top-0 z-10 px-3 py-3.5 text-left text-sm font-semibold text-white bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
                     >
                       Price
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-white"
+                      className="sticky top-0 z-10 px-3 py-3.5 text-left text-sm font-semibold text-white bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
                     >
                       24hr Change
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-white"
+                      className="sticky top-0 z-10 px-3 py-3.5 text-left text-sm font-semibold text-white bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
                     >
                       Market Cap
                     </th>
@@ -202,7 +217,7 @@ export default function Home() {
           Trending Coins
         </h3>
         <dl className="grid grid-cols-1 gap-5 mt-5 lg:grid-cols-5">
-          {trending.map((coin) => (
+          {trending.map((coin: Coin) => (
             // if bitcoinPrice is above a penny, round to 2 decimal places. Otherwise, round to 6 decimal places
 
             <Stat

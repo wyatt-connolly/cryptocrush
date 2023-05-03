@@ -15,6 +15,23 @@ import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import useSwr from "swr";
 
+type Coin = {
+  id: string;
+  name: string;
+  thumb: string;
+  small: string;
+  large: string;
+  slug: string;
+  item: {
+    id: string;
+    name: string;
+    thumb: string;
+    small: string;
+    large: string;
+    slug: string;
+  };
+};
+
 export default function Search() {
   const [selected, setSelected] = useState(null);
   const [query, setQuery] = useState("");
@@ -22,16 +39,13 @@ export default function Search() {
   const { trendingData, trendingError, trendingIsLoading } = useTrending();
   const { searchData, searchError, searchIsLoading } = useSearch(query);
 
-  if (trendingIsLoading) return <Loader />;
-  if (trendingError) return <Error error={trendingError} />;
+  const res = searchData?.coins || [];
 
-  const people = searchData?.coins || [];
-
-  const filteredPeople =
+  const filteredCoins =
     query === ""
       ? []
-      : people.filter((person) =>
-          person.name
+      : res.filter((coin: Coin) =>
+          coin.name
             .toLowerCase()
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
@@ -54,7 +68,7 @@ export default function Search() {
             placeholder="Search"
             type="search"
             name="search"
-            displayValue={(person) => person?.name}
+            displayValue={(coin: Coin) => coin?.name}
             onChange={(event) => setQuery(event.target.value)}
             autoComplete="off"
           />
@@ -68,10 +82,10 @@ export default function Search() {
         >
           <Combobox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto border rounded-sm shadow-lg border-neutral-600 bg-neutral-900 max-h-96 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {query === "" && (
-              <div className="relative px-4 py-2 text-xs text-left text-white border-b cursor-default select-none border-neutral-600">
+              <div className="relative px-4 py-2 text-xs text-left text-white cursor-default select-none border-neutral-600">
                 <div>Trending Search 🔥</div>
                 <div className="flex flex-wrap mt-2">
-                  {trendingData?.coins.map((coin) => (
+                  {trendingData?.coins.map((coin: Coin) => (
                     <Combobox.Button
                       as={Link}
                       key={coin.item.id}
@@ -91,12 +105,12 @@ export default function Search() {
                 </div>
               </div>
             )}
-            {filteredPeople.length > 0 &&
-              filteredPeople.map((person) => (
+            {filteredCoins.length > 0 &&
+              filteredCoins.map((coin: Coin) => (
                 <Combobox.Button
                   as={Link}
-                  href={`/en/coins/${person.id}`}
-                  key={person.id}
+                  href={`/en/coins/${coin.id}`}
+                  key={coin.id}
                 >
                   <Combobox.Option
                     className={({ active }) =>
@@ -104,12 +118,16 @@ export default function Search() {
                         active ? "bg-neutral-700 text-white" : "text-white"
                       }`
                     }
-                    value={person}
+                    value={coin}
                   >
                     {({ selected, active }) => (
                       <div className="flex items-center">
                         <Image
-                          src={person.thumb}
+                          src={
+                            coin.thumb === "missing_thumb.png"
+                              ? "/missing_thumb.png"
+                              : coin.thumb
+                          }
                           alt=""
                           className="flex-shrink-0 rounded-full"
                           height={24}
@@ -120,7 +138,7 @@ export default function Search() {
                             selected ? "font-medium" : "font-normal"
                           }`}
                         >
-                          {person.name}
+                          {coin.name}
                         </span>
                         {selected ? (
                           <span
@@ -136,7 +154,7 @@ export default function Search() {
                   </Combobox.Option>
                 </Combobox.Button>
               ))}
-            {filteredPeople.length === 0 && query !== "" && (
+            {filteredCoins.length === 0 && query !== "" && (
               <div className="relative px-4 py-2 text-white cursor-default select-none">
                 Nothing found.
               </div>
