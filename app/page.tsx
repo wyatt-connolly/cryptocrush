@@ -189,12 +189,6 @@ export default function Home() {
                     >
                       Market Cap
                     </th>
-                    <th
-                      scope="col"
-                      className="sticky top-0 z-10 px-3 py-3.5 text-left text-sm font-semibold text-white bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter whitespace-nowrap"
-                    >
-                      Last 7 days
-                    </th>
                   </tr>
                 </thead>
                 {marketData.map((item: Coin) => (
