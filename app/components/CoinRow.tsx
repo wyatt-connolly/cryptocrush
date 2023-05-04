@@ -13,7 +13,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { classNames } from "../utils";
-import { useRouter } from "next/navigation";
 
 type CoinRowProps = {
   id: string;
@@ -22,9 +21,9 @@ type CoinRowProps = {
   image: string;
   name: string;
   current_price: number;
-  price_change_percentage_1h_in_currency: number;
-  price_change_percentage_24h_in_currency: number;
-  price_change_percentage_7d_in_currency: number;
+  price_change_percentage_1h_in_currency?: number;
+  price_change_percentage_24h_in_currency?: number;
+  price_change_percentage_7d_in_currency?: number;
   market_cap: number;
   total_volume: number;
   high_24h: number;
@@ -45,7 +44,15 @@ export default function CoinRow({
   high_24h,
   low_24h,
 }: CoinRowProps) {
-  const router = useRouter();
+  if (!price_change_percentage_1h_in_currency) {
+    price_change_percentage_1h_in_currency = 0;
+  }
+  if (!price_change_percentage_24h_in_currency) {
+    price_change_percentage_24h_in_currency = 0;
+  }
+  if (!price_change_percentage_7d_in_currency) {
+    price_change_percentage_7d_in_currency = 0;
+  }
 
   return (
     <tbody className="divide-y divide-neutral-600">

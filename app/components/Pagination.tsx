@@ -4,7 +4,7 @@ import {
   ArrowLongRightIcon,
 } from "@heroicons/react/20/solid";
 import { useState, Dispatch, SetStateAction } from "react";
-import { classNames } from "@/utils";
+import { classNames } from "../utils";
 
 interface IPagination {
   pageIndex: number | number[];
