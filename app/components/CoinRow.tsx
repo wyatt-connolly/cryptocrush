@@ -15,6 +15,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { classNames } from "../utils";
 import { useAuth } from "@clerk/nextjs";
 import { SignInDialog } from "./Dialog";
+import { useCoinStore } from "../store/store";
 
 type CoinRowProps = {
   id: string;
@@ -55,6 +56,22 @@ export default function CoinRow({
   const handleCheckboxChange = () => {
     if (isSignedIn) {
       setChecked(!checked);
+      // add the coin to the store
+      useCoinStore.getState().addCoin({
+        id,
+        market_cap_rank,
+        symbol,
+        image,
+        name,
+        current_price,
+        price_change_percentage_1h_in_currency,
+        price_change_percentage_24h_in_currency,
+        price_change_percentage_7d_in_currency,
+        market_cap,
+        total_volume,
+        high_24h,
+        low_24h,
+      });
     } else {
       setIsOpen(true);
     }

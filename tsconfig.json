@@ -32,7 +32,8 @@
     "app/lib/utils.js",
     "app/error.tsx",
     "app/en/coins/[id]/error.tsx",
-    "app/utils/index.tsx"
+    "app/utils/index.tsx",
+    "app/store/store.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Trending from "./components/Trending";
+import Table from "./components/Table";
 import {
   ArrowDownIcon,
   ArrowUpIcon,
@@ -115,7 +116,6 @@ function Join() {
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [pageIndex, setPageIndex] = useState(1);
-
   const { marketData, marketError, marketIsLoading } = useMarket(pageIndex);
   const { trendingData, trendingError, trendingIsLoading } = useTrending();
   const { bitcoinPriceData, bitcoinPriceError, bitcoinPriceIsLoading } =
@@ -144,58 +144,11 @@ export default function Home() {
         <div className="flow-root mt-8">
           <div className="-mx-4 -my-2 overflow-x-auto lg:overflow-x-visible sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8 ">
-              <table className="min-w-full divide-y table-fixed divide-neutral-600">
-                <thead>
-                  <tr>
-                    <th
-                      scope="col"
-                      className="sticky top-0 left-0 z-30 text-sm font-semibold text-left text-white bg-opacity-75 px-7 sm:w-12 sm:px-6 bg-neutral-900 backdrop-blur backdrop-filter"
-                    >
-                      #
-                    </th>
-                    <th
-                      scope="col"
-                      className="sticky top-0 left-12 lg:left-0 z-30 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0 bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter "
-                    >
-                      Coin
-                    </th>
-                    <th
-                      scope="col"
-                      className="sticky top-0 z-10 px-3 py-3.5 text-left text-sm font-semibold text-white bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
-                    >
-                      Price
-                    </th>
-                    <th
-                      scope="col"
-                      className="sticky top-0 z-10 px-3 py-3.5 text-left text-sm font-semibold text-white bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
-                    >
-                      1hr
-                    </th>
-
-                    <th
-                      scope="col"
-                      className="sticky top-0 z-10 px-3 py-3.5 text-left text-sm font-semibold text-white bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
-                    >
-                      24hr
-                    </th>
-                    <th
-                      scope="col"
-                      className="sticky top-0 z-10 px-3 py-3.5 text-left text-sm font-semibold text-white bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
-                    >
-                      7d
-                    </th>
-                    <th
-                      scope="col"
-                      className="sticky top-0 z-10 px-3 py-3.5 text-left text-sm font-semibold text-white bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
-                    >
-                      Market Cap
-                    </th>
-                  </tr>
-                </thead>
+              <Table>
                 {marketData.map((item: Coin) => (
                   <CoinRow key={item.id} {...item} />
                 ))}
-              </table>
+              </Table>
             </div>
           </div>
         </div>
