@@ -31,14 +31,11 @@ export default function Trending({
   score,
 }: TrendingProps) {
   const router = useRouter();
-  if (price_btc < 0.01) {
-    price_btc.toFixed(12);
-  } else {
-    price_btc.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  }
+
+  const formattedPrice =
+    price_btc < 1 && price_btc.toString().split(".")[1]?.length > 10
+      ? Number(price_btc.toFixed(14))
+      : price_btc;
 
   return (
     <>
@@ -59,7 +56,7 @@ export default function Trending({
           <p className="text-sm font-semibold text-white">
             <p className="text-sm font-medium text-white truncate">{name}</p>
             <span>$</span>
-            {price_btc}
+            {formattedPrice}
           </p>
         </div>
       </div>
