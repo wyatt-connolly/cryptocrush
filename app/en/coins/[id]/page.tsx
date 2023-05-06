@@ -73,7 +73,7 @@ export default function Page() {
                         href={coin.links[0]}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex justify-center gap-x-1.5 rounded-md  px-3 py-2 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                        className="inline-flex justify-center gap-x-1.5 rounded-md  px-3 py-2 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-neutral-500"
                       >
                         <HomeIcon
                           className="-ml-0.5 h-5 w-5 "
@@ -85,7 +85,7 @@ export default function Page() {
                         href={coin.links[1]}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex justify-center gap-x-1.5 rounded-md  px-3 py-2 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                        className="inline-flex justify-center gap-x-1.5 rounded-md  px-3 py-2 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-500"
                       >
                         <LinkIcon
                           className="-ml-0.5 h-5 w-5 "
