@@ -210,9 +210,15 @@ export default function Navigation({ children }: NavigationProps) {
                           {userNavigation.map((item) => (
                             <Disclosure.Button
                               key={item.name}
-                              as="a"
-                              href={item.href}
-                              className="block px-3 py-2 text-base font-medium text-white rounded-md hover:bg-neutral-500 hover:bg-opacity-75"
+                              as="button"
+                              onClick={() => {
+                                if (item.name === "Sign out") {
+                                  signOut();
+                                } else {
+                                  router.push(item.href);
+                                }
+                              }}
+                              className="inline-block w-full text-left px-3 py-2 text-base font-medium text-white rounded-md hover:bg-neutral-500 hover:bg-opacity-75"
                             >
                               {item.name}
                             </Disclosure.Button>
@@ -220,10 +226,10 @@ export default function Navigation({ children }: NavigationProps) {
                         </div>
                       </>
                     ) : (
-                      <div className="-mt-1">
+                      <div className="-mt-1 ml-2">
                         <Link
                           href="/sign-in"
-                          className="inline-block px-3 py-2 ml-2 text-sm font-medium text-white rounded-md hover:bg-neutral-500 hover:bg-opacity-75"
+                          className="inline-block w-full text-left px-3 py-2 text-base font-medium text-white rounded-md hover:bg-neutral-500 hover:bg-opacity-75"
                         >
                           Sign In
                         </Link>

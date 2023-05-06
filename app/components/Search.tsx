@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import {
@@ -12,9 +12,9 @@ import { useTrending, useSearch } from "../hooks/swr-hooks";
 import Loader from "./Loader";
 import Error from "../error";
 import Link from "next/link";
-import { useSearchParams, useRouter } from "next/navigation";
-import useSwr from "swr";
+import { useRouter } from "next/navigation";
 import { Coin } from "../types/Coin";
+import { debounce } from "lodash";
 
 export default function Search() {
   const [selected, setSelected] = useState(null);
@@ -35,6 +35,23 @@ export default function Search() {
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
 
+  const router = useRouter();
+
+  useEffect(() => {
+    if (selected) {
+      router.push(`/en/coins/${selected.id}`);
+      setQuery("");
+      setSelected(null);
+    }
+  }, [selected, router]);
+
+  // Debounce the search query update
+  const debouncedSetQuery = debounce((value) => setQuery(value), 300);
+
+  const handleInputChange = (event) => {
+    debouncedSetQuery(event.target.value);
+  };
+
   return (
     <Combobox value={selected} onChange={setSelected}>
       <Combobox.Button className="w-full">
@@ -53,7 +70,7 @@ export default function Search() {
             type="search"
             name="search"
             displayValue={(coin: Coin) => coin?.name}
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={handleInputChange}
             autoComplete="off"
           />
         </div>
@@ -64,7 +81,7 @@ export default function Search() {
           leaveTo="opacity-0"
           afterLeave={() => setQuery("")}
         >
-          <Combobox.Options className="absolute z-20 w-full py-1 mt-1 overflow-auto border rounded-sm shadow-lg border-neutral-600 bg-neutral-900 max-h-96 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <Combobox.Options className="absolute z-50 w-full py-1 mt-1 overflow-auto border rounded-sm shadow-lg border-neutral-600 bg-neutral-900 max-h-96 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {query === "" && (
               <div className="relative px-4 py-2 text-xs text-left text-white cursor-default select-none border-neutral-600">
                 <div>Trending Search 🔥</div>
