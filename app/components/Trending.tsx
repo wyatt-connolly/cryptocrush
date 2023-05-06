@@ -47,9 +47,14 @@ export default function Trending({
         className="relative flex items-center px-4 py-6 overflow-hidden transition duration-150 ease-in-out rounded-lg shadow cursor-pointer bg-neutral-800 sm:px-6 hover:bg-neutral-700"
         onClick={() => router.push(`en/coins/${id}`)}
       >
-        <div>
-          <Image alt="coin thumbnail" src={small} height={32} width={32} />
-        </div>
+        <Image
+          alt="coin thumbnail"
+          src={small}
+          height={32}
+          width={32}
+          className="object-contain"
+        />
+
         <div className="flex flex-col items-baseline ml-4">
           <p className="text-sm font-semibold text-white">
             <p className="text-sm font-medium text-white truncate">{name}</p>

@@ -227,12 +227,13 @@ export default function Navigation({ children }: NavigationProps) {
                       </>
                     ) : (
                       <div className="-mt-1 ml-2">
-                        <Link
+                        <Disclosure.Button
+                          as={Link}
                           href="/sign-in"
                           className="inline-block w-full text-left px-3 py-2 text-base font-medium text-white rounded-md hover:bg-neutral-500 hover:bg-opacity-75"
                         >
                           Sign In
-                        </Link>
+                        </Disclosure.Button>
                       </div>
                     )}
                   </div>

@@ -83,7 +83,7 @@ export default function Search() {
         >
           <Combobox.Options className="absolute z-50 w-full py-1 mt-1 overflow-auto border rounded-sm shadow-lg border-neutral-600 bg-neutral-900 max-h-96 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {query === "" && (
-              <div className="relative px-4 py-2 text-xs text-left text-white cursor-default select-none border-neutral-600">
+              <div className="relative px-4 py-2 text-xs text-left text-white select-none border-neutral-600">
                 <div>Trending Search 🔥</div>
                 <div className="flex flex-wrap mt-2">
                   {trendingData?.coins.map((coin: Coin) => (
@@ -115,7 +115,7 @@ export default function Search() {
                 >
                   <Combobox.Option
                     className={({ active }) =>
-                      `relative cursor-default select-none py-2 pl-3 pr-9 ${
+                      `relative cursor-pointer select-none py-2 pl-3 pr-9 ${
                         active ? "bg-neutral-700 text-white" : "text-white"
                       }`
                     }
