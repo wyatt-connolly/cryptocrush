@@ -113,6 +113,7 @@ function Join() {
 }
 
 export default function Home() {
+  const [showModal, setShowModal] = useState(false);
   const [pageIndex, setPageIndex] = useState(1);
 
   const { marketData, marketError, marketIsLoading } = useMarket(pageIndex);

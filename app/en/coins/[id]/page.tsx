@@ -5,7 +5,7 @@ import { classNames } from "@/app/utils";
 import Container from "@/app/components/Container";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import fetcher from "@/app/utils";
 import Error from "@/app/error";
 import Loader from "@/app/components/Loader";
@@ -29,11 +29,11 @@ export default function Page() {
     fields: {
       Rank: `#${coinData.market_cap_rank}`,
       Symbol: coinData.symbol.toUpperCase(),
-      Price: `$${coinData.market_data.current_price.usd.toLocaleString()}`,
+      Price: `$${Number(coinData.market_data.current_price.usd).toFixed(12)}`, // Changed to 12 decimal places
       Hashing: coinData.hashing_algorithm || "N/A",
-      "All Time High": `$${coinData.market_data.ath.usd.toLocaleString()}`,
+      "All Time High": `$${Number(coinData.market_data.ath.usd).toFixed(12)}`, // Changed to 12 decimal places
       Categories: coinData.categories.join(", "),
-      "All Time Low": `$${coinData.market_data.atl.usd.toLocaleString()}`,
+      "All Time Low": `$${Number(coinData.market_data.atl.usd).toFixed(12)}`, // Changed to 12 decimal places
       // convert genesis date to readable format
       Genesis:
         new Date(coinData.genesis_date).toLocaleDateString("en-US", {

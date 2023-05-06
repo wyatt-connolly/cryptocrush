@@ -41,23 +41,24 @@ const options = {
     title: {
       display: false,
     },
-
-    // include dollar sign before y axis labels, price, and comma seperator
     tooltip: {
       callbacks: {
         label: function (context: any) {
-          return "$" + context.parsed.y.toLocaleString();
+          return "$" + Number(context.parsed.y).toFixed(12); // Updated to display 12 decimal points
         },
       },
     },
-    // include dollar sign before category y-scale
-    scales: {
-      y: {
-        ticks: {
-          callback: function (value: any) {
-            return "$" + value.toLocaleString();
-          },
+  },
+  scales: {
+    y: {
+      ticks: {
+        callback: function (value: any) {
+          return "$" + Number(value).toFixed(12); // Updated to display 12 decimal points
         },
+      },
+      title: {
+        display: true,
+        text: "Price (USD)",
       },
     },
   },
@@ -70,24 +71,20 @@ export default function MarketChart({ params }: any) {
   if (marketChartError) return <Error error={marketChartError} />;
   if (marketChartIsLoading) return <Loader />;
 
-  const labels = // map over fakeData, return an array of dates and find type of price
-    marketChartData.prices.map((price: any) =>
-      new Date(price[0]).toLocaleDateString()
-    );
+  const labels = marketChartData.prices.map((price: any) =>
+    new Date(price[0]).toLocaleDateString()
+  );
 
   const chartData = {
     labels,
     datasets: [
       {
         label: "Market Price (USD)",
-        // map over data, return an array of prices with 2 decimal places and $ sign, convert to number, and return
-        data: marketChartData.prices.map((price: any) =>
-          Number(price[1].toFixed(2))
+        data: marketChartData.prices.map(
+          (price: any) => Number(price[1].toFixed(12)) // Updated to display 12 decimal points
         ),
         fill: false,
-        // create rgba positive green color
         borderColor: "rgba(75, 192, 192, 1)",
-        // return a color that compoliments the border color
         backgroundColor: "rgba(75, 192, 192, 0.2)",
       },
     ],
