@@ -13,6 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { classNames } from "../utils";
+import { useAuth } from "@clerk/nextjs";
 
 type CoinRowProps = {
   id: string;
@@ -44,6 +45,20 @@ export default function CoinRow({
   high_24h,
   low_24h,
 }: CoinRowProps) {
+  const [checked, setChecked] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const { getToken, isLoaded, isSignedIn } = useAuth();
+
+  // create a function that will handle the checkbox state. If the user is signed in, then the checkbox will be checked, otherwise set "setIsOpen" to true
+
+  const handleCheckboxChange = () => {
+    if (isSignedIn) {
+      setChecked(!checked);
+    } else {
+      setIsOpen(true);
+    }
+  };
+
   if (!price_change_percentage_1h_in_currency) {
     price_change_percentage_1h_in_currency = 0;
   }
@@ -55,109 +70,171 @@ export default function CoinRow({
   }
 
   return (
-    <tbody className="divide-y divide-neutral-600">
-      <tr>
-        <td
-          scope="col"
-          className="sticky left-0 z-20 px-7 sm:w-12 sm:px-6 bg-neutral-900"
+    <>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => setIsOpen(false)}
         >
-          <input
-            type="checkbox"
-            className="absolute left-0 w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded top-1/2 focus:ring-indigo-600"
-          />
-          <div className="text-xs text-gray-300">{market_cap_rank}</div>
-        </td>
-        <td className="sticky z-20 text-sm lg:pl-4 lg:pr-3 left-12 lg:whitespace-nowrap sm:pl-0 bg-neutral-900">
-          <Link href={`/en/coins/${id}`} className="inline-flex items-center">
-            <div className="flex-shrink-0 h-11 w-11">
-              <Image height={44} width={44} src={image} alt="" />
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex items-center justify-center min-h-full p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    Payment successful
+                  </Dialog.Title>
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                      Your payment has been successfully submitted. We’ve sent
+                      you an email with all of the details of your order.
+                    </p>
+                  </div>
+
+                  <div className="mt-4">
+                    <button
+                      type="button"
+                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={() => setIsOpen(true)}
+                    >
+                      Got it, thanks!
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
             </div>
-            <div className="ml-2 lg:ml-4 lg:flex lg:items-center">
-              <div className="font-medium hover:underline decoration-white">
-                {name}
+          </div>
+        </Dialog>
+      </Transition>
+      <tbody className="divide-y divide-neutral-600">
+        <tr>
+          <td
+            scope="col"
+            className="sticky left-0 z-20 px-7 sm:w-12 sm:px-6 bg-neutral-900"
+          >
+            <input
+              type="checkbox"
+              className="absolute left-0 w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded top-1/2 focus:ring-indigo-600"
+              checked={checked}
+              onChange={handleCheckboxChange}
+            />
+            <div className="text-xs text-gray-300">{market_cap_rank}</div>
+          </td>
+          <td className="sticky z-20 text-sm lg:pl-4 lg:pr-3 left-12 lg:whitespace-nowrap sm:pl-0 bg-neutral-900">
+            <Link href={`/en/coins/${id}`} className="inline-flex items-center">
+              <div className="flex-shrink-0 h-11 w-11">
+                <Image height={44} width={44} src={image} alt="" />
               </div>
-              <div className="text-xs text-gray-300 lg:ml-2">
-                {symbol.toLocaleUpperCase()}
+              <div className="ml-2 lg:ml-4 lg:flex lg:items-center">
+                <div className="font-medium hover:underline decoration-white">
+                  {name}
+                </div>
+                <div className="text-xs text-gray-300 lg:ml-2">
+                  {symbol.toLocaleUpperCase()}
+                </div>
               </div>
-            </div>
-          </Link>
-        </td>
-        <td className="px-3 py-5 text-sm whitespace-nowrap">
-          <div>${current_price?.toLocaleString()}</div>
-        </td>
-        <td className="px-3 py-5 text-sm whitespace-nowrap">
-          <span
-            className={classNames(
-              "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",
-              price_change_percentage_1h_in_currency > 0
-                ? "bg-green-100 text-green-800"
-                : "bg-red-100 text-red-800"
-            )}
-          >
-            {price_change_percentage_1h_in_currency > 0 ? (
-              <ChevronUpIcon
-                className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-green-500"
-                aria-hidden="true"
-              />
-            ) : (
-              <ChevronDownIcon
-                className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-red-500"
-                aria-hidden="true"
-              />
-            )}
-            {price_change_percentage_1h_in_currency?.toFixed(2)}%
-          </span>
-        </td>
-        <td className="px-3 py-5 text-sm whitespace-nowrap">
-          <span
-            className={classNames(
-              "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",
-              price_change_percentage_24h_in_currency > 0
-                ? "bg-green-100 text-green-800"
-                : "bg-red-100 text-red-800"
-            )}
-          >
-            {price_change_percentage_24h_in_currency > 0 ? (
-              <ChevronUpIcon
-                className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-green-500"
-                aria-hidden="true"
-              />
-            ) : (
-              <ChevronDownIcon
-                className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-red-500"
-                aria-hidden="true"
-              />
-            )}
-            {price_change_percentage_24h_in_currency?.toFixed(2)}%
-          </span>
-        </td>
-        <td className="px-3 py-5 text-sm whitespace-nowrap">
-          <span
-            className={classNames(
-              "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",
-              price_change_percentage_7d_in_currency > 0
-                ? "bg-green-100 text-green-800"
-                : "bg-red-100 text-red-800"
-            )}
-          >
-            {price_change_percentage_7d_in_currency > 0 ? (
-              <ChevronUpIcon
-                className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-green-500"
-                aria-hidden="true"
-              />
-            ) : (
-              <ChevronDownIcon
-                className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-red-500"
-                aria-hidden="true"
-              />
-            )}
-            {price_change_percentage_7d_in_currency?.toFixed(2)}%
-          </span>
-        </td>
-        <td className="px-3 py-5 text-sm whitespace-nowrap">
-          <div>${market_cap?.toLocaleString()}</div>
-        </td>
-      </tr>
-    </tbody>
+            </Link>
+          </td>
+          <td className="px-3 py-5 text-sm whitespace-nowrap">
+            <div>${current_price?.toLocaleString()}</div>
+          </td>
+          <td className="px-3 py-5 text-sm whitespace-nowrap">
+            <span
+              className={classNames(
+                "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",
+                price_change_percentage_1h_in_currency > 0
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              )}
+            >
+              {price_change_percentage_1h_in_currency > 0 ? (
+                <ChevronUpIcon
+                  className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-green-500"
+                  aria-hidden="true"
+                />
+              ) : (
+                <ChevronDownIcon
+                  className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-red-500"
+                  aria-hidden="true"
+                />
+              )}
+              {price_change_percentage_1h_in_currency?.toFixed(2)}%
+            </span>
+          </td>
+          <td className="px-3 py-5 text-sm whitespace-nowrap">
+            <span
+              className={classNames(
+                "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",
+                price_change_percentage_24h_in_currency > 0
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              )}
+            >
+              {price_change_percentage_24h_in_currency > 0 ? (
+                <ChevronUpIcon
+                  className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-green-500"
+                  aria-hidden="true"
+                />
+              ) : (
+                <ChevronDownIcon
+                  className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-red-500"
+                  aria-hidden="true"
+                />
+              )}
+              {price_change_percentage_24h_in_currency?.toFixed(2)}%
+            </span>
+          </td>
+          <td className="px-3 py-5 text-sm whitespace-nowrap">
+            <span
+              className={classNames(
+                "inline-flex px-2 text-xs font-semibold leading-5  rounded-full",
+                price_change_percentage_7d_in_currency > 0
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              )}
+            >
+              {price_change_percentage_7d_in_currency > 0 ? (
+                <ChevronUpIcon
+                  className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-green-500"
+                  aria-hidden="true"
+                />
+              ) : (
+                <ChevronDownIcon
+                  className="-ml-0.5 mr-1.5 flex-shrink-0 self-center h-5 w-5 text-red-500"
+                  aria-hidden="true"
+                />
+              )}
+              {price_change_percentage_7d_in_currency?.toFixed(2)}%
+            </span>
+          </td>
+          <td className="px-3 py-5 text-sm whitespace-nowrap">
+            <div>${market_cap?.toLocaleString()}</div>
+          </td>
+        </tr>
+      </tbody>
+    </>
   );
 }

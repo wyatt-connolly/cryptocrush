@@ -149,13 +149,13 @@ export default function Home() {
                   <tr>
                     <th
                       scope="col"
-                      className="sticky top-0 left-0 z-20 text-sm font-semibold text-left text-white bg-opacity-75 px-7 sm:w-12 sm:px-6 bg-neutral-900 backdrop-blur backdrop-filter"
+                      className="sticky top-0 left-0 z-30 text-sm font-semibold text-left text-white bg-opacity-75 px-7 sm:w-12 sm:px-6 bg-neutral-900 backdrop-blur backdrop-filter"
                     >
                       #
                     </th>
                     <th
                       scope="col"
-                      className="sticky top-0 left-12 z-20 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0 bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter"
+                      className="sticky top-0 left-12 lg:left-0 z-30 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0 bg-neutral-900 bg-opacity-75  backdrop-blur backdrop-filter "
                     >
                       Coin
                     </th>
