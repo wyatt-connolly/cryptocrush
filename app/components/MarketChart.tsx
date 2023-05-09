@@ -40,23 +40,24 @@ const options = {
     title: {
       display: false,
     },
-
-    // include dollar sign before y axis labels, price, and comma seperator
     tooltip: {
       callbacks: {
         label: function (context: any) {
-          return "$" + context.parsed.y.toLocaleString();
+          return "$" + Number(context.parsed.y).toFixed(12); // Updated to display 12 decimal points
         },
       },
     },
-    // include dollar sign before category y-scale
-    scales: {
-      y: {
-        ticks: {
-          callback: function (value: any) {
-            return "$" + value.toLocaleString();
-          },
+  },
+  scales: {
+    y: {
+      ticks: {
+        callback: function (value: any) {
+          return "$" + Number(value).toFixed(12); // Updated to display 12 decimal points
         },
+      },
+      title: {
+        display: true,
+        text: "Price (USD)",
       },
     },
   },
