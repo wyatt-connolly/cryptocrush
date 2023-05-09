@@ -52,7 +52,7 @@ const options = {
     y: {
       ticks: {
         callback: function (value: any) {
-          return "$" + Number(value).toFixed(12); // Updated to display 12 decimal points
+          return "$" + Number(value)
         },
       },
       title: {
