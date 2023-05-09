@@ -43,7 +43,7 @@ const options = {
     tooltip: {
       callbacks: {
         label: function (context: any) {
-          return "$" + Number(context.parsed.y).toFixed(12); // Updated to display 12 decimal points
+          return "$" + Number(context.parsed.y)
         },
       },
     },
