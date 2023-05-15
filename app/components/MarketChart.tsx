@@ -44,25 +44,17 @@ const options = {
     tooltip: {
       callbacks: {
         label: function (context: any) {
-          const value = context.parsed.y;
-          const formattedValue =
-            value < 1 && value.toString().split(".")[1]?.length > 2
-              ? Number(value.toFixed(6)).toLocaleString()
-              : Number(value.toFixed(2)).toLocaleString();
-          return "$" + formattedValue;
+          return "$" + context.parsed.y.toLocaleString();
         },
       },
     },
-  },
-  scales: {
-    y: {
-      ticks: {
-        callback: function (value: any) {
-          const formattedValue =
-            value < 1 && value.toString().split(".")[1]?.length > 2
-              ? Number(value.toFixed(6)).toLocaleString()
-              : Number(value.toFixed(2)).toLocaleString();
-          return "$" + formattedValue;
+    // include dollar sign before category y-scale
+    scales: {
+      y: {
+        ticks: {
+          callback: function (value: any) {
+            return "$" + value.toLocaleString();
+          },
         },
       },
       title: {
