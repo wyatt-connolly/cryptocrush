@@ -18,7 +18,7 @@ import { Coin } from "../types/Coin";
 import { debounce } from "lodash";
 
 export default function Search() {
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState<Coin | null>(null);
   const [query, setQuery] = useState("");
 
   const { trendingData, trendingError, trendingIsLoading } = useTrending();
