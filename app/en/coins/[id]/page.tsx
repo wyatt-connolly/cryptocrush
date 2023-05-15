@@ -29,12 +29,31 @@ export default function Page() {
     fields: {
       Rank: `#${coinData.market_cap_rank}`,
       Symbol: coinData.symbol.toUpperCase(),
-      Price: `$${Number(coinData.market_data.current_price.usd).toFixed(12)}`, // Changed to 12 decimal places
+      Price: `$${
+        coinData.market_data.current_price.usd < 1 &&
+        coinData.market_data.current_price.usd.toString().split(".")[1]
+          ?.length > 2
+          ? Number(
+              coinData.market_data.current_price.usd.toFixed(6)
+            ).toLocaleString()
+          : Number(
+              coinData.market_data.current_price.usd.toFixed(2)
+            ).toLocaleString()
+      }`,
       Hashing: coinData.hashing_algorithm || "N/A",
-      "All Time High": `$${Number(coinData.market_data.ath.usd).toFixed(12)}`, // Changed to 12 decimal places
+      "All Time High": `$${
+        coinData.market_data.ath.usd < 1 &&
+        coinData.market_data.ath.usd.toString().split(".")[1]?.length > 2
+          ? Number(coinData.market_data.ath.usd.toFixed(6)).toLocaleString()
+          : Number(coinData.market_data.ath.usd.toFixed(2)).toLocaleString()
+      }`,
       Categories: coinData.categories.join(", "),
-      "All Time Low": `$${Number(coinData.market_data.atl.usd).toFixed(12)}`, // Changed to 12 decimal places
-      // convert genesis date to readable format
+      "All Time Low": `$${
+        coinData.market_data.atl.usd < 1 &&
+        coinData.market_data.atl.usd.toString().split(".")[1]?.length > 2
+          ? Number(coinData.market_data.atl.usd.toFixed(6)).toLocaleString()
+          : Number(coinData.market_data.atl.usd.toFixed(2)).toLocaleString()
+      }`,
       Genesis:
         new Date(coinData.genesis_date).toLocaleDateString("en-US", {
           year: "numeric",

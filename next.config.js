@@ -11,7 +11,6 @@ const nextConfig = {
       "images.unsplash.com",
       "upload.wikimedia.org",
       "s2.coinmarketcap.com",
-      "images.clerk.dev",
     ],
   },
 };

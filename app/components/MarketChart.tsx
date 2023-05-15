@@ -44,7 +44,12 @@ const options = {
     tooltip: {
       callbacks: {
         label: function (context: any) {
-          return "$" + Number(context.parsed.y).toFixed(12); // Updated to display 12 decimal points
+          const value = context.parsed.y;
+          const formattedValue =
+            value < 1 && value.toString().split(".")[1]?.length > 2
+              ? Number(value.toFixed(6)).toLocaleString()
+              : Number(value.toFixed(2)).toLocaleString();
+          return "$" + formattedValue;
         },
       },
     },
@@ -53,7 +58,11 @@ const options = {
     y: {
       ticks: {
         callback: function (value: any) {
-          return "$" + Number(value).toFixed(12); // Updated to display 12 decimal points
+          const formattedValue =
+            value < 1 && value.toString().split(".")[1]?.length > 2
+              ? Number(value.toFixed(6)).toLocaleString()
+              : Number(value.toFixed(2)).toLocaleString();
+          return "$" + formattedValue;
         },
       },
       title: {
@@ -80,9 +89,12 @@ export default function MarketChart({ params }: any) {
     datasets: [
       {
         label: "Market Price (USD)",
-        data: marketChartData.prices.map(
-          (price: any) => Number(price[1].toFixed(12)) // Updated to display 12 decimal points
-        ),
+        data: marketChartData.prices.map((price: any) => {
+          const value = price[1];
+          return value < 1 && value.toString().split(".")[1]?.length > 2
+            ? Number(value.toFixed(6))
+            : Number(value.toFixed(2));
+        }),
         fill: false,
         borderColor: "rgba(75, 192, 192, 1)",
         backgroundColor: "rgba(75, 192, 192, 0.2)",

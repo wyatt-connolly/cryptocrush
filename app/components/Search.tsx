@@ -8,21 +8,22 @@ import {
   CheckIcon,
 } from "@heroicons/react/20/solid";
 import { classNames } from "../utils/index";
-import { useTrending, useSearch } from "../hooks/swr-hooks";
+import { useTrending } from "../hooks/swr-hooks";
+import { useSearch } from "../hooks/swr-search-hook";
 import Loader from "./Loader";
 import Error from "../error";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Coin } from "../types/Coin";
-import { debounce } from "lodash";
 
 export default function Search() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [selected, setSelected] = useState(null);
   const [query, setQuery] = useState("");
-
   const { trendingData, trendingError, trendingIsLoading } = useTrending();
   const { searchData, searchError, searchIsLoading } = useSearch(query);
-
   const res = searchData?.coins || [];
 
   const filteredCoins =
@@ -35,25 +36,21 @@ export default function Search() {
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
 
-  const router = useRouter();
-
+  // Clear the search query when the route changes
   useEffect(() => {
-    if (selected) {
-      router.push(`/en/coins/${selected.id}`);
-      setQuery("");
-      setSelected(null);
-    }
-  }, [selected, router]);
-
-  // Debounce the search query update
-  const debouncedSetQuery = debounce((value) => setQuery(value), 300);
+    setQuery("");
+  }, [pathname, searchParams]);
 
   const handleInputChange = (event) => {
-    debouncedSetQuery(event.target.value);
+    setQuery(event.target.value);
   };
 
+  const handleSelect = (coin: Coin) => {
+    setSelected(coin);
+    router.push(`/en/coins/${coin.id}`);
+  };
   return (
-    <Combobox value={selected} onChange={setSelected}>
+    <Combobox value={selected} onChange={handleSelect}>
       <Combobox.Button className="w-full">
         <Combobox.Label className="sr-only">Search</Combobox.Label>
         <div className="relative text-gray-400 focus-within:text-gray-600">
@@ -87,10 +84,9 @@ export default function Search() {
                 <div>Trending Search 🔥</div>
                 <div className="flex flex-wrap mt-2">
                   {trendingData?.coins.map((coin: Coin) => (
-                    <Combobox.Button
-                      as={Link}
+                    <Combobox.Option
                       key={coin.item.id}
-                      href={`/en/coins/${coin.item.id}`}
+                      value={coin}
                       className="flex items-center px-2 py-1 mb-2 mr-2 text-xs font-medium text-white rounded-md cursor-pointer bg-neutral-700"
                     >
                       <Image
@@ -101,18 +97,14 @@ export default function Search() {
                         width={16}
                       />
                       <span className="ml-1">{coin.item.name}</span>
-                    </Combobox.Button>
+                    </Combobox.Option>
                   ))}
                 </div>
               </div>
             )}
             {filteredCoins.length > 0 &&
               filteredCoins.map((coin: Coin) => (
-                <Combobox.Button
-                  as={Link}
-                  href={`/en/coins/${coin.id}`}
-                  key={coin.id}
-                >
+                <Combobox.Option key={coin.id} value={coin}>
                   <Combobox.Option
                     className={({ active }) =>
                       `relative cursor-pointer select-none py-2 pl-3 pr-9 ${
@@ -153,7 +145,7 @@ export default function Search() {
                       </div>
                     )}
                   </Combobox.Option>
-                </Combobox.Button>
+                </Combobox.Option>
               ))}
             {filteredCoins.length === 0 && query !== "" && (
               <div className="relative px-4 py-2 text-white cursor-default select-none">

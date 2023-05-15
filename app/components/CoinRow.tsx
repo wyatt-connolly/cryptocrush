@@ -13,9 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, Transition } from "@headlessui/react";
 import { classNames } from "../utils";
-import { useAuth } from "@clerk/nextjs";
 import { SignInDialog } from "./Dialog";
-
 import { Coin } from "../types/Coin";
 
 type CoinRowProps = {
@@ -48,48 +46,42 @@ export default function CoinRow({
   high_24h,
   low_24h,
 }: CoinRowProps) {
-  const [checked, setChecked] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const { getToken, isLoaded, isSignedIn } = useAuth();
-
-  // create a function that will handle the checkbox state. If the user is signed in, then the checkbox will be checked, otherwise set "setIsOpen" to true
-
-  const handleCheckboxChange = () => {
-    if (isSignedIn) {
-      setChecked(!checked);
+  const formatPrice = (price: number) => {
+    let formattedPrice = "";
+    if (price >= 1) {
+      formattedPrice = price.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
     } else {
-      setIsOpen(true);
+      const priceString = price.toString();
+      let afterDecimal = priceString.split(".")[1];
+      let significantDigits = 0;
+      for (let i = 0; i < afterDecimal.length; i++) {
+        if (afterDecimal[i] !== "0") {
+          significantDigits = i + 2; // plus 2 to consider the case of e.g. 0.001
+          break;
+        }
+      }
+      formattedPrice = price.toLocaleString("en-US", {
+        minimumFractionDigits: significantDigits,
+        maximumFractionDigits: significantDigits,
+      });
     }
+    return formattedPrice;
   };
-
-  if (!price_change_percentage_1h_in_currency) {
-    price_change_percentage_1h_in_currency = 0;
-  }
-  if (!price_change_percentage_24h_in_currency) {
-    price_change_percentage_24h_in_currency = 0;
-  }
-  if (!price_change_percentage_7d_in_currency) {
-    price_change_percentage_7d_in_currency = 0;
-  }
 
   return (
     <>
-      <SignInDialog isOpen={isOpen} setIsOpen={setIsOpen} />
       <tbody className="divide-y divide-neutral-600">
         <tr>
           <td
             scope="col"
             className="sticky left-0 z-20 px-7 sm:w-12 sm:px-6 bg-neutral-900"
           >
-            <input
-              type="checkbox"
-              className="absolute left-0 w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded top-1/2 focus:ring-indigo-600"
-              checked={checked}
-              onChange={handleCheckboxChange}
-            />
             <div className="text-xs text-gray-300">{market_cap_rank}</div>
           </td>
-          <td className="sticky z-20 text-sm lg:pl-4 lg:pr-3 left-12 lg:whitespace-nowrap sm:pl-0 bg-neutral-900">
+          <td className="sticky z-20 text-sm lg:pl-4 lg:pr-3 left-14 lg:whitespace-nowrap sm:pl-0 bg-neutral-900">
             <Link href={`/en/coins/${id}`} className="inline-flex items-center">
               <div className="flex-shrink-0 h-11 w-11">
                 <Image height={44} width={44} src={image} alt="" />
@@ -105,7 +97,7 @@ export default function CoinRow({
             </Link>
           </td>
           <td className="px-3 py-5 text-sm whitespace-nowrap">
-            <div>${current_price?.toLocaleString()}</div>
+            <div>${formatPrice(current_price)}</div>
           </td>
           <td className="px-3 py-5 text-sm whitespace-nowrap">
             <span

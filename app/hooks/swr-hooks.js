@@ -55,22 +55,6 @@ export function useCoin(params) {
   };
 }
 
-export function useSearch(params) {
-  const { data, error, isLoading } = useSwr(
-    `https://api.coingecko.com/api/v3/search?query=${params}`,
-    fetcher,
-    {
-      keepPreviousData: true,
-    }
-  );
-
-  return {
-    searchData: data,
-    searchIsLoading: isLoading,
-    searchError: error,
-  };
-}
-
 export function useMarketChart(params) {
   const { data, error, isLoading } = useSwr(
     `https://api.coingecko.com/api/v3/coins/${

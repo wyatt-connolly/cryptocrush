@@ -33,9 +33,9 @@ export default function Trending({
   const router = useRouter();
 
   const formattedPrice =
-    price_btc < 1 && price_btc.toString().split(".")[1]?.length > 10
-      ? Number(price_btc.toFixed(14))
-      : price_btc;
+    price_btc < 1 && price_btc.toString().split(".")[1]?.length > 2
+      ? Number(price_btc.toFixed(6))
+      : Number(price_btc.toFixed(2));
 
   return (
     <>

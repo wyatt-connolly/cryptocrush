@@ -1,6 +1,5 @@
 "use client";
 import { Fragment } from "react";
-import { useAuth, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import {
@@ -44,8 +43,6 @@ type NavigationProps = {
 
 export default function Navigation({ children }: NavigationProps) {
   const router = useRouter();
-  const { isLoaded, userId, sessionId, getToken, signOut } = useAuth();
-  const { user } = useUser();
 
   return (
     <>
@@ -106,65 +103,6 @@ export default function Navigation({ children }: NavigationProps) {
                         )}
                       </Disclosure.Button>
                     </div>
-                    <div className="hidden lg:ml-4 lg:block">
-                      {/* Profile dropdown */}
-                      {isLoaded && userId && sessionId ? (
-                        <Menu as="div" className="relative flex-shrink-0 ml-3">
-                          <div>
-                            <Menu.Button className="flex text-sm text-white rounded-full bg-neutral-600 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-neutral-600">
-                              <span className="sr-only">Open user menu</span>
-                              <Image
-                                className="rounded-full"
-                                height={32}
-                                width={32}
-                                src={user?.profileImageUrl!}
-                                alt=""
-                              />
-                            </Menu.Button>
-                          </div>
-                          <Transition
-                            as={Fragment}
-                            enter="transition ease-out duration-100"
-                            enterFrom="transform opacity-0 scale-95"
-                            enterTo="transform opacity-100 scale-100"
-                            leave="transition ease-in duration-75"
-                            leaveFrom="transform opacity-100 scale-100"
-                            leaveTo="transform opacity-0 scale-95"
-                          >
-                            <Menu.Items className="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                              {userNavigation.map((item) => (
-                                <Menu.Item key={item.name}>
-                                  {({ active }) => (
-                                    <button
-                                      onClick={() => {
-                                        if (item.name === "Sign out") {
-                                          signOut();
-                                        } else {
-                                          router.push(item.href);
-                                        }
-                                      }}
-                                      className={classNames(
-                                        active ? "bg-gray-100" : "",
-                                        "w-full text-left block px-4 py-2 text-sm text-gray-700"
-                                      )}
-                                    >
-                                      {item.name}
-                                    </button>
-                                  )}
-                                </Menu.Item>
-                              ))}
-                            </Menu.Items>
-                          </Transition>
-                        </Menu>
-                      ) : (
-                        <Link
-                          href="/sign-in"
-                          className="px-3 py-2 text-sm font-medium text-white rounded-md hover:bg-neutral-500 hover:bg-opacity-75"
-                        >
-                          Sign In
-                        </Link>
-                      )}
-                    </div>
                   </div>
                 </div>
 
@@ -182,60 +120,6 @@ export default function Navigation({ children }: NavigationProps) {
                         {item.name}
                       </Disclosure.Button>
                     ))}
-                  </div>
-                  <div className="pt-4 pb-3 border-t border-neutral-700">
-                    {/* Mobile profile dropdown */}
-                    {isLoaded && userId && sessionId ? (
-                      <>
-                        <div className="flex items-center px-5">
-                          <div className="flex-shrink-0">
-                            <Image
-                              className="rounded-full "
-                              height={40}
-                              width={40}
-                              src={user?.profileImageUrl!}
-                              alt=""
-                            />
-                          </div>
-                          <div className="ml-3">
-                            <div className="text-base font-medium text-white">
-                              {user?.firstName}
-                            </div>
-                            <div className="text-sm font-medium text-neutral-300">
-                              {user?.primaryEmailAddress?.emailAddress}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="px-2 mt-3 space-y-1">
-                          {userNavigation.map((item) => (
-                            <Disclosure.Button
-                              key={item.name}
-                              as="button"
-                              onClick={() => {
-                                if (item.name === "Sign out") {
-                                  signOut();
-                                } else {
-                                  router.push(item.href);
-                                }
-                              }}
-                              className="inline-block w-full text-left px-3 py-2 text-base font-medium text-white rounded-md hover:bg-neutral-500 hover:bg-opacity-75"
-                            >
-                              {item.name}
-                            </Disclosure.Button>
-                          ))}
-                        </div>
-                      </>
-                    ) : (
-                      <div className="-mt-1 ml-2">
-                        <Disclosure.Button
-                          as={Link}
-                          href="/sign-in"
-                          className="inline-block w-full text-left px-3 py-2 text-base font-medium text-white rounded-md hover:bg-neutral-500 hover:bg-opacity-75"
-                        >
-                          Sign In
-                        </Disclosure.Button>
-                      </div>
-                    )}
                   </div>
                 </Disclosure.Panel>
               </>
