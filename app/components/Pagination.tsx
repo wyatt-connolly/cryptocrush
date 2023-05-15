@@ -1,4 +1,3 @@
-"use client";
 import {
   ArrowLongLeftIcon,
   ArrowLongRightIcon,
@@ -8,13 +7,20 @@ import { classNames } from "../utils";
 
 interface IPagination {
   pageIndex: number | number[];
-  setPageIndex: Dispatch<SetStateAction<number>>;
+  setPageIndex: Dispatch<SetStateAction<number | number[]>>;
 }
 export default function Pagination({ pageIndex, setPageIndex }: IPagination) {
   const paginationButtons = [];
+
+  const isFirstPage = Array.isArray(pageIndex)
+    ? pageIndex[0] > 1
+    : pageIndex > 1;
+  const isLastPage = Array.isArray(pageIndex)
+    ? pageIndex[pageIndex.length - 1] < 5
+    : pageIndex < 5;
+
   for (let i = 1; i <= 5; i++) {
     paginationButtons.push(
-      // make default page 1 with green border
       <button
         key={i}
         onClick={() => {
@@ -22,7 +28,11 @@ export default function Pagination({ pageIndex, setPageIndex }: IPagination) {
         }}
         className={classNames(
           "inline-flex items-center px-4 pt-4 text-sm font-medium  border-t-2 border-transparent hover:border-green-300 hover:text-green-300 focus:border-t-green-700 focus:text-green-700",
-          pageIndex === i
+          Array.isArray(pageIndex)
+            ? pageIndex.includes(i)
+              ? "border-t-2 border-t-green-500 border-green-500 text-green-600"
+              : ""
+            : pageIndex === i
             ? "border-t-2 border-t-green-500 border-green-500 text-green-600"
             : ""
         )}
@@ -32,14 +42,18 @@ export default function Pagination({ pageIndex, setPageIndex }: IPagination) {
     );
   }
 
-  // create next and previous functionality
   paginationButtons.unshift(
     <button
       key="prev"
       onClick={() => {
-        if (pageIndex > 1) {
-          setPageIndex(pageIndex - 1);
-        }
+        setPageIndex((prevPageIndex) => {
+          if (typeof prevPageIndex === "number") {
+            return prevPageIndex - 1;
+          } else if (Array.isArray(prevPageIndex)) {
+            return prevPageIndex.map((page: number) => page - 1);
+          }
+          return prevPageIndex;
+        });
       }}
       className={classNames(
         "inline-flex items-center px-4 pt-4 text-sm font-medium  border-t-2 border-transparent hover:border-green-700 hover:text-green-700 "
@@ -49,13 +63,19 @@ export default function Pagination({ pageIndex, setPageIndex }: IPagination) {
       Previous
     </button>
   );
+
   paginationButtons.push(
     <button
       key="next"
       onClick={() => {
-        if (pageIndex < 5) {
-          setPageIndex(pageIndex + 1);
-        }
+        setPageIndex((prevPageIndex) => {
+          if (typeof prevPageIndex === "number") {
+            return prevPageIndex + 1;
+          } else if (Array.isArray(prevPageIndex)) {
+            return prevPageIndex.map((page: number) => page + 1);
+          }
+          return prevPageIndex;
+        });
       }}
       className={classNames(
         "inline-flex items-center px-4 pt-4 text-sm font-medium  border-t-2 border-transparent hover:border-green-700 hover:text-green-700 focus:border-t-green-500 focus:text-green-600"
