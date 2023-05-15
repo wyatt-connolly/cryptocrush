@@ -170,7 +170,6 @@ export default function Home() {
           ))}
         </dl>
       </div>
-
       <About />
       <Join />
     </main>
