@@ -33,7 +33,7 @@ import {
 } from "../app/hooks/swr-hooks";
 import { Coin } from "./types/Coin";
 
-function About() {
+export function About() {
   const features = [
     { id: 1, name: "Market entry year", value: "2023" },
     { id: 2, name: "Registered users", value: "4M+" },
@@ -72,7 +72,7 @@ function About() {
   );
 }
 
-function Join() {
+export function Join() {
   return (
     <div id="join-us" className="relative mt-20 bg-neutral-800 ">
       <div className="relative overflow-hidden h-80 md:absolute md:left-0 md:h-full md:w-1/3 lg:w-1/2">
