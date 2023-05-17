@@ -1,6 +1,6 @@
 "use client";
 import Stat from "../components/Trending";
-import fetcher from "../utils";
+import { fetcher } from "../utils";
 import useSWR from "swr";
 import Loader from "../components/Loader";
 import Error from "../error";

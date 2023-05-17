@@ -13,7 +13,7 @@ import {
 import type { ChartData, ChartOptions } from "chart.js";
 import { Line } from "react-chartjs-2";
 import useSWR from "swr";
-import fetcher from "../utils";
+import { fetcher } from "../utils";
 import Error from "../error";
 import Loader from "@/app/components/Loader";
 import { useMarketChart } from "@/app/hooks/swr-hooks";

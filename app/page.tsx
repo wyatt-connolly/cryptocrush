@@ -25,7 +25,7 @@ import Pagination from "./components/Pagination";
 import Container from "./components/Container";
 import Loader from "./components/Loader";
 import Error from "./error";
-import fetcher from "../app/utils/index";
+import { fetcher } from "../app/utils/index";
 import {
   useMarket,
   useTrending,
@@ -159,13 +159,11 @@ export default function Home() {
           Trending Coins
         </h3>
         <dl className="grid grid-cols-1 gap-5 mt-5 lg:grid-cols-5">
-          {trending.map((coin: Coin) => (
-            // if bitcoinPrice is above a penny, round to 2 decimal places. Otherwise, round to 6 decimal places
-
+          {trending.map(({ item }: { item: Coin }) => (
             <Trending
-              {...coin.item}
-              key={coin.item.id}
-              price_btc={coin.item.price_btc * bitcoinPrice}
+              {...item}
+              key={item.id}
+              price_btc={item.price_btc ? item.price_btc * bitcoinPrice : 0} // If item.price_btc is undefined, use 0 as a fallback
             />
           ))}
         </dl>

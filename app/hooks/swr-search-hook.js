@@ -1,7 +1,7 @@
 "use client";
 import { debounce } from "lodash";
 import { useEffect, useState } from "react";
-import fetcher from "../utils";
+import { fetcher } from "../utils";
 import useSwr from "swr";
 
 export function useSearch(initialQuery) {

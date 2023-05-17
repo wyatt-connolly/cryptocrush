@@ -50,7 +50,7 @@ export default function Table({ children }: { children: React.ReactNode }) {
           </th>
         </tr>
       </thead>
-      {children}
+      <tbody className="divide-y divide-neutral-600">{children}</tbody>
     </table>
   );
 }

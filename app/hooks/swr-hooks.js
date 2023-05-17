@@ -1,5 +1,5 @@
 import useSwr from "swr";
-import fetcher from "../utils";
+import { fetcher } from "../utils";
 
 export function useMarket(pageIndex) {
   const { data, error, isLoading } = useSwr(

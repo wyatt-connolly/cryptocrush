@@ -6,7 +6,7 @@ import Container from "@/app/components/Container";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import useSWR from "swr";
-import fetcher from "@/app/utils";
+import { fetcher } from "@/app/utils";
 import Error from "@/app/error";
 import Loader from "@/app/components/Loader";
 import Image from "next/image";
