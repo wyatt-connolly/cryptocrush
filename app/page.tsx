@@ -22,7 +22,6 @@ import { Fragment } from "react";
 import CoinRow from "./components/CoinRow";
 import useSWR from "swr";
 import Pagination from "./components/Pagination";
-import Container from "./components/Container";
 import Loader from "./components/Loader";
 import Error from "./error";
 import { fetcher } from "../app/utils/index";

@@ -2,7 +2,6 @@
 import { Fragment } from "react";
 import { LinkIcon, HomeIcon } from "@heroicons/react/20/solid";
 import { classNames } from "@/app/utils";
-import Container from "@/app/components/Container";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import useSWR from "swr";
@@ -69,60 +68,56 @@ export default function Page() {
         <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none xl:order-last">
           <article>
             {/* Coin header */}
-            <div>
-              <Container>
-                <div className="mt-12 sm:flex sm:items-end sm:space-x-5">
-                  <div className="flex">
-                    <Image
-                      height={160}
-                      width={160}
-                      className="bg-gray-200 rounded-full ring-4 ring-white"
-                      src={coin.imageUrl}
-                      alt=""
-                    />
+            <div className="px-4 max-w-7xl sm:px-6 lg:px-">
+              <div className="mt-12 sm:flex sm:items-end sm:space-x-5">
+                <div className="flex">
+                  <Image
+                    height={160}
+                    width={160}
+                    className="bg-gray-200 rounded-full ring-4 ring-white"
+                    src={coin.imageUrl}
+                    alt=""
+                  />
+                </div>
+                <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+                  <div className="flex-1 min-w-0 mt-6 sm:hidden 2xl:block">
+                    <h1 className="text-2xl font-bold truncate">{coin.name}</h1>
                   </div>
-                  <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
-                    <div className="flex-1 min-w-0 mt-6 sm:hidden 2xl:block">
-                      <h1 className="text-2xl font-bold truncate">
-                        {coin.name}
-                      </h1>
-                    </div>
-                    <div className="flex flex-col mt-6 space-y-3 justify-stretch sm:flex-row sm:space-x-4 sm:space-y-0">
-                      <a
-                        href={coin.links[0]}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex justify-center gap-x-1.5 rounded-md  px-3 py-2 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-neutral-500"
-                      >
-                        <HomeIcon
-                          className="-ml-0.5 h-5 w-5 "
-                          aria-hidden="true"
-                        />
-                        Homepage
-                      </a>
-                      <a
-                        href={coin.links[1]}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex justify-center gap-x-1.5 rounded-md  px-3 py-2 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-500"
-                      >
-                        <LinkIcon
-                          className="-ml-0.5 h-5 w-5 "
-                          aria-hidden="true"
-                        />
-                        Blockchain
-                      </a>
-                    </div>
+                  <div className="flex flex-col mt-6 space-y-3 justify-stretch sm:flex-row sm:space-x-4 sm:space-y-0">
+                    <a
+                      href={coin.links[0]}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex justify-center gap-x-1.5 rounded-md  px-3 py-2 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-neutral-500"
+                    >
+                      <HomeIcon
+                        className="-ml-0.5 h-5 w-5 "
+                        aria-hidden="true"
+                      />
+                      Homepage
+                    </a>
+                    <a
+                      href={coin.links[1]}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex justify-center gap-x-1.5 rounded-md  px-3 py-2 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-500"
+                    >
+                      <LinkIcon
+                        className="-ml-0.5 h-5 w-5 "
+                        aria-hidden="true"
+                      />
+                      Blockchain
+                    </a>
                   </div>
                 </div>
-                <div className="flex-1 hidden min-w-0 mt-6 sm:block 2xl:hidden">
-                  <h1 className="text-2xl font-bold truncate">{coin.name}</h1>
-                </div>
-              </Container>
+              </div>
+              <div className="flex-1 hidden min-w-0 mt-6 sm:block 2xl:hidden">
+                <h1 className="text-2xl font-bold truncate">{coin.name}</h1>
+              </div>
             </div>
 
             {/* Description list */}
-            <Container className="py-6 sm:pb-24">
+            <div className="px-4 max-w-7xl sm:px-6 lg:px- py-6 sm:pb-24">
               <dl className="grid grid-cols-2 gap-x-6 gap-y-8">
                 {Object.keys(coin.fields).map((field) => (
                   <div key={field} className="sm:col-span-1">
@@ -133,7 +128,7 @@ export default function Page() {
                   </div>
                 ))}
               </dl>
-            </Container>
+            </div>
             <MarketChart params={params} />
           </article>
         </main>
