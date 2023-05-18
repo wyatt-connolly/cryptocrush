@@ -16,18 +16,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full scroll-smooth ">
-      <body className="h-full text-white bg-neutral-900">
-        <div className="min-h-full ">
-          <Navigation>
-            <main className="-mt-32">
-              <div className="px-4 pb-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                {children}
-              </div>
-            </main>
-          </Navigation>
-          <Footer />
-        </div>
+    <html lang="en" className="h-full scroll-smooth text-white bg-neutral-900">
+      <body className="h-full">
+        <Navigation>
+          <div className="-mt-32 px-4 pb-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            {children}
+          </div>
+        </Navigation>
+        <Footer />
       </body>
     </html>
   );
