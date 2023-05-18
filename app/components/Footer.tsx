@@ -1,4 +1,4 @@
-const navigation = [
+export const navigation = [
   {
     name: "Facebook",
     href: "https://www.facebook.com",
