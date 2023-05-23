@@ -34,7 +34,13 @@
     "app/en/coins/[id]/error.tsx",
     "app/utils/index.tsx",
     "app/store/store.js",
-    "app/utils/index.ts"
+    "app/utils/index.ts",
+    "__tests__/CoinRow.test.jsx",
+    "__tests__/About.test.jsx",
+    "__tests__/[id].test.jsx",
+    "__tests__/Loader.test.jsx",
+    "__tests__/Join.test.jsx",
+    "__tests__/Footer.test.jsx"
   ],
   "exclude": ["node_modules"]
 }

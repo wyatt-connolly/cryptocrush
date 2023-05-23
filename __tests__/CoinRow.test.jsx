@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import CoinRow from "@/app/components/CoinRow";
 import "@testing-library/jest-dom";
-import { Coin } from "@/app/types/Coin";
+
 import { formatPrice } from "@/app/utils";
 
 describe("CoinRow", () => {
-  let expectedProps: Coin;
+  let expectedProps;
 
   beforeEach(() => {
     expectedProps = {
@@ -38,19 +38,19 @@ describe("CoinRow", () => {
     ).toBeInTheDocument();
     expect(
       getByText(
-        expectedProps.price_change_percentage_1h_in_currency!.toFixed(2) + "%"
+        expectedProps.price_change_percentage_1h_in_currency.toFixed(2) + "%"
       )
     ).toBeInTheDocument();
 
     expect(
       getByText(
-        expectedProps.price_change_percentage_24h_in_currency!.toFixed(2) + "%"
+        expectedProps.price_change_percentage_24h_in_currency.toFixed(2) + "%"
       )
     ).toBeInTheDocument();
 
     expect(
       getByText(
-        expectedProps.price_change_percentage_7d_in_currency!.toFixed(2) + "%"
+        expectedProps.price_change_percentage_7d_in_currency.toFixed(2) + "%"
       )
     ).toBeInTheDocument();
 
