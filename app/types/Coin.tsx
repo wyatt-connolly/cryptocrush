@@ -49,4 +49,9 @@ export type Coin = {
   };
   small?: string;
   price_btc?: number;
+  item?: {
+    id: string;
+    small: string;
+    name: string;
+  };
 };

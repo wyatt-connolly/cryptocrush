@@ -84,23 +84,31 @@ export default function Search() {
               <div className="relative px-4 py-2 text-xs text-left text-white select-none border-neutral-600">
                 <div>Trending Search 🔥</div>
                 <div className="flex flex-wrap mt-2">
-                  {trendingData?.coins.map((coin: Coin) => (
-                    <Combobox.Button
-                      as={Link}
-                      key={coin.item.id}
-                      href={`/en/coins/${coin.item.id}`}
-                      className="flex items-center px-2 py-1 mb-2 mr-2 text-xs font-medium text-white rounded-md cursor-pointer bg-neutral-700"
-                    >
-                      <Image
-                        src={coin.item.small}
-                        alt=""
-                        className="flex-shrink-0 rounded-full"
-                        height={16}
-                        width={16}
-                      />
-                      <span className="ml-1">{coin.item.name}</span>
-                    </Combobox.Button>
-                  ))}
+                  {trendingData?.coins.map((coin: Coin) => {
+                    // Check if coin.item is defined
+                    if (coin.item) {
+                      return (
+                        <Combobox.Button
+                          as={Link}
+                          // Now TypeScript knows that coin.item.id and coin.item.small are defined
+                          key={coin.item.id}
+                          href={`/en/coins/${coin.item.id}`}
+                          className="flex items-center px-2 py-1 mb-2 mr-2 text-xs font-medium text-white rounded-md cursor-pointer bg-neutral-700"
+                        >
+                          <Image
+                            src={coin.item.small}
+                            alt=""
+                            className="flex-shrink-0 rounded-full"
+                            height={16}
+                            width={16}
+                          />
+                          <span className="ml-1">{coin.item.name}</span>
+                        </Combobox.Button>
+                      );
+                    }
+                    // In case coin.item is not defined, we simply return null
+                    return null;
+                  })}
                 </div>
               </div>
             )}
@@ -123,7 +131,8 @@ export default function Search() {
                       <div className="flex items-center">
                         <Image
                           src={
-                            coin.thumb === "missing_thumb.png"
+                            coin.thumb === "missing_thumb.png" ||
+                            coin.thumb === undefined
                               ? "/missing_thumb.png"
                               : coin.thumb
                           }
