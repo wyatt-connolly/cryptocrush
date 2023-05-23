@@ -17,7 +17,6 @@ import { fetcher } from "../utils";
 import Error from "../error";
 import Loader from "@/app/components/Loader";
 import { useMarketChart } from "@/app/hooks/swr-hooks";
-import moment from "moment";
 
 interface LineProps {
   options: ChartOptions<"line">;
@@ -82,7 +81,7 @@ export default function MarketChart({ params }: any) {
   if (marketChartIsLoading) return <Loader />;
 
   const labels = marketChartData.prices.map((price: any) =>
-    moment(price[0]).format("MM/DD/YYYY")
+    new Date(price[0]).toLocaleDateString()
   );
 
   const chartData = {

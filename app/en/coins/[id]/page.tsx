@@ -12,7 +12,6 @@ import Image from "next/image";
 import MarketChart from "@/app/components/MarketChart";
 import { useCoin } from "@/app/hooks/swr-hooks";
 import { Coin } from "@/app/types/Coin";
-import moment from "moment";
 
 export default function Page() {
   const params = useParams();
@@ -54,7 +53,12 @@ export default function Page() {
           ? Number(coinData.market_data.atl.usd.toFixed(6)).toLocaleString()
           : Number(coinData.market_data.atl.usd.toFixed(2)).toLocaleString()
       }`,
-      Genesis: moment(coinData.genesis_date).format("MMMM Do, YYYY") || "N/A",
+      Genesis:
+        new Date(coinData.genesis_date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }) || "N/A",
     },
   };
 
