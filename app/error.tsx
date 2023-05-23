@@ -17,7 +17,8 @@ export default function Error({ error }: { error: Error }) {
         </h1>
         <p className="mt-6 text-base leading-7 text-gray-300">
           Due to using a free API, the data is limited to 10-30 calls/minute.
-          Please try again later.
+          Please try again later. If using Safari, please switch to another
+          browser.
         </p>
         <div className="flex items-center justify-center mt-10 gap-x-6"></div>
       </div>
