@@ -13,7 +13,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, Transition } from "@headlessui/react";
 import { classNames, formatPrice } from "../utils";
-import { SignInDialog } from "./Dialog";
 import { Coin } from "../types/Coin";
 
 export default function CoinRow({
