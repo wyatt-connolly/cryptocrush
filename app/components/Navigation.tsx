@@ -41,7 +41,7 @@ type NavigationProps = {
   children: React.ReactNode;
 };
 
-export default function Navigation({ children }: NavigationProps) {
+function Navigation({ children }: NavigationProps) {
   const router = useRouter();
 
   return (
@@ -138,3 +138,5 @@ export default function Navigation({ children }: NavigationProps) {
     </>
   );
 }
+
+export default Navigation;

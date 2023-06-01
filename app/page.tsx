@@ -112,7 +112,7 @@ function Join() {
   );
 }
 
-export default function Home() {
+function Home() {
   const [showModal, setShowModal] = useState(false);
   const [pageIndex, setPageIndex] = useState(1);
   const { marketData, marketError, marketIsLoading } = useMarket(pageIndex);
@@ -172,3 +172,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default Home;

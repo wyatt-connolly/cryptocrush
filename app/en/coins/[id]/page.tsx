@@ -13,7 +13,7 @@ import MarketChart from "@/app/components/MarketChart";
 import { useCoin } from "@/app/hooks/swr-hooks";
 import { Coin } from "@/app/types/Coin";
 
-export default function Page() {
+function Page() {
   const params = useParams();
   const { coinData, coinError, coinIsLoading } = useCoin(params.id);
 
@@ -136,3 +136,5 @@ export default function Page() {
     </>
   );
 }
+
+export default Page;
