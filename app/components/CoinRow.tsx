@@ -34,11 +34,11 @@ export default function CoinRow({
     <tr>
       <td
         scope="col"
-        className="sticky left-0 z-20 text-xs text-gray-300 px-7 sm:w-12 sm:px-6"
+        className="sticky left-0 z-20 text-xs text-gray-300 px-7 sm:w-12 sm:px-6 bg-neutral-900"
       >
         {market_cap_rank}
       </td>
-      <td className="sticky z-20 text-sm lg:pl-4 lg:pr-3 left-14 lg:whitespace-nowrap sm:pl-0">
+      <td className="sticky z-20 text-sm lg:pl-4 lg:pr-3 left-14 lg:whitespace-nowrap sm:pl-0 bg-neutral-900">
         <Link href={`/en/coins/${id}`} className="inline-flex items-center">
           <div className="flex-shrink-0 h-11 w-11">
             <Image
