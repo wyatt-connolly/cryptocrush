@@ -34,7 +34,7 @@ export default function CoinRow({
     <tr>
       <td
         scope="col"
-        className="sticky left-0 z-20 px-7 sm:w-12 sm:px-6 text-xs text-gray-300"
+        className="sticky left-0 z-20 text-xs text-gray-300 px-7 sm:w-12 sm:px-6"
       >
         {market_cap_rank}
       </td>
