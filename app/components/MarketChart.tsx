@@ -17,6 +17,7 @@ import { fetcher } from "../utils";
 import Error from "../error";
 import Loader from "@/app/components/Loader";
 import { useMarketChart } from "@/app/hooks/swr-hooks";
+import { formatChartPrice } from "../utils";
 
 interface LineProps {
   options: ChartOptions<"line">;
@@ -44,11 +45,8 @@ const options = {
     tooltip: {
       callbacks: {
         label: function (context: any) {
-          const value = context.parsed.y;
-          const formattedValue =
-            value < 1 && value.toString().split(".")[1]?.length > 2
-              ? Number(value.toFixed(6)).toLocaleString()
-              : Number(value.toFixed(2)).toLocaleString();
+          const value = context.parsed.y as number;
+          const formattedValue = formatChartPrice(value);
           return "$" + formattedValue;
         },
       },
@@ -58,10 +56,7 @@ const options = {
     y: {
       ticks: {
         callback: function (value: any) {
-          const formattedValue =
-            value < 1 && value.toString().split(".")[1]?.length > 2
-              ? Number(value.toFixed(6)).toLocaleString()
-              : Number(value.toFixed(2)).toLocaleString();
+          const formattedValue = formatChartPrice(value);
           return "$" + formattedValue;
         },
       },
@@ -73,7 +68,15 @@ const options = {
   },
 };
 
-export default function MarketChart({ params }: any) {
+interface MarketChartData {
+  prices: [number, number][];
+}
+
+interface MarketChartProps {
+  params: any;
+}
+
+export default function MarketChart({ params }: MarketChartProps) {
   const { marketChartData, marketChartIsLoading, marketChartError } =
     useMarketChart(params);
 
