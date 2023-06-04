@@ -97,7 +97,7 @@ export default function Search() {
                         >
                           <Image
                             src={coin.item.small}
-                            alt=""
+                            alt={coin.item.name}
                             className="flex-shrink-0 rounded-full"
                             height={16}
                             width={16}
@@ -136,7 +136,7 @@ export default function Search() {
                               ? "/missing_thumb.png"
                               : coin.thumb
                           }
-                          alt=""
+                          alt={coin.name}
                           className="flex-shrink-0 rounded-full"
                           height={24}
                           width={24}

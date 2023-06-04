@@ -79,7 +79,7 @@ function Join() {
           <Image
             className="object-cover"
             src="https://s2.coinmarketcap.com/static/cloud/img/newsletter_bg_light.svg?_=f6a1c7d"
-            alt=""
+            alt="Join Us"
             fill
           />
         </div>
