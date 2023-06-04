@@ -46,8 +46,11 @@ function Page() {
       Categories: coinData.categories.join(", "),
       "All Time Low": `$${
         coinData.market_data.atl.usd < 1
-          ? parseFloat(coinData.market_data.atl.usd.toFixed(12)).toString()
-          : coinData.market_data.atl.usd.toFixed(2)
+          ? Number(coinData.market_data.atl.usd.toFixed(12)).toLocaleString(
+              undefined,
+              { minimumFractionDigits: 1, maximumFractionDigits: 12 }
+            )
+          : Number(coinData.market_data.atl.usd.toFixed(2)).toLocaleString()
       }`,
 
       Genesis:
