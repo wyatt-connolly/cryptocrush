@@ -28,30 +28,28 @@ function Page() {
     fields: {
       Rank: `#${coinData.market_cap_rank}`,
       Symbol: coinData.symbol.toUpperCase(),
-      Price: `$${
-        coinData.market_data.current_price.usd < 1 &&
-        coinData.market_data.current_price.usd.toString().split(".")[1]
-          ?.length > 2
-          ? Number(
-              coinData.market_data.current_price.usd.toFixed(6)
-            ).toLocaleString()
-          : Number(
-              coinData.market_data.current_price.usd.toFixed(2)
-            ).toLocaleString()
-      }`,
+      Price: `$${(coinData.market_data.current_price.usd < 1
+        ? Number(coinData.market_data.current_price.usd.toFixed(8))
+        : Number(coinData.market_data.current_price.usd.toFixed(2))
+      ).toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 8,
+      })}`,
       Hashing: coinData.hashing_algorithm || "N/A",
-      "All Time High": `${(coinData.market_data.ath.usd < 1 &&
-      coinData.market_data.ath.usd.toString().split(".")[1]?.length > 2
-        ? coinData.market_data.ath.usd.toFixed(6)
-        : coinData.market_data.ath.usd.toFixed(2)
-      ).toLocaleString()}`,
+      "All Time High": `$${(coinData.market_data.ath.usd < 1
+        ? Number(coinData.market_data.ath.usd.toFixed(8))
+        : Number(coinData.market_data.ath.usd.toFixed(2))
+      ).toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 8,
+      })}`,
       Categories: coinData.categories.join(", "),
       "All Time Low": `$${
-        coinData.market_data.atl.usd < 1 &&
-        coinData.market_data.atl.usd.toString().split(".")[1]?.length > 2
-          ? Number(coinData.market_data.atl.usd.toFixed(6)).toLocaleString()
-          : Number(coinData.market_data.atl.usd.toFixed(2)).toLocaleString()
+        coinData.market_data.atl.usd < 1
+          ? parseFloat(coinData.market_data.atl.usd.toFixed(12)).toString()
+          : coinData.market_data.atl.usd.toFixed(2)
       }`,
+
       Genesis:
         new Date(coinData.genesis_date).toLocaleDateString("en-US", {
           year: "numeric",
@@ -75,7 +73,7 @@ function Page() {
                     width={160}
                     className="bg-gray-200 rounded-full ring-4 ring-white"
                     src={coin.imageUrl}
-                    alt=""
+                    alt={coin.name}
                   />
                 </div>
                 <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
