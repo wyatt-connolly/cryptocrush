@@ -15,10 +15,13 @@ export default function Trending({
 }: Coin) {
   const router = useRouter();
 
-  const formattedPrice =
-    price_btc < 1 && price_btc.toString().split(".")[1]?.length > 2
-      ? Number(price_btc.toFixed(6))
-      : Number(price_btc.toFixed(2));
+  let formattedPrice =
+    price_btc < 1
+      ? price_btc.toFixed(8)
+      : price_btc.toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
 
   return (
     <div
