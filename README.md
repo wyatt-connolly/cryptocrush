@@ -5,10 +5,18 @@ CryptoCrush is a data-driven company that offers real-time insights and analytic
 :point_right: Live Demo: [CryptoCrush](https://cryptocrush-omega.vercel.app/)
 
 ## Built with:
-- Tailwind
-- React 
+- Javascript
 - Typescript
-- Next
+- React 
+- Next.js
+- SWR (React Hooks for Data Fetching)
+- Tailwind
+
+## Features:
+- Real-time cryptocurrency tracker using React hooks and SWR.
+- View current prices, market trends, and historical data of various cryptocurrencies from Coingecko's REST API.
+- Search from over 10,000 different coins.
+- Chart.js npm package for graphical representation of cryptocurrency performance over time.
 
 ## Screenshots :camera_flash:
 
