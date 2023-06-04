@@ -19,10 +19,10 @@ CryptoCrush is a data-driven company that offers real-time insights and analytic
 - Chart.js npm package for graphical representation of cryptocurrency performance over time.
 
 ## Screenshots :camera_flash:
+![www cryptocrush us_](https://github.com/wyatt-connolly/cryptocrush/assets/88942814/4796f343-2038-4764-a2b2-f9386bcc43fb)
 
-![cryptocrush-omega vercel app_ (7)](https://user-images.githubusercontent.com/88942814/235046955-ce3a25c2-dace-4b23-b091-dfd73c1c5215.png)
+![www cryptocrush us_](https://github.com/wyatt-connolly/cryptocrush/assets/88942814/98869312-6b86-4361-9d66-f3584cbdbab7)
 
-![cryptocrush-omega vercel app_ (8)](https://user-images.githubusercontent.com/88942814/235047016-844bb560-7137-47b0-8376-33e8725b947d.png)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
