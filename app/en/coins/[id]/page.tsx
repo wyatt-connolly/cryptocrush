@@ -40,12 +40,11 @@ function Page() {
             ).toLocaleString()
       }`,
       Hashing: coinData.hashing_algorithm || "N/A",
-      "All Time High": `$${
-        coinData.market_data.ath.usd < 1 &&
-        coinData.market_data.ath.usd.toString().split(".")[1]?.length > 2
-          ? Number(coinData.market_data.ath.usd.toFixed(6)).toLocaleString()
-          : Number(coinData.market_data.ath.usd.toFixed(2)).toLocaleString()
-      }`,
+      "All Time High": `${(coinData.market_data.ath.usd < 1 &&
+      coinData.market_data.ath.usd.toString().split(".")[1]?.length > 2
+        ? coinData.market_data.ath.usd.toFixed(6)
+        : coinData.market_data.ath.usd.toFixed(2)
+      ).toLocaleString()}`,
       Categories: coinData.categories.join(", "),
       "All Time Low": `$${
         coinData.market_data.atl.usd < 1 &&

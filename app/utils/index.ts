@@ -17,19 +17,7 @@ export function formatPrice(price: number) {
       maximumFractionDigits: 2,
     });
   } else {
-    const priceString = price.toString();
-    let afterDecimal = priceString.split(".")[1];
-    let significantDigits = 0;
-    for (let i = 0; i < afterDecimal.length; i++) {
-      if (afterDecimal[i] !== "0") {
-        significantDigits = i + 2; // plus 2 to consider the case of e.g. 0.001
-        break;
-      }
-    }
-    formattedPrice = price.toLocaleString("en-US", {
-      minimumFractionDigits: significantDigits,
-      maximumFractionDigits: significantDigits,
-    });
+    formattedPrice = parseFloat(price.toFixed(8)).toString();
   }
   return formattedPrice;
 }
