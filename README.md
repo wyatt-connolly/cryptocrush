@@ -13,7 +13,7 @@ CryptoCrush is a data-driven company that offers real-time insights and analytic
 - Tailwind
 
 ## Features:
-- Real-time cryptocurrency tracker using React hooks and SWR for state management.
+- Real-time cryptocurrency tracker using React hooks and SWR.
 - View current prices, market trends, and historical data of various cryptocurrencies from Coingecko's REST API.
 - Search from over 10,000 different coins.
 - Chart.js npm package for graphical representation of cryptocurrency performance over time.
